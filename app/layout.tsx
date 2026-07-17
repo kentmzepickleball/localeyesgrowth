@@ -21,9 +21,7 @@ const body = Manrope({
 });
 
 const OG_IMAGE = {
-  /* TEMP — the brand logo as a placeholder OG image, swap for a real
-     1200x630 social preview image when ready. */
-  url: "/logo-cup.webp",
+  url: "/og-image.webp",
   width: 512,
   height: 512,
   alt: "LocalEyes",

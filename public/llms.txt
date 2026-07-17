@@ -1,0 +1,14 @@
+# LocalEyes
+
+> LocalEyes is a local SEO growth agency for coffee carts, mobile beverage carts, and mobile event catering businesses. We build SEO systems that rank operators for local "near me" searches and fill their booking calendars with premium events.
+
+## Pages
+
+- [Home](https://www.localeyesgrowth.com/): Overview of LocalEyes' SEO growth systems, city ranking proof, case studies, and service offerings for mobile event businesses.
+- [Pricing](https://www.localeyesgrowth.com/pricing): Pricing tiers and rate card for LocalEyes' local SEO engagements.
+- [Coffee Catering Price Calculator](https://www.localeyesgrowth.com/coffee-cart-pricing-calculator): A free interactive tool for coffee cart and mobile espresso operators to price any event by guest count, service hours, cart type, positioning, travel distance, and add-ons — with an instant client-ready quote.
+
+## Notes
+
+- LocalEyes serves operators of: coffee carts, mobile bars, charcuterie and grazing carts, dessert carts, and other mobile catering formats.
+- Core service areas: local SEO, Google Business Profile optimization, AI search visibility, and local map pack rankings.

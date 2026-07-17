@@ -1,26 +1,463 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+@keyframes le-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-le-spin-slow {
+  animation: le-spin-slow 32s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-le-spin-slow {
+    animation: none;
+  }
+}
+
+@keyframes le-scroll-drip {
+  0% {
+    transform: translateY(-100%);
+  }
+  65%,
+  100% {
+    transform: translateY(200%);
+  }
+}
+.animate-le-scroll-drip {
+  animation: le-scroll-drip 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-le-scroll-drip {
+    animation: none;
+  }
+}
+
+.animate-le-fade-up {
+  animation: le-fade-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-le-fade-up {
+    animation: none;
+  }
+}
+
+/* Luxury headline reveal — words rise out of clipping masks */
+@keyframes le-word-rise {
+  0% {
+    transform: translateY(118%) rotate(3.5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+.animate-le-word-rise {
+  animation: le-word-rise 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: 0% 100%;
+}
+
+/* Eyebrow — tracks in from wide letter-spacing with a soft focus pull */
+@keyframes le-eyebrow-in {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.52em;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0.26em;
+    filter: blur(0);
+  }
+}
+.animate-le-eyebrow-in {
+  animation: le-eyebrow-in 1.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-le-word-rise,
+  .animate-le-eyebrow-in {
+    animation: none;
+  }
+}
+
+/* Custom cursor — espresso dot + trailing ring that turns gold over links */
+.le-cursor-dot,
+.le-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: 9999px;
+  opacity: 0;
+  z-index: 9999;
+}
+.le-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: #4a3421;
+  transition: opacity 0.3s ease;
+}
+.le-cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(38, 31, 21, 0.35);
+  transition:
+    opacity 0.3s ease,
+    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.le-cursor-ring[data-hover="true"] {
+  border-color: #a67c3d;
+  background: rgba(166, 124, 61, 0.14);
+}
+@media (pointer: fine) {
+  .le-cursor-active,
+  .le-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+@keyframes le-nudge {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* City rankings band — seamless marquee track (drifts to -50%, loops) */
+@keyframes le-marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+/* 2 section: Slow luxurious drift; hovering the band pauses it.
+   The pause rule must live here as plain CSS — a Tailwind group-hover
+   utility loses the cascade to this unlayered animation shorthand. */
+.animate-le-cities {
+  animation: le-marquee-x 48s linear infinite;
+}
+.group:hover .animate-le-cities {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-le-cities {
+    animation: none;
+  }
+}
+
+/* 3rd section */
+/* React Bits ScrollReveal (JS-CSS variant) — type styles.
+   Oversized editorial display type, IvyPresto thin.
+   Note: these rules are unlayered CSS, so they win over Tailwind utilities —
+   tweak size/weight/leading here, not via textClassName. */
+
+.scroll-reveal {
+  margin: 0;
+}
+
+.scroll-reveal-text {
+  font-size: clamp(1.85rem, 4.6vw, 4.15rem);
+  line-height: 1.3;
+  font-weight: 100;
+  letter-spacing: -0.01em;
+}
+
+.word {
+  display: inline-block;
+}
+/* Spin keyframes — shared by the slow hero star and the small eyebrow star */
+@keyframes le-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cute little spinner — the ✦ at the end of the eyebrow hairline */
+.animate-le-spin {
+  animation: le-spin-slow 7s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-le-spin {
+    animation: none;
+  }
+}
+
+/* Known-for section — soft gold glow that slowly breathes behind the copy */
+@keyframes le-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.07);
+  }
+}
+.animate-le-breathe {
+  animation: le-breathe 9s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-le-breathe {
+    animation: none;
+  }
+}
+
+/* Primary emphasis on highlighted words inside the scroll reveal —
+   warm antique brass/bronze: golden in feel without reading as literal
+   yellow-gold */
+.le-word-accent {
+  color: #a67c3d;
+  font-style: italic;
+}
+
+/* Extra weight bump for specific words on top of le-word-accent (e.g. "#1") */
+.le-word-bold {
+  font-weight: 400;
+}
+/* SEO section — React Bits ScrollStack scoped to its own compact frame.
+   The library defaults (20vh/50rem paddings, fixed 20rem cards) are built
+   for full-page stacks; these unlayered overrides keep the panel tight.
+   The bottom padding is the internal scroll runway — sized so the stack
+   completes just before the scroller runs out, meaning you can never
+   scroll past the settled arrangement into empty space. */
+.le-seo-stack .scroll-stack-inner {
+  /* --le-stack-pad is measured in SeoServices so the settled stack sits
+     with EQUAL visible space above and below (it also feeds the
+     stackPosition prop, keeping rest and pin positions identical).
+     The large bottom padding is the INVISIBLE scroll runway — the
+     scrollable distance the stacking animation plays across; the visible
+     bottom gap is governed by the measured pad, not this value. */
+  padding: var(--le-stack-pad, 2.75rem) 1.25rem 8.5rem;
+  min-height: 0;
+}
+.le-seo-stack .scroll-stack-card {
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border-radius: 1rem;
+  box-shadow: none;
+}
+/* Hide the native scrollbar inside the frame — wheel/touch/keys still work */
+.le-seo-stack .scroll-stack-scroller {
+  scrollbar-width: none;
+}
+.le-seo-stack .scroll-stack-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+/* Curved Loop CSS */
+
+.curved-loop-jacket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.curved-loop-svg {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  width: 100%;
+  aspect-ratio: 100 / 12;
+  overflow: visible;
+  display: block;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* LocalEyes 70s-luxury palette */
+  --color-espresso: var(--espresso);
+  --color-espresso-light: var(--espresso-light);
+  --color-cream: var(--cream);
+  --color-cream-dim: var(--cream-dim);
+  --color-rust: var(--rust);
+  --color-rust-dark: var(--rust-dark);
+  --color-mustard: var(--mustard);
+  --color-olive: var(--olive);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* Core 70s-luxury palette */
+  --espresso: #261f15;
+  --espresso-light: #3a3020;
+  --cream: #ededd5;
+  --cream-dim: #e2dcc0;
+  --rust: #b8532f;
+  --rust-dark: #8f3e22;
+  --mustard: #c9932b;
+  --olive: #5c6b3f;
+
+  --background: var(--cream);
+  --foreground: var(--espresso);
+  --card: #f5f2e2;
+  --card-foreground: var(--espresso);
+  --popover: #f5f2e2;
+  --popover-foreground: var(--espresso);
+  --primary: var(--espresso);
+  --primary-foreground: var(--cream);
+  --secondary: var(--rust);
+  --secondary-foreground: var(--cream);
+  --muted: var(--cream-dim);
+  --muted-foreground: #6b6148;
+  --accent: var(--mustard);
+  --accent-foreground: var(--espresso);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #d8d0ac;
+  --input: #d8d0ac;
+  --ring: var(--rust);
+  --chart-1: var(--rust);
+  --chart-2: var(--mustard);
+  --chart-3: var(--olive);
+  --chart-4: var(--espresso-light);
+  --chart-5: var(--espresso);
+  --radius: 0.5rem;
+  --sidebar: var(--cream);
+  --sidebar-foreground: var(--espresso);
+  --sidebar-primary: var(--espresso);
+  --sidebar-primary-foreground: var(--cream);
+  --sidebar-accent: var(--mustard);
+  --sidebar-accent-foreground: var(--espresso);
+  --sidebar-border: #d8d0ac;
+  --sidebar-ring: var(--rust);
+}
+
+.dark {
+  --background: var(--espresso);
+  --foreground: var(--cream);
+  --card: var(--espresso-light);
+  --card-foreground: var(--cream);
+  --popover: var(--espresso-light);
+  --popover-foreground: var(--cream);
+  --primary: var(--cream);
+  --primary-foreground: var(--espresso);
+  --secondary: var(--rust);
+  --secondary-foreground: var(--cream);
+  --muted: var(--espresso-light);
+  --muted-foreground: #b8ae8e;
+  --accent: var(--mustard);
+  --accent-foreground: var(--espresso);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgba(237, 237, 213, 0.12);
+  --input: rgba(237, 237, 213, 0.16);
+  --ring: var(--mustard);
+  --chart-1: var(--rust);
+  --chart-2: var(--mustard);
+  --chart-3: var(--olive);
+  --chart-4: var(--cream-dim);
+  --chart-5: var(--cream);
+  --sidebar: var(--espresso);
+  --sidebar-foreground: var(--cream);
+  --sidebar-primary: var(--mustard);
+  --sidebar-primary-foreground: var(--espresso);
+  --sidebar-accent: var(--espresso-light);
+  --sidebar-accent-foreground: var(--cream);
+  --sidebar-border: rgba(237, 237, 213, 0.12);
+  --sidebar-ring: var(--mustard);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .film-grain {
+    position: relative;
+  }
+  .film-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

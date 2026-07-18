@@ -29,18 +29,21 @@ import { X } from "lucide-react";
    Usage: wrap the app once in <CalendlyProvider>, then in any CTA:
      const { open } = useCalendly();
      <a href={CALENDLY_BOOKING_URL} onClick={(e) => { e.preventDefault(); open(); }}>
+   open() also accepts an optional Calendly URL to open a different event
+   type than the default (e.g. a plan-specific booking page):
+     open("https://calendly.com/hello-localeyesgrowth/some-other-event")
    ---------------------------------------------------------------------- */
 
 export const CALENDLY_BOOKING_URL =
-  "https://calendly.com/hello-localeyesgrowth/localeyes-meeting-clone-2";
+  "https://calendly.com/hello-localeyesgrowth/localeyes-meeting-request";
 
 /* the embed, tinted to the brand: cream ground, ink text, gold accents */
-const CALENDLY_EMBED_URL =
-  CALENDLY_BOOKING_URL +
+const buildEmbedUrl = (bookingUrl: string) =>
+  bookingUrl +
   "?hide_event_type_details=1&hide_gdpr_banner=1" +
   "&background_color=ededd5&text_color=261f15&primary_color=8a6f3d";
 
-const CalendlyContext = createContext<{ open: () => void }>({
+const CalendlyContext = createContext<{ open: (url?: string) => void }>({
   open: () => {},
 });
 
@@ -53,6 +56,7 @@ export function CalendlyProvider({ children }: { children: ReactNode }) {
   const [visible, setVisible] = useState(false); // entrance/exit state
   const [loaded, setLoaded] = useState(false); // Calendly iframe ready
   const [reduced, setReduced] = useState(false);
+  const [bookingUrl, setBookingUrl] = useState(CALENDLY_BOOKING_URL);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const lastActiveRef = useRef<HTMLElement | null>(null);
@@ -66,8 +70,9 @@ export function CalendlyProvider({ children }: { children: ReactNode }) {
     return () => motion.removeEventListener("change", update);
   }, []);
 
-  const open = useCallback(() => {
+  const open = useCallback((url?: string) => {
     window.clearTimeout(closeTimer.current);
+    setBookingUrl(url || CALENDLY_BOOKING_URL);
     /* remember the CTA that opened us so focus can return to it */
     lastActiveRef.current =
       document.activeElement instanceof HTMLElement
@@ -212,7 +217,7 @@ export function CalendlyProvider({ children }: { children: ReactNode }) {
                 </div>
               )}
               <iframe
-                src={`${CALENDLY_EMBED_URL}&embed_type=Inline&embed_domain=${window.location.hostname}`}
+                src={`${buildEmbedUrl(bookingUrl)}&embed_type=Inline&embed_domain=${window.location.hostname}`}
                 title="Schedule a call with LocalEyes"
                 onLoad={() => setLoaded(true)}
                 className={`h-full w-full transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${

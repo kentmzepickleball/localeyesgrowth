@@ -24,7 +24,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative flex h-full min-h-screen w-full flex-col overflow-hidden bg-[#ededd5] text-[#261f15]">
+    <section className="relative flex h-full min-h-svh w-full flex-col overflow-hidden bg-[#ededd5] text-[#261f15]">
       {/* Vertical hairlines — quiet editorial grid behind everything */}
       <div
         aria-hidden="true"
@@ -43,13 +43,13 @@ export default function Hero() {
         aria-hidden="true"
         className="absolute left-6 top-1/2 z-20 hidden -translate-y-1/2 -rotate-90 font-sans text-[0.58rem] font-semibold uppercase tracking-[0.34em] text-[#261f15]/35 lg:block"
       >
-        Est. MMXVIII
+        MMXXIII
       </span>
       <span
         aria-hidden="true"
         className="absolute right-6 top-1/2 z-20 hidden -translate-y-1/2 rotate-90 font-sans text-[0.58rem] font-semibold uppercase tracking-[0.34em] text-[#261f15]/35 lg:block"
       >
-        New York City
+        Tbilisi, Georgia
       </span>
 
       {/* Slow-spinning circular brand badge with a still star at its heart */}
@@ -77,7 +77,7 @@ export default function Hero() {
             letterSpacing="1.9"
           >
             <textPath href="#le-badge-circle" startOffset="0">
-              LOCALEYES ✦ SEO GROWTH SYSTEMS ✦ EST. MMXVIII ✦
+              LOCALEYES ✦ SEO GROWTH SYSTEMS ✦ EST. MMXXIII ✦
             </textPath>
           </text>
         </svg>
@@ -105,7 +105,7 @@ export default function Hero() {
             .split(" ")
             .map((word, i, arr) => (
               <span key={i}>
-                <span className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] pt-[0.08em] -mt-[0.08em] align-baseline">
+                <span className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] pt-[0.08em] -mt-[0.08em] pl-[0.06em] -ml-[0.06em] align-baseline">
                   <span
                     className="inline-block animate-le-word-rise"
                     style={{ animationDelay: `${200 + i * 85}ms` }}
@@ -202,7 +202,7 @@ export default function Hero() {
       <a
         href="#results"
         aria-label="Scroll down to results"
-        className="group/scroll relative z-20 mt-auto mb-8 flex cursor-pointer flex-col items-center gap-3 self-center animate-le-fade-up"
+        className="group/scroll relative z-20 mt-8 mb-8 flex cursor-pointer flex-col items-center gap-3 self-center animate-le-fade-up sm:mt-auto"
         style={{ animationDelay: "1000ms" }}
       >
         <span className="font-sans text-[0.58rem] font-semibold uppercase tracking-[0.34em] text-[#261f15]/45 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/scroll:text-[#c6a66a]">

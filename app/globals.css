@@ -233,6 +233,10 @@
 .le-word-accent {
   color: #a67c3d;
   font-style: italic;
+  /* Italic glyphs' slanted right edge can extend past the inline-block's
+     own layout box and get clipped by the section's overflow-hidden —
+     small buffer prevents that without affecting layout/wrapping. */
+  padding-right: 0.12em;
 }
 
 /* Extra weight bump for specific words on top of le-word-accent (e.g. "#1") */

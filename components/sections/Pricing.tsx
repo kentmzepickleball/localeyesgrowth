@@ -5,10 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { Noise } from "@/components/effects/Noise";
-import {
-  useCalendly,
-  CALENDLY_BOOKING_URL,
-} from "../../components/sections/CalendlyModal";
+import { useCalendly } from "../../components/sections/CalendlyModal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,8 +56,8 @@ const PLANS: Plan[] = [
       "Committed to growth and responsive to inquiries",
       "For serious operators not testing the waters",
     ],
-    ctaLabel: "Apply Now",
-    ctaHref: "#contact",
+    ctaLabel: "Book a Call",
+    ctaHref: "https://calendly.com/hello-localeyesgrowth/localeyes-solo-plan",
   },
   {
     id: "booking",
@@ -77,7 +74,7 @@ const PLANS: Plan[] = [
       "You want someone running the whole system, not just SEO",
     ],
     ctaLabel: "Book a Call",
-    ctaHref: CALENDLY_BOOKING_URL,
+    ctaHref: "https://calendly.com/hello-localeyesgrowth/localeyes-meeting-request",
   },
   {
     id: "growth",
@@ -93,7 +90,7 @@ const PLANS: Plan[] = [
       "You want someone strategic in the seat with you",
     ],
     ctaLabel: "Book a Call",
-    ctaHref: CALENDLY_BOOKING_URL,
+    ctaHref: "https://calendly.com/hello-localeyesgrowth/localeyes-meeting-request",
   },
 ];
 
@@ -508,10 +505,10 @@ export default function Pricing() {
                   <a
                     href={plan.ctaHref}
                     onClick={
-                      plan.ctaHref === CALENDLY_BOOKING_URL
+                      plan.ctaHref.startsWith("https://calendly.com/")
                         ? (e) => {
                             e.preventDefault();
-                            openCalendly();
+                            openCalendly(plan.ctaHref);
                           }
                         : undefined
                     }

@@ -34,6 +34,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
     );
   }, [marqueeText]);
 
+  const jacketRef = useRef<HTMLDivElement | null>(null);
   const measureRef = useRef<SVGTextElement | null>(null);
   const textPathRef = useRef<SVGTextPathElement | null>(null);
   const pathRef = useRef<SVGPathElement | null>(null);
@@ -77,9 +78,21 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
 
   useEffect(() => {
     if (!spacing || !ready) return;
+
+    /* Paused while scrolled out of view — no point animating (and
+       computing setAttribute every frame) a marquee nobody can see. */
+    const jacket = jacketRef.current;
+    let visible = true;
+    const io = jacket
+      ? new IntersectionObserver(([entry]) => {
+          visible = entry.isIntersecting;
+        })
+      : null;
+    if (jacket && io) io.observe(jacket);
+
     let frame = 0;
     const step = () => {
-      if (!dragRef.current && textPathRef.current) {
+      if (!dragRef.current && textPathRef.current && visible) {
         const delta = dirRef.current === "right" ? speed : -speed;
         const currentOffset = parseFloat(
           textPathRef.current.getAttribute("startOffset") || "0",
@@ -88,13 +101,19 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
         const wrapPoint = spacing;
         if (newOffset <= -wrapPoint) newOffset += wrapPoint;
         if (newOffset > 0) newOffset -= wrapPoint;
+        /* Direct DOM mutation drives the actual animation — no React
+           state update here. This used to also call setOffset() every
+           frame (60x/sec), forcing a full component re-render for a
+           value nothing after mount actually reads from React state. */
         textPathRef.current.setAttribute("startOffset", newOffset + "px");
-        setOffset(newOffset);
       }
       frame = requestAnimationFrame(step);
     };
     frame = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      io?.disconnect();
+    };
   }, [spacing, speed, ready]);
 
   const onPointerDown = (e: PointerEvent) => {
@@ -117,8 +136,9 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
     const wrapPoint = spacing;
     if (newOffset <= -wrapPoint) newOffset += wrapPoint;
     if (newOffset > 0) newOffset -= wrapPoint;
+    /* Direct DOM mutation only — see the note in the main animation
+       loop above for why the React state setter isn't called here. */
     textPathRef.current.setAttribute("startOffset", newOffset + "px");
-    setOffset(newOffset);
   };
 
   const endDrag = () => {
@@ -135,6 +155,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
 
   return (
     <div
+      ref={jacketRef}
       className="curved-loop-jacket"
       style={{ visibility: ready ? "visible" : "hidden", cursor: cursorStyle }}
       onPointerDown={onPointerDown}

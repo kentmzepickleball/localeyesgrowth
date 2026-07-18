@@ -132,11 +132,11 @@ export default function CityRankings() {
 
       {/* Eyebrow */}
       <div className="relative z-10 mx-auto w-full max-w-[1480px] px-6 pt-10 md:px-12 md:pt-12">
-        <p className="flex items-center gap-4 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#a67c3d] sm:text-xs">
+        <p className="flex items-center gap-4 font-sans text-sm font-semibold uppercase tracking-[0.3em] text-[#a67c3d] sm:text-base">
           <span aria-hidden="true" className="text-[0.8em]">
             ✦
           </span>
-          Ranking Page #1 in
+          RANKING #1 IN
           <span aria-hidden="true" className="h-px flex-1 bg-[#ededd5]/10" />
         </p>
       </div>

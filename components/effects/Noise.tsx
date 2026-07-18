@@ -35,10 +35,18 @@ export function Noise({
     let frame = 0;
     let animationId: number;
 
-    const drawGrain = () => {
+    /* Pre-bake a small pool of fully-random frames once (same per-pixel
+       Math.random() math as before, so the noise is statistically
+       identical) instead of regenerating ~1M random values + a fresh 4MB
+       buffer on every refresh — 30x/sec, forever, while mounted. A
+       cycling putImageData blit is visually indistinguishable from
+       fresh randomness (noise has no memorable pattern to notice
+       repeating) but is orders of magnitude cheaper per frame. */
+    const POOL_SIZE = 8;
+    const pool: ImageData[] = [];
+    for (let f = 0; f < POOL_SIZE; f++) {
       const imageData = ctx.createImageData(canvasSize, canvasSize);
       const data = imageData.data;
-
       for (let i = 0; i < data.length; i += 4) {
         const value = Math.random() * 255;
         data[i] = value;
@@ -46,8 +54,13 @@ export function Noise({
         data[i + 2] = value;
         data[i + 3] = patternAlpha;
       }
+      pool.push(imageData);
+    }
 
-      ctx.putImageData(imageData, 0, 0);
+    let poolIndex = 0;
+    const drawGrain = () => {
+      ctx.putImageData(pool[poolIndex], 0, 0);
+      poolIndex = (poolIndex + 1) % POOL_SIZE;
     };
 
     const loop = () => {

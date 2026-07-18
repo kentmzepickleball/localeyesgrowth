@@ -118,18 +118,25 @@ export default function ScrollReveal({
 
     const wordElements = el.querySelectorAll<HTMLElement>(".word");
 
+    /* Opacity/position and blur used to be two separate tweens with
+       identical scrollTrigger config (same trigger/scroller/start/end) —
+       merged into one so GSAP only tracks a single ScrollTrigger instead
+       of two redundant ones for the word reveal. Same values, same
+       timing, half the scroll-tracking overhead. */
     tweens.push(
       gsap.fromTo(
         wordElements,
         {
           opacity: baseOpacity,
           yPercent: baseY,
-          willChange: "opacity, transform",
+          ...(enableBlur ? { filter: `blur(${blurStrength}px)` } : null),
+          willChange: enableBlur ? "opacity, transform, filter" : "opacity, transform",
         },
         {
           ease: "none",
           opacity: 1,
           yPercent: 0,
+          ...(enableBlur ? { filter: "blur(0px)" } : null),
           stagger: 0.05,
           scrollTrigger: {
             trigger: el,
@@ -141,27 +148,6 @@ export default function ScrollReveal({
         },
       ),
     );
-
-    if (enableBlur) {
-      tweens.push(
-        gsap.fromTo(
-          wordElements,
-          { filter: `blur(${blurStrength}px)` },
-          {
-            ease: "none",
-            filter: "blur(0px)",
-            stagger: 0.05,
-            scrollTrigger: {
-              trigger: el,
-              scroller,
-              start: "top bottom-=20%",
-              end: wordAnimationEnd,
-              scrub: true,
-            },
-          },
-        ),
-      );
-    }
 
     return () => {
       tweens.forEach((tween) => {

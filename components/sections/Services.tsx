@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Noise } from "@/components/effects/Noise";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,6 +46,12 @@ type Service = {
      cropped — the white frame blends in); omit for photos, which
      fill the frame edge-to-edge */
   fit?: "contain";
+  /** object-position for cover-fit images — default is centered; "bottom"
+     anchors the crop to the image's bottom edge instead */
+  position?: "bottom";
+  /** default arrow points up-right ("everything, up and to the right");
+     Headaches is the one joke exception — trending down instead */
+  arrow?: "down-right";
 };
 
 const SERVICES: Service[] = [
@@ -58,8 +63,9 @@ const SERVICES: Service[] = [
   },
   {
     word: "Traffic",
-    img: "/Ads-01.jpg",
-    alt: "Traffic sources dashboard on a tablet beside a cup of coffee",
+    img: "/traffic.jpeg",
+    alt: "Active users trending up over the past month",
+    fit: "contain",
   },
   {
     word: "Leads",
@@ -74,14 +80,16 @@ const SERVICES: Service[] = [
   },
   {
     word: "Revenues",
-    img: "/seo-01 image.webp",
+    img: "/revenues-localeyes.jpeg",
     alt: "Quarterly revenue chart up 75% over the previous quarter",
     fit: "contain",
   },
   {
     word: "Headaches",
-    img: "/services-01-ranking.png",
-    alt: "A kitten sleeping without a care in the world",
+    img: "/headaches.jpeg",
+    alt: "A text conversation about a mistaken bad review, fixed within minutes",
+    position: "bottom",
+    arrow: "down-right",
   },
 ];
 
@@ -249,17 +257,23 @@ export default function Services() {
           transform: translate(0.16em, -0.16em) scale(1.06);
         }
 
-        /* the proof — a simple crossfade, nothing else: the incoming
-           image fades in on top of the outgoing one, which fades away
-           beneath it, so the frame is never empty */
+        /* the proof — the incoming image fades and settles in on top of
+           the outgoing one, which fades away beneath it, so the frame is
+           never empty. Same premium easing used site-wide; the gentle
+           scale-in (1.03 -> 1) is what makes the crossfade read as a
+           soft settle rather than a flat opacity snap. */
         .le-svc-proof {
           opacity: 0;
+          transform: scale(1.03);
           z-index: 1;
-          transition: opacity 0.5s ease;
-          will-change: opacity;
+          transition:
+            opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: opacity, transform;
         }
         .le-svc-proof.is-shown {
           opacity: 1;
+          transform: scale(1);
           z-index: 2;
         }
 
@@ -268,10 +282,6 @@ export default function Services() {
           .le-svc-proof { transition: none; }
         }
       `}</style>
-
-      {/* Film grain — above the cream ground, below every word and
-         arrow; tuned down for the light tone (soft paper, not dirt) */}
-      <Noise patternAlpha={9} />
 
       <div className="relative z-20 mx-auto w-full max-w-[1480px] px-6 py-16 md:px-12 md:py-24">
         {/* ------------------------- heading --------------------------- */}
@@ -289,7 +299,7 @@ export default function Services() {
            A real list, stacked as a clean left column. The right rail
            is reserved on large screens for the proof imagery. */}
         <ul
-          className={`le-svc-list mt-12 flex flex-col items-start gap-1 md:mt-16 md:gap-2 lg:pr-[clamp(360px,33vw,620px)]${
+          className={`le-svc-list mt-12 flex flex-col items-start gap-1 md:mt-16 md:gap-2 lg:pr-[clamp(460px,40vw,780px)]${
             hasActive ? " has-active" : ""
           }`}
         >
@@ -332,7 +342,11 @@ export default function Services() {
                     className="le-svc-arrow mt-[0.3em] h-[0.42em] w-[0.42em] text-[clamp(2.6rem,7.5vw,6rem)] text-[#a3843f]"
                   >
                     <path
-                      d="M5.5 18.5 L18.5 5.5 M8.5 5.5 H18.5 V15.5"
+                      d={
+                        service.arrow === "down-right"
+                          ? "M5.5 5.5 L18.5 18.5 M8.5 18.5 H18.5 V8.5"
+                          : "M5.5 18.5 L18.5 5.5 M8.5 5.5 H18.5 V15.5"
+                      }
                       stroke="currentColor"
                       strokeWidth="2.1"
                       strokeLinecap="round"
@@ -346,7 +360,7 @@ export default function Services() {
         </ul>
 
         {/* ------------------ the proof, always on ----------------------
-           One fixed 8:5 frame; every image renders at exactly the same
+           One fixed 4:3 frame; every image renders at exactly the same
            size. Photos fill it edge-to-edge (object-cover); white-
            background data screenshots scale to fit (object-contain)
            over the white frame so no data is cropped. Rankings' proof
@@ -356,11 +370,11 @@ export default function Services() {
            accessible label — so the panel is aria-hidden. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none mx-auto mt-12 w-[min(88vw,460px)] lg:absolute lg:right-12 lg:top-[52%] lg:mx-0 lg:mt-0 lg:w-[clamp(360px,31vw,600px)] lg:-translate-y-1/2"
+          className="pointer-events-none mx-auto mt-12 w-[min(88vw,460px)] lg:absolute lg:right-12 lg:top-[52%] lg:mx-0 lg:mt-0 lg:w-[clamp(440px,38vw,760px)] lg:-translate-y-1/2"
         >
           {/* inner wrapper is the GSAP target — the outer div keeps its
              static translate centering, so the tween never fights it */}
-          <div className="le-svc-proofwrap relative aspect-[8/5] w-full overflow-hidden rounded-2xl bg-white">
+          <div className="le-svc-proofwrap relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-white">
             {SERVICES.map((service, i) => (
               <img
                 key={service.word}
@@ -369,7 +383,7 @@ export default function Services() {
                 decoding="async"
                 className={`le-svc-proof absolute inset-0 h-full w-full ${
                   service.fit === "contain" ? "object-contain" : "object-cover"
-                }${shown === i ? " is-shown" : ""}`}
+                }${service.position === "bottom" ? " object-bottom" : ""}${shown === i ? " is-shown" : ""}`}
               />
             ))}
           </div>

@@ -7,6 +7,7 @@ import {
   useState,
   type MouseEvent as ReactMouseEvent,
 } from "react";
+import { X } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image, { type StaticImageData } from "next/image";
@@ -104,17 +105,52 @@ export default function CaseStudies() {
      image on mobile for a feature that's desktop-only. */
   const [previewSupported, setPreviewSupported] = useState(false);
 
+  /* Touch/coarse-pointer devices never get the hover preview above — this
+     is their equivalent: tap a row to open the same screenshot full-screen.
+     Without this, mobile visitors had no way to see the proof images at all. */
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   useEffect(() => {
-    const finePointer = window.matchMedia(
-      "(hover: hover) and (pointer: fine)",
-    ).matches;
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (!finePointer || reduced) return;
-    previewEnabled.current = true;
-    setPreviewSupported(true);
+    if (lightboxIndex === null) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxIndex(null);
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightboxIndex]);
+
+  useEffect(() => {
+    /* The hover-preview card itself is only shown at lg: and up
+       (hidden lg:block below) — so "supported" has to require desktop
+       width too, not just hover/pointer capability. Otherwise resizing
+       a real desktop browser down to a phone-sized viewport (or testing
+       via DevTools without touch simulation) still reports hover:hover
+       from the actual mouse, silently disabling the mobile lightbox
+       tap-to-open while the hover card stays CSS-hidden — tapping does
+       nothing. Reacts live to resize, not just once at mount. */
+    const pointerMq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const widthMq = window.matchMedia("(min-width: 1024px)");
+    const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const update = () => {
+      const supported = pointerMq.matches && widthMq.matches && !motionMq.matches;
+      previewEnabled.current = supported;
+      setPreviewSupported(supported);
+    };
+    update();
+
+    pointerMq.addEventListener("change", update);
+    widthMq.addEventListener("change", update);
+    motionMq.addEventListener("change", update);
+    return () => {
+      pointerMq.removeEventListener("change", update);
+      widthMq.removeEventListener("change", update);
+      motionMq.removeEventListener("change", update);
       previewEnabled.current = false;
     };
   }, []);
@@ -329,8 +365,8 @@ export default function CaseStudies() {
 
           <div className="mt-8 flex flex-col gap-5 md:mt-10 md:flex-row md:items-end md:justify-between md:gap-10">
             <h2 className="font-heading font-thin not-italic text-4xl leading-[1.08] tracking-[-0.01em] sm:text-5xl md:text-6xl">
-              Real <span className="italic text-[#a67c3d]">results</span>{" "}
-              we&rsquo;ve achieved
+              Real <span className="italic text-[#a67c3d]">Google</span>{" "}
+              Results
             </h2>
             <p className="shrink-0 font-sans text-[0.55rem] font-semibold uppercase tracking-[0.22em] text-[#ededd5]/50 sm:text-[0.6rem] md:pb-2">
               Noticeable from everywhere in the country
@@ -350,7 +386,10 @@ export default function CaseStudies() {
             <li
               key={`${entry.city}-${entry.client}`}
               onMouseEnter={() => showPreview(index)}
-              className="le-case group relative"
+              onClick={() => {
+                if (!previewSupported) setLightboxIndex(index);
+              }}
+              className={`le-case group relative ${!previewSupported ? "cursor-pointer" : ""}`}
             >
               {/* Inner wrapper carries the hover-dim (see .le-case-inner in
                   globals.css) so it never fights the GSAP entrance on the li */}
@@ -406,7 +445,7 @@ export default function CaseStudies() {
           ref={previewRef}
           aria-hidden="true"
           style={{ visibility: "hidden" }}
-          className="pointer-events-none fixed left-0 top-0 z-30 hidden w-[27rem] rounded-lg border border-[#a67c3d]/35 bg-[#f4f3f0] p-2.5 shadow-[0_32px_64px_-20px_rgba(0,0,0,0.55)] lg:block"
+          className="pointer-events-none fixed left-0 top-0 z-30 hidden w-[38rem] rounded-lg border border-[#a67c3d]/35 bg-[#f4f3f0] p-3 shadow-[0_32px_64px_-20px_rgba(0,0,0,0.55)] lg:block"
         >
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[0.3rem]">
             {CASES.map((entry, index) => (
@@ -415,8 +454,8 @@ export default function CaseStudies() {
                 src={entry.image}
                 alt=""
                 fill
-                sizes="336px"
-                quality={75}
+                sizes="608px"
+                quality={80}
                 className={`object-contain transition-opacity duration-500 ease-out ${
                   active === index ? "opacity-100" : "opacity-0"
                 }`}
@@ -430,6 +469,51 @@ export default function CaseStudies() {
             <span className="font-sans text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-[#a67c3d]">
               ✦ #1
             </span>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile lightbox — tap a row to see its screenshot full-screen.
+          This is touch's equivalent of the desktop hover card above. */}
+      {lightboxIndex !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${CASES[lightboxIndex].city} case study screenshot`}
+          onClick={() => setLightboxIndex(null)}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0e0b07]/90 p-5 backdrop-blur-sm lg:hidden"
+        >
+          <button
+            type="button"
+            onClick={() => setLightboxIndex(null)}
+            aria-label="Close"
+            className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-[#ededd5]/25 text-[#ededd5] transition-colors hover:border-[#a67c3d] hover:text-[#a67c3d]"
+          >
+            <X className="h-4 w-4" />
+          </button>
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-lg overflow-hidden rounded-lg border border-[#a67c3d]/35 bg-[#f4f3f0] p-3 shadow-[0_32px_64px_-20px_rgba(0,0,0,0.6)]"
+          >
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[0.3rem]">
+              <Image
+                src={CASES[lightboxIndex].image}
+                alt={`${CASES[lightboxIndex].city} — ${CASES[lightboxIndex].client}`}
+                fill
+                sizes="(max-width: 512px) 100vw, 512px"
+                quality={80}
+                className="object-contain"
+              />
+            </div>
+            <div className="flex items-center justify-between px-1 pb-0.5 pt-2">
+              <span className="font-sans text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-[#261f15]/60">
+                Google — Live Proof
+              </span>
+              <span className="font-sans text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-[#a67c3d]">
+                ✦ #1
+              </span>
+            </div>
           </div>
         </div>
       )}

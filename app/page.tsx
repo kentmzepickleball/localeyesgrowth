@@ -9,7 +9,6 @@ import SeoServices from "@/components/sections/SeoServices";
 import Services from "@/components/sections/Services";
 import Logos from "@/components/sections/Logos";
 import ClosingCta from "@/components/sections/ClosingCta";
-import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (

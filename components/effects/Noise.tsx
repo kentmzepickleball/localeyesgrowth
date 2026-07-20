@@ -14,6 +14,39 @@ interface NoiseProps {
  * can be scoped to a single section (e.g. a hero) rather than the whole page.
  * Source: https://reactbits.dev/animations/noise
  */
+const CANVAS_SIZE = 1024;
+const POOL_SIZE = 8;
+
+/* Shared across every mounted <Noise> — a page can have a dozen of these
+   (Hero, Pricing, Capabilities, Footer, ...); ImageData isn't tied to any
+   one canvas, so the same pooled frames can be blitted onto all of them.
+   Keyed by patternAlpha since that's baked into the pixel data — each
+   distinct alpha still renders pixel-for-pixel identical to before, this
+   just stops every instance from independently generating its own ~8M
+   random values at mount. */
+const sharedPools = new Map<number, ImageData[]>();
+
+function getPool(ctx: CanvasRenderingContext2D, patternAlpha: number) {
+  const cached = sharedPools.get(patternAlpha);
+  if (cached) return cached;
+
+  const pool: ImageData[] = [];
+  for (let f = 0; f < POOL_SIZE; f++) {
+    const imageData = ctx.createImageData(CANVAS_SIZE, CANVAS_SIZE);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const value = Math.random() * 255;
+      data[i] = value;
+      data[i + 1] = value;
+      data[i + 2] = value;
+      data[i + 3] = patternAlpha;
+    }
+    pool.push(imageData);
+  }
+  sharedPools.set(patternAlpha, pool);
+  return pool;
+}
+
 export function Noise({
   patternAlpha = 15,
   patternRefreshInterval = 2,
@@ -28,35 +61,13 @@ export function Noise({
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    const canvasSize = 1024;
-    canvas.width = canvasSize;
-    canvas.height = canvasSize;
+    canvas.width = CANVAS_SIZE;
+    canvas.height = CANVAS_SIZE;
 
     let frame = 0;
     let animationId: number;
 
-    /* Pre-bake a small pool of fully-random frames once (same per-pixel
-       Math.random() math as before, so the noise is statistically
-       identical) instead of regenerating ~1M random values + a fresh 4MB
-       buffer on every refresh — 30x/sec, forever, while mounted. A
-       cycling putImageData blit is visually indistinguishable from
-       fresh randomness (noise has no memorable pattern to notice
-       repeating) but is orders of magnitude cheaper per frame. */
-    const POOL_SIZE = 8;
-    const pool: ImageData[] = [];
-    for (let f = 0; f < POOL_SIZE; f++) {
-      const imageData = ctx.createImageData(canvasSize, canvasSize);
-      const data = imageData.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const value = Math.random() * 255;
-        data[i] = value;
-        data[i + 1] = value;
-        data[i + 2] = value;
-        data[i + 3] = patternAlpha;
-      }
-      pool.push(imageData);
-    }
-
+    const pool = getPool(ctx, patternAlpha);
     let poolIndex = 0;
     const drawGrain = () => {
       ctx.putImageData(pool[poolIndex], 0, 0);

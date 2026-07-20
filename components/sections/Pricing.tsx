@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
@@ -141,7 +141,20 @@ const FEATURE_ROWS: { label: string; values: [string, string, string] }[] = [
   },
 ];
 
-export default function Pricing() {
+export default function Pricing({
+  hideIntro = false,
+  cardBadge,
+}: {
+  /* hides the intro paragraph beside the heading — keeps the eyebrow +
+     "Pricing for each phase..." heading, just drops the sentence
+     (used by /valor, which shows a discount badge instead) */
+  hideIntro?: boolean;
+  /* Optional overlay anchored to the rate card (e.g. the /valor discount
+     badge) — rendered OUTSIDE the overflow-hidden tabpanel so it can
+     overhang the card's corner, and outside the crossfade layer so it
+     never dissolves on plan switch. */
+  cardBadge?: ReactNode;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const { open: openCalendly } = useCalendly();
   const headerRef = useRef<HTMLDivElement>(null);
@@ -298,11 +311,13 @@ export default function Pricing() {
               <span className="not-italic text-[#c6a66a]">phase</span> of your
               journey
             </h2>
-            <p className="max-w-sm shrink-0 font-sans text-sm leading-relaxed text-[#ededd5]/60 md:pb-2 md:text-[0.95rem]">
-              We run the entire booking system for mobile event caterers — SEO,
-              Google, Flashquotes, automations, reviews, campaigns — so your
-              carts stay booked and your phone stops being your job.
-            </p>
+            {!hideIntro && (
+              <p className="max-w-sm shrink-0 font-sans text-sm leading-relaxed text-[#ededd5]/60 md:pb-2 md:text-[0.95rem]">
+                We run the entire booking system for mobile event caterers —
+                SEO, Google, Flashquotes, automations, reviews, campaigns — so
+                your carts stay booked and your phone stops being your job.
+              </p>
+            )}
           </div>
         </div>
 
@@ -393,7 +408,10 @@ export default function Pricing() {
             </p>
           </div>
 
-          {/* The rate card — one physical paper sheet on the dark desk */}
+          {/* The rate card — one physical paper sheet on the dark desk.
+             The extra relative wrapper hosts the optional cardBadge overlay
+             above the clipped tabpanel, so it can overhang the corner. */}
+          <div className="relative">
           <div
             ref={cardRef}
             id="le-plan-panel"
@@ -556,6 +574,8 @@ export default function Pricing() {
                 </div>
               </div>
             </div>
+          </div>
+          {cardBadge}
           </div>
         </div>
       </div>

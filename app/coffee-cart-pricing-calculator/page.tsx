@@ -213,7 +213,7 @@ const CONFIG = {
     intro:
       "Pricing a coffee cart event by gut feel leaves money on the table — or scares clients away. Tune the event below and get value, standard, and premium pricing instantly, plus a client-ready quote you can send on the spot.",
     trustLine:
-      "Built from real booking data across 60+ coffee caterers · 12+ years in the specialty coffee industry.",
+      "Built from years consulting with 60+ coffee caterers · 12+ years in the specialty coffee industry.",
 
     calcHeading: "What should you charge for this event?",
     calcSub:

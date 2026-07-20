@@ -87,21 +87,21 @@ export default function Hero() {
       </div>
 
       {/* ---------- Centered content ---------- */}
-      <div className="relative z-20 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-40 text-center md:pt-52">
+      <div className="relative z-20 mx-auto flex w-full max-w-6xl flex-col items-center px-6 pt-40 text-center md:pt-52">
         {/* Eyebrow — tracks in from wide letter-spacing with a soft focus pull */}
-        <p className="flex items-center gap-3 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.26em] text-[#c6a66a] sm:text-xs animate-le-eyebrow-in">
+        <h1 className="flex items-center gap-3 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.26em] text-[#c6a66a] sm:text-xs animate-le-eyebrow-in">
           <span aria-hidden="true" className="text-[0.8em]">
             ✦
           </span>
-          SEO-first Growth Systems Designed to Deliver More Organic Leads
+          Growing event brands that dominate their cities
           <span aria-hidden="true" className="text-[0.8em]">
             ✦
           </span>
-        </p>
+        </h1>
 
         {/* Headline — each word rises out of its own clipping mask, staggered */}
-        <h1 className="mt-[13px] max-w-4xl text-balance font-heading font-thin not-italic text-[3.1rem] leading-[1.02] tracking-[-0.015em] sm:text-7xl lg:text-[6.2rem]">
-          {"Growing event brands that dominate their cities"
+        <p className="mt-[13px] max-w-6xl text-balance font-heading font-thin not-italic text-[2.6rem] leading-[1.05] tracking-[-0.015em] sm:text-6xl lg:text-[5.2rem]">
+          {"Catering SEO Services for Coffee Carts, Mobile Bars & Every Kind of Caterer"
             .split(" ")
             .map((word, i, arr) => (
               <span key={i}>
@@ -116,7 +116,7 @@ export default function Hero() {
                 {i < arr.length - 1 && " "}
               </span>
             ))}
-        </h1>
+        </p>
 
         {/* CTA pair — same mechanic as the header CTA (pill + icon chip + slow bloom) */}
         <div

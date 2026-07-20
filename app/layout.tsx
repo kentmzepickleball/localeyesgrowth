@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import localFont from "next/font/local";
 import { Manrope } from "next/font/google";
 import "./globals.css";
@@ -6,6 +7,8 @@ import Header from "@/components/general/Header";
 import Footer from "@/components/sections/Footer";
 import { CalendlyProvider } from "@/components/sections/CalendlyModal";
 import BackToTop from "@/components/sections/BackToTop";
+
+const GA_MEASUREMENT_ID = "G-NRVFYH9E7D";
 
 const display = localFont({
   src: "./(fonts)/ivy-presto-headline-thin.otf",
@@ -57,6 +60,20 @@ export default function RootLayout({
       lang="en"
       className={`${display.variable} ${body.variable} h-full antialiased`}
     >
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+      </head>
       <body className="min-h-full antialiased flex flex-col bg-cream text-espresso">
         <CalendlyProvider>
           <Header />

@@ -15,6 +15,7 @@ const CALCULATOR_PATH = "/coffee-cart-pricing-calculator"; /* VERIFY */
 const NAV_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "Coffee Catering Calculator", href: CALCULATOR_PATH },
+  { label: "Valor", href: "/valor" },
 ];
 
 export default function Header() {

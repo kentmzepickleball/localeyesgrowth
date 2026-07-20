@@ -9,11 +9,15 @@ import { useEffect, useRef } from "react";
 
 const ITEMS = [
   "Coffee Carts",
-  "Beverage Carts",
-  "Mobile Bars",
-  "Catering Co's",
-  "Food Trucks",
-  "Event Staffing",
+  "Mobile Bartending",
+  "Dessert Carts",
+  "Grazing Tables",
+  "Photo Booths",
+  "Ice Cream Carts",
+  "Charcuterie Carts",
+  "Beverage Booths",
+  "Cannoli Stands",
+  "Churro Carts",
 ];
 
 const TILT_DEG = 14;
@@ -48,7 +52,16 @@ export function HeroOptionWheel() {
     let wheelTimer: number | undefined;
 
     const measure = () => {
-      rowW = Math.min(340, Math.max(200, root.clientWidth / 3.6));
+      const base = Math.min(340, Math.max(200, root.clientWidth / 3.6));
+      // offsetWidth ignores this item's own rotate/translate transform, so
+      // it reflects the word's true rendered width even off-center — a
+      // floor under `base` so spacing always fits the widest word instead
+      // of the widest word overlapping its neighbors on narrow screens.
+      const maxItemWidth = itemRefs.current.reduce(
+        (max, el) => (el ? Math.max(max, el.offsetWidth) : max),
+        0,
+      );
+      rowW = Math.max(base, maxItemWidth + 24);
     };
     measure();
     window.addEventListener("resize", measure);
@@ -236,7 +249,7 @@ export function HeroOptionWheel() {
               "color-mix(in srgb, #4a3421 calc(var(--ow-p, 0) * 100%), rgba(38,31,21,0.32))",
           }}
         >
-          {item}
+          <h3>{item}</h3>
           {/* soft gold glow-dot beneath the centered item */}
           <span
             aria-hidden="true"

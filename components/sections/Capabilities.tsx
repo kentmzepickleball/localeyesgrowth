@@ -43,6 +43,9 @@ type Photo = {
   alt: string;
   /** which part of the image to favor when cropping */
   pos: "object-top" | "object-center";
+  /** "contain" for white-background data screenshots (nothing gets
+     cropped); omit for photos, which fill the frame edge-to-edge */
+  fit?: "contain";
 };
 
 type Trio = { key: string; word: string; photos: Photo[] };
@@ -100,18 +103,21 @@ const TRIOS: Trio[] = [
     photos: [
       {
         src: "/Ads-01.jpg",
-        alt: "Coffee Klatch mobile coffee catering landing page for Greenville",
-        pos: "object-top",
+        alt: "Google Ads performance dashboard — conversions up 233%, cost per conversion down 71%",
+        pos: "object-center",
+        fit: "contain",
       },
       {
-        src: "/Ads-02.jpg",
-        alt: "Coffee catering and beans landing page for Dallas Fort Worth",
-        pos: "object-top",
+        src: "/Ads-02.jpeg",
+        alt: "Active users trending up over the past month",
+        pos: "object-center",
+        fit: "contain",
       },
       {
-        src: "/Ads-03.jpg",
-        alt: "Mazagi Coffee mobile catering landing page for Connecticut",
-        pos: "object-top",
+        src: "/Ads-03.jpeg",
+        alt: "Top keyword rankings on Google, all trending up",
+        pos: "object-center",
+        fit: "contain",
       },
     ],
   },
@@ -373,7 +379,11 @@ export default function Capabilities() {
                   alt=""
                   loading="eager"
                   decoding="async"
-                  className={`le-cap-photo absolute aspect-[16/10] object-cover ${photo.pos}`}
+                  className={`le-cap-photo absolute aspect-[16/10] ${
+                    photo.fit === "contain"
+                      ? "bg-white object-contain"
+                      : "object-cover"
+                  } ${photo.pos}`}
                   style={
                     {
                       "--l": ROW[photoIndex].left,

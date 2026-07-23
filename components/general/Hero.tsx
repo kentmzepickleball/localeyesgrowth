@@ -93,7 +93,7 @@ export default function Hero() {
           <span aria-hidden="true" className="text-[0.8em]">
             ✦
           </span>
-          Growing event brands that dominate their cities
+          Catering SEO Services for Coffee Carts, Mobile Bars & Every Kind of Caterer
           <span aria-hidden="true" className="text-[0.8em]">
             ✦
           </span>
@@ -101,7 +101,7 @@ export default function Hero() {
 
         {/* Headline — each word rises out of its own clipping mask, staggered */}
         <p className="mt-[13px] max-w-6xl text-balance font-heading font-thin not-italic text-[2.6rem] leading-[1.05] tracking-[-0.015em] sm:text-6xl lg:text-[5.2rem]">
-          {"Catering SEO Services for Coffee Carts, Mobile Bars & Every Kind of Caterer"
+          {"Growing Event Brands that Dominate Their Cities Search"
             .split(" ")
             .map((word, i, arr) => (
               <span key={i}>

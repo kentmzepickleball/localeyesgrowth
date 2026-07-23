@@ -32,7 +32,7 @@ const OG_IMAGE = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.localeyesgrowth.com"),
-  title: "Home | LocalEyes Growth Agency",
+  title: "Catering SEO Services That Rank Caterers #1 | LocalEyes",
   description:
     'LocalEyes is the local SEO agency for coffee carts, beverage carts, and mobile event businesses. Rank at the top for catering "near me" and fill your booking calendar.',
   alternates: {

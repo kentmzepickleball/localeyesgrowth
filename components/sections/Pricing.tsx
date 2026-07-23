@@ -45,10 +45,10 @@ type Plan = {
 const PLANS: Plan[] = [
   {
     id: "solo",
-    name: "The Solo Plan",
+    name: "The Solo",
     price: "$997",
     per: "/mo",
-    note: "Exclusive entry plan",
+    note: "Exclusive entry",
     glow: "#a8703a",
     who: [
       "You run a single cart",
@@ -97,47 +97,74 @@ const PLANS: Plan[] = [
 /* Feature ledger — values are indexed by plan position (Solo, Booking
    Engine, Growth Engine). Edit a row's label or any value here. */
 const FEATURE_ROWS: { label: string; values: [string, string, string] }[] = [
-  { label: "Pages", values: ["3 / month", "4 / month", "6 / month"] },
+  { label: "Pages", values: ["2 / month", "4 / month", "6 / month"] },
   {
     label: "Backlinks",
-    values: ["3 / month", "4 / month", "4 Standard + 2 Premium Posts"],
+    values: ["2 / month", "4 / month", "4 + 2 premium / month"],
   },
-  { label: "Citations", values: ["75 Once", "150 Once", "150 Quarterly"] },
+  {
+    label: "Citations",
+    values: [
+      "75 (one-time build)",
+      "150 (one-time build)",
+      "150 built + quarterly audit",
+    ],
+  },
+  {
+    label: "Lead Form",
+    values: [
+      "Integrated",
+      "Integrated + 2 automations",
+      "Full setup + pricing audit + all automations",
+    ],
+  },
   {
     label: "Google Business Profile",
     values: [
       "1 location managed",
-      "All Locations Managed",
-      "All Locations Managed + Posting",
-    ],
-  },
-  {
-    label: "Lead Intake Form",
-    values: [
-      "Basic Setup",
-      "Basic Setup + 2 Automations",
-      "Full Setup + Custom Automations",
+      "All locations managed",
+      "All locations + service-area expansion",
     ],
   },
   {
     label: "CRO",
-    values: ["—", "On-page Optimizing", "On-page + Quarterly Audit & Meeting"],
+    values: ["—", "On-page optimization", "On-page optimization"],
+  },
+  {
+    label: "Seasonal Campaigns",
+    values: ["—", "—", "4 / year (recurring revenue capture)"],
   },
   {
     label: "Tracking",
     values: [
-      "Monthly Report – 10 Keywords",
-      "Monthly Task Sheet + 15 Keywords",
-      "Live Dashboard + 25 Keywords",
+      "Monthly report · 10 keywords",
+      "Monthly dashboard · 15 keywords",
+      "Live dashboard · up to 25 keywords",
     ],
   },
   {
-    label: "Client Communication Access",
+    label: "Strategy Call",
     values: [
-      "LE Text Group Communication Channel",
-      "LE Text Group Communication Channel",
-      "LE Text Group Communication Channel",
+      "30-min · Quarterly",
+      "45-min · Every other month",
+      "45-min · Monthly",
     ],
+  },
+  {
+    label: "Priority",
+    values: ["—", "Standard", "Priority support"],
+  },
+  {
+    label: "Client Communication",
+    values: [
+      "LE Text Group Channel",
+      "LE Text Group Channel",
+      "LE Text Group Channel",
+    ],
+  },
+  {
+    label: "Ads Management Discount",
+    values: ["—", "$200 off", "$400 off"],
   },
 ];
 

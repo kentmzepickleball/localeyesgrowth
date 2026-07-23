@@ -51,6 +51,27 @@ const LOGOS: Logo[] = [
     height: 186,
     size: "h-12 md:h-14",
   },
+  {
+    src: "/anecho-coffee.png",
+    name: "Anecho Coffee",
+    width: 100,
+    height: 43,
+    size: "h-9 md:h-11",
+  },
+  {
+    src: "/valor logo.avif",
+    name: "Valor Coffee",
+    width: 310,
+    height: 155,
+    size: "h-11 md:h-13",
+  },
+  {
+    src: "/flatwhite_1.png",
+    name: "North Village Coffee",
+    width: 800,
+    height: 539,
+    size: "h-12 md:h-14",
+  },
 ];
 
 /* One marquee half = the logo set three times, so each half stays
@@ -141,7 +162,7 @@ export default function TrustedBy() {
           to   { transform: translate3d(-50%, 0, 0); }
         }
         .lt-track {
-          animation: lt-drift 48s linear infinite;
+          animation: lt-drift 96s linear infinite;
           will-change: transform;
         }
         /* ease to a stop on hover (hover-capable devices only, so a

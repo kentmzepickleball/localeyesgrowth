@@ -36,7 +36,7 @@ export default function Hero() {
       </div>
 
       {/* React Bits Noise — animated film grain over the whole section */}
-      <Noise patternAlpha={14} />
+      <Noise patternAlpha={10} />
 
       {/* Flanking editorial micro-labels — quiet 70s magazine detail */}
       <span

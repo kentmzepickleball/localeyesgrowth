@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "@/components/general/Header";
 import Footer from "@/components/sections/Footer";
 import { CalendlyProvider } from "@/components/sections/CalendlyModal";
+import { GrowthDiagnosticProvider } from "@/components/growth-diagnostic/GrowthDiagnosticProvider";
 import BackToTop from "@/components/sections/BackToTop";
 
 const GA_MEASUREMENT_ID = "G-NRVFYH9E7D";
@@ -76,10 +77,12 @@ export default function RootLayout({
       </head>
       <body className="min-h-full antialiased flex flex-col bg-cream text-espresso">
         <CalendlyProvider>
-          <Header />
-          {children}
-          <Footer />
-          <BackToTop />
+          <GrowthDiagnosticProvider>
+            <Header />
+            {children}
+            <Footer />
+            <BackToTop />
+          </GrowthDiagnosticProvider>
         </CalendlyProvider>
       </body>
     </html>

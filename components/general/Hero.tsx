@@ -1,27 +1,15 @@
 "use client";
 
-import { useState, type ComponentType } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { HeroOptionWheel } from "./HeroOptionWheel";
 import { Noise } from "../../components/effects/Noise";
-
-type QuizModalComponent = ComponentType<{ open: boolean; onClose: () => void }>;
+import { useGrowthDiagnostic } from "../growth-diagnostic/GrowthDiagnosticProvider";
 
 export default function Hero() {
-  /* Growth Diagnostic — the whole quiz chunk (component + its CSS +
-     canvas-confetti) stays OUT of the initial bundle and loads on the
-     first click; afterwards it stays mounted so reopening is instant. */
-  const [quizOpen, setQuizOpen] = useState(false);
-  const [QuizModal, setQuizModal] = useState<QuizModalComponent | null>(null);
-
-  const openQuiz = () => {
-    setQuizOpen(true);
-    if (!QuizModal) {
-      import("../growth-diagnostic/GrowthDiagnosticModal")
-        .then((m) => setQuizModal(() => m.default))
-        .catch(() => setQuizOpen(false));
-    }
-  };
+  /* Growth Diagnostic quiz lives in a single global provider (see
+     GrowthDiagnosticProvider) so its open state stays in sync with the
+     URL no matter which CTA triggered it. */
+  const { open: openQuiz } = useGrowthDiagnostic();
 
   return (
     <section className="relative flex h-full min-h-svh w-full flex-col overflow-hidden bg-[#ededd5] text-[#261f15]">
@@ -212,11 +200,6 @@ export default function Hero() {
           <span className="absolute left-0 top-0 h-1/2 w-px bg-[#c6a66a] animate-le-scroll-drip" />
         </span>
       </a>
-
-      {/* Growth Diagnostic modal — mounted after the first open */}
-      {QuizModal && (
-        <QuizModal open={quizOpen} onClose={() => setQuizOpen(false)} />
-      )}
     </section>
   );
 }

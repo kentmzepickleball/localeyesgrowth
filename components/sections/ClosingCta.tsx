@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ComponentType } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
@@ -9,6 +9,7 @@ import {
   useCalendly,
   CALENDLY_BOOKING_URL,
 } from "../../components/sections/CalendlyModal";
+import { useGrowthDiagnostic } from "../growth-diagnostic/GrowthDiagnosticProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,25 +38,14 @@ gsap.registerPlugin(ScrollTrigger);
    Wire the two placeholder hrefs below to the real pages.
    ---------------------------------------------------------------------- */
 
-type QuizModalComponent = ComponentType<{ open: boolean; onClose: () => void }>;
-
 export default function ClosingCta() {
   const sectionRef = useRef<HTMLElement>(null);
   const { open: openCalendly } = useCalendly();
 
-  /* Growth Diagnostic quiz — lazy-loaded on first click (same pattern as
-     the Hero), then kept mounted so reopening is instant */
-  const [quizOpen, setQuizOpen] = useState(false);
-  const [QuizModal, setQuizModal] = useState<QuizModalComponent | null>(null);
-
-  const openQuiz = () => {
-    setQuizOpen(true);
-    if (!QuizModal) {
-      import("../growth-diagnostic/GrowthDiagnosticModal").then((m) =>
-        setQuizModal(() => m.default),
-      );
-    }
-  };
+  /* Growth Diagnostic quiz lives in a single global provider (see
+     GrowthDiagnosticProvider) so its open state stays in sync with the
+     URL no matter which CTA triggered it. */
+  const { open: openQuiz } = useGrowthDiagnostic();
 
   /* Staggered reveal — heading, sub-text, actions; plays once,
      skipped entirely under reduced motion */
@@ -213,11 +203,6 @@ export default function ClosingCta() {
           </button>
         </div>
       </div>
-
-      {/* Growth Diagnostic modal — mounted after the first open */}
-      {QuizModal && (
-        <QuizModal open={quizOpen} onClose={() => setQuizOpen(false)} />
-      )}
     </section>
   );
 }

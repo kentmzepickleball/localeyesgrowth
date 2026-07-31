@@ -39,7 +39,7 @@ Your primary Google Business Profile category tells Google what kind of business
 
 "Coffee stand" says you are a fixed location selling drinks to people standing in front of you. So Google shows you to people physically nearby who want a cup of coffee, and hides you from the corporate planner three suburbs over searching "coffee catering" with a real budget. The same logic applies to a mobile bar filed as "Bartender" instead of a catering category, or a grazing operator whose profile never uses the word catering at all.
 
-Change the primary category to Mobile caterer or the closest catering category, then add your other genuine services as secondary categories. It takes two minutes and it is the highest-leverage single setting in local SEO for a mobile operator. The full decision tree by business type is in [the right GBP category for your business](/blog/gbp-category-for-mobile-caterers).
+Change the primary category to Mobile caterer or the closest catering category, then add your other genuine services as secondary categories. It takes two minutes and it is the highest-leverage single setting in local SEO for a mobile operator. The full decision tree by business type is in the right GBP category for your business.
 
 While you are in there, strip "LLC" from the business name. Nobody searches for your legal entity. Then leave the name, address, and phone alone, because editing those after verification can knock you back to unverified, trigger reverification or suspension, and take your rankings with it. Decide first, verify second.
 
@@ -61,7 +61,7 @@ Underneath, add a subhead carrying the specifics: counties you cover, profession
 
 Two refinements. Use the term with the traffic behind it, since buyers search "coffee catering" far more than "coffee cart." And make your meta title describe the service, not only your business name.
 
-This is one line of text, and fixing it alone has moved a catering site from page three to page one. Before and after examples in [the exact H1 formula that ranks](/blog/the-h1-formula-that-ranks-for-caterers).
+This is one line of text, and fixing it alone has moved a catering site from page three to page one. Before and after examples in the exact H1 formula that ranks.
 
 Structure matters alongside it. Google ranks pages, not businesses, so one page covering weddings, corporate activations, cold brew, and four cities ranks well for none of them. After we redesigned Valor Coffee's catering page and added location pages, their inbound went from around one lead a day to around five within a couple of weeks.
 
@@ -87,7 +87,7 @@ Category changes can show up in days. H1 and on-page changes move over days to a
 
 These fixes work fast in catering because so few competitors have made them. Across our client work, one business went from 4 leads to 34 in two months, another went from nothing to number one in its city in about two weeks, and we hold top-three money-keyword rankings for clients in New York, Philadelphia, Orlando, Chicago, and Los Angeles.
 
-Roughly 75% of Google traffic goes to the top three results, and someone typing "mobile bartender in [city]" has a date and a budget, which a scroller does not. That argument in full is in [Google versus Instagram for catering leads](/blog/google-vs-instagram-for-catering-leads), and the full build order is in our [complete local SEO guide for mobile caterers](/blog/local-seo-for-mobile-caterers).
+Roughly 75% of Google traffic goes to the top three results, and someone typing "mobile bartender in [city]" has a date and a budget, which a scroller does not. That argument in full is in Google versus Instagram for catering leads, and the full build order is in our complete local SEO guide for mobile caterers.
 
 ## FAQ
 

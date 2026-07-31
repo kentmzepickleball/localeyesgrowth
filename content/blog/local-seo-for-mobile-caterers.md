@@ -28,7 +28,7 @@ Service businesses die from obscurity, not from bad coffee. Almost nobody books 
 
 Three things cause it, and most businesses we audit have at least two running at once. Google does not know what kind of business you are, because a profile filed under "Coffee stand" reads as a fixed location selling drinks to walk-ups. Your site does not state the service or the city, because the H1 is spent on a mood ("where flavorful moments meet") instead of a fact. And you have no proof, because around 90% of buyers look for social proof before they buy and a profile with almost no reviews reads as a business nobody has hired.
 
-We go deeper on all three in [why caterers get zero leads from Google](/blog/why-mobile-caterers-get-zero-leads-from-google).
+We go deeper on all three in why caterers get zero leads from Google.
 
 ## Local SEO for caterers: the roadmap, in order
 
@@ -55,7 +55,7 @@ Google sandboxes new domains. A brand-new site takes roughly 5 to 7 weeks before
 
 Buy the domain first. Publish one honest page with your service, your city, and a way to contact you. You can rebuild it later. You cannot get those weeks back.
 
-This is the most common sequencing mistake we see: the cart arrives, the wrap gets designed, the Instagram launches, and the website goes up last. Flip it. More in [build the site before you buy the cart](/blog/build-website-before-you-buy-the-cart) and [how long ranking actually takes](/blog/how-long-a-new-catering-site-takes-to-rank).
+This is the most common sequencing mistake we see: the cart arrives, the wrap gets designed, the Instagram launches, and the website goes up last. Flip it. More in build the site before you buy the cart and how long ranking actually takes.
 
 Pick whatever platform you can maintain. We have had a client rank top three on a raw builder subdomain before the custom domain was connected. The platform is not the constraint. The structure is.
 
@@ -65,7 +65,7 @@ Your H1 should read [Service] Catering [City]. "Coffee Catering Los Angeles." "M
 
 Two refinements. Use the higher-traffic term, since people search "coffee catering" far more than "coffee cart." And make your meta title describe the service, not only your business name.
 
-This is one line of text, and fixing it alone has moved sites from page three to page one. Before and after examples in [the exact H1 formula that ranks](/blog/the-h1-formula-that-ranks-for-caterers).
+This is one line of text, and fixing it alone has moved sites from page three to page one. Before and after examples in the exact H1 formula that ranks.
 
 ## Step 3: service pages versus location pages
 
@@ -75,7 +75,7 @@ Service pages cover what you do: wedding coffee catering, corporate brand activa
 
 This is also where caterers quietly lose corporate work. Operators tell us they want corporate events, then never list corporate on the site, never show an example, never name a brand they have served. A planner has no way to know it is an option.
 
-The proof here is direct. After we redesigned Valor Coffee's catering page and added location pages, their inbound went from around one lead a day to around five within a couple of weeks. See [how service pages and location pages fit together](/blog/service-pages-vs-location-pages-for-caterers).
+The proof here is direct. After we redesigned Valor Coffee's catering page and added location pages, their inbound went from around one lead a day to around five within a couple of weeks. See how service pages and location pages fit together.
 
 ## Step 4: page speed and the block above the fold
 
@@ -87,7 +87,7 @@ Then the block above the fold. A visitor should know what you do and where befor
 
 Then plan for visitors who are not ready. Only around 1 to 5% of them, realistically about 2%, will fill out a long inquiry form, while offering a menu and pricing brochure for an email gets 20 to 25% to opt in. That is the difference between capturing 2 out of 100 and capturing 25.
 
-More in [page speed and what sits above the fold](/blog/page-speed-and-above-the-fold-for-caterers).
+More in page speed and what sits above the fold.
 
 ## Step 5: Google Business Profile
 
@@ -95,11 +95,11 @@ For a local service business, the profile is close to the whole game alongside o
 
 ### Category
 
-Use "Mobile caterer" or a catering category. Do not use "Coffee stand." That category tells Google you are a fixed nearby location, and it buries you for the catering searches that carry a budget. It is the highest-leverage single setting on the profile. See [choosing the right GBP category](/blog/gbp-category-for-mobile-caterers).
+Use "Mobile caterer" or a catering category. Do not use "Coffee stand." That category tells Google you are a fixed nearby location, and it buries you for the catering searches that carry a budget. It is the highest-leverage single setting on the profile. See choosing the right GBP category.
 
 ### Name
 
-Strip "LLC." Nobody searches for your legal entity. Where it legitimately fits, work your city or service into the name, and get it right the first time, because this is not something you want to edit after verification. Details in [how to name your Google Business Profile](/blog/how-to-name-your-google-business-profile).
+Strip "LLC." Nobody searches for your legal entity. Where it legitimately fits, work your city or service into the name, and get it right the first time, because this is not something you want to edit after verification. Details in how to name your Google Business Profile.
 
 ### Verified address versus service area
 
@@ -109,7 +109,7 @@ Be careful how you do it. Changing name, address, or phone after verification ca
 
 ### NAP consistency
 
-Name, address, and phone should be identical, character for character, on your GBP, website, Instagram, and every directory you appear in. It is the least interesting task here and one of the most reliable, the citation foundation that convinces Google, and now AI systems, that you are real. See [keeping your NAP consistent](/blog/nap-consistency-for-local-seo).
+Name, address, and phone should be identical, character for character, on your GBP, website, Instagram, and every directory you appear in. It is the least interesting task here and one of the most reliable, the citation foundation that convinces Google, and now AI systems, that you are real. See keeping your NAP consistent.
 
 Then treat the profile as live: clean phone photos, a post once or twice a month, categories and services filled in.
 
@@ -131,7 +131,7 @@ Start with citations, meaning your consistent NAP on the platforms buyers and cr
 
 The bar is low. In one metro, only two of roughly 80 to 100 mobile bars had ever contacted a central venue owner. Each planner, venue, or photographer you build a relationship with touches around a hundred events a year, so the link is the smaller half of the return.
 
-One local link a month, twelve a year, puts you ahead of nearly every caterer in your market. Full routine in [one local backlink a month](/blog/one-local-backlink-a-month).
+One local link a month, twelve a year, puts you ahead of nearly every caterer in your market. Full routine in one local backlink a month.
 
 ## Step 8: AI Overviews and the new results page
 
@@ -141,13 +141,13 @@ The reassuring part is that AI answers are not a separate discipline with a sepa
 
 The unforgiving part is that AI compresses the winner-take-all effect. A chat answer may name only the top one to three options, pros and cons synthesized from reviews. Position eight on page one was already weak. In an AI answer it does not exist.
 
-So keep third-party review profiles complete and consistent, take industry-specific review sites seriously while competitors ignore them, and watch where your city plus service comes up on Reddit. More in [how caterers show up in AI Overviews](/blog/ai-overviews-for-caterers).
+So keep third-party review profiles complete and consistent, take industry-specific review sites seriously while competitors ignore them, and watch where your city plus service comes up on Reddit. More in how caterers show up in AI Overviews.
 
 ## Step 9: know whether the work is actually happening
 
 There is a real argument in this industry that monthly SEO retainers are a waste of money. Take it seriously, because the true version of it is this: a retainer that produces no evidence of work is a subscription to nothing.
 
-Everything here is executable by an owner with the time. What stops most owners is not skill, it is that step 7 has to happen every month for a year while you are also running events. Hold whoever does the work, including yourself, to a monthly record: what changed on the site and the profile, how many reviews came in, which link got earned, and where your money keywords rank now versus last month. Checklist in [how to audit your SEO provider](/blog/is-your-seo-provider-actually-doing-anything).
+Everything here is executable by an owner with the time. What stops most owners is not skill, it is that step 7 has to happen every month for a year while you are also running events. Hold whoever does the work, including yourself, to a monthly record: what changed on the site and the profile, how many reviews came in, which link got earned, and where your money keywords rank now versus last month. Checklist in how to audit your SEO provider.
 
 ## What it looks like when it works
 
@@ -155,7 +155,7 @@ Timelines are faster in catering than in most local verticals, because so few co
 
 Set expectations honestly against the sandbox. A new domain needs roughly 5 to 7 weeks before it moves at all, and the compounding pieces take months. The first few weeks usually deliver the H1 and category fixes, which are frequently enough to change what lands in your inbox.
 
-One last framing operators here repeat almost word for word: Instagram is for vanity, Google is for sanity. A follower is browsing. Someone typing "mobile bartender in [city]" has a date and a budget. Full argument in [Google versus Instagram for catering leads](/blog/google-vs-instagram-for-catering-leads).
+One last framing operators here repeat almost word for word: Instagram is for vanity, Google is for sanity. A follower is browsing. Someone typing "mobile bartender in [city]" has a date and a budget. Full argument in Google versus Instagram for catering leads.
 
 ## FAQ
 

@@ -82,7 +82,7 @@ Speed is not a personality trait. It is four pieces of infrastructure.
 
 **Templates you can finish in 90 seconds.** Keep the first reply to one phone screen. No links, no PDF, no wall of packages. Mirror the prospect's tone, and end with a question rather than a period. Build four variants: corporate, wedding, directory, last-minute.
 
-**Instant quoting for the two questions everyone asks.** Pricing comes up in roughly 80 percent of buyer conversations and availability in about 70 percent. An instant quote answers both at 11pm on a Sunday without you. It does not replace the call, it buys you the right to have one, the trade-off covered in [instant quoting vs the discovery call](/blog/instant-quote-vs-discovery-call).
+**Instant quoting for the two questions everyone asks.** Pricing comes up in roughly 80 percent of buyer conversations and availability in about 70 percent. An instant quote answers both at 11pm on a Sunday without you. It does not replace the call, it buys you the right to have one, the trade-off covered in instant quoting vs the discovery call.
 
 Two smaller levers. Text rather than email, because email hits corporate spam filters. And put a visible phone number on the site, since operators in our research have closed corporate work within hours of adding one.
 
@@ -95,9 +95,9 @@ Speed without substance still loses. The first reply does four things and nothin
 3. Show one proof point matched to their event type.
 4. Ask one question and propose a specific time. "How about Monday at 2?" beats "let me know what works."
 
-Then follow up until you get an explicit yes or no. Speed wins the first round, but plenty of these close on the eighth touch, which is the subject of [the follow-up cadence that stops leads from ghosting you](/blog/catering-follow-up-cadence).
+Then follow up until you get an explicit yes or no. Speed wins the first round, but plenty of these close on the eighth touch, which is the subject of the follow-up cadence that stops leads from ghosting you.
 
-None of it works if the inquiry never reaches a form you control, so pair it with [a two-tier inquiry form that qualifies before it quotes](/blog/two-tier-catering-inquiry-form). For how speed fits the rest of the funnel, start with [the mobile caterer's lead-to-booking playbook](/blog/mobile-caterer-lead-to-booking-playbook).
+None of it works if the inquiry never reaches a form you control, so pair it with a two-tier inquiry form that qualifies before it quotes. For how speed fits the rest of the funnel, start with the mobile caterer's lead-to-booking playbook.
 
 ## FAQ
 

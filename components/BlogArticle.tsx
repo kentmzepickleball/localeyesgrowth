@@ -252,7 +252,7 @@ export default function BlogArticle({
         {children}
       </td>
     ),
-    tr: ({ children }) => <tr className="odd:bg-[#f7f5e8]">{children}</tr>,
+    tr: ({ children }) => <tr className="in-[tbody]:odd:bg-[#f7f5e8]">{children}</tr>,
     blockquote: ({ children }) => (
       <blockquote className="mt-6 border-l-2 border-[#c6a66a]/50 pl-5 font-sans text-[1.05em] not-italic text-[#261f15]/70">
         {children}

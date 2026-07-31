@@ -57,7 +57,7 @@ Two patterns are worth sitting with. The cheapest sources are the highest qualit
 
 Google deserves a note. Roughly 75 percent of Google traffic goes to the top three results, and a map-pack listing can drive around ten times more leads than the top organic result. One LocalEyes client went from four leads to 34 leads in two months on the back of that work, and Valor Coffee, a public LocalEyes client, went from roughly one lead a day to roughly five within about two weeks of a catering-page rebuild plus location pages.
 
-See the full breakdown in [every catering lead source ranked by ROI](/blog/catering-lead-sources-ranked), and the directory question specifically in [are The Knot, WeddingWire, and Thumbtack worth it](/blog/knot-weddingwire-thumbtack-worth-it).
+See the full breakdown in every catering lead source ranked by ROI, and the directory question specifically in are The Knot, WeddingWire, and Thumbtack worth it.
 
 ## The five-minute rule
 
@@ -69,7 +69,7 @@ Flashquotes, whose coffee cart catering cost study covers 25,860 bookings from 5
 
 The practical version: text first, because email hits corporate spam filters. Put a phone number visibly on the site and use a live answering service rather than voicemail. Keep the first reply to one phone screen, with no links and no PDF attachment. End it with a question, never a period, because a statement is a dead end.
 
-Full detail in [the 5-minute rule for quote speed](/blog/5-minute-rule-quote-speed).
+Full detail in the 5-minute rule for quote speed.
 
 ## The follow-up cadence, day by day
 
@@ -89,7 +89,7 @@ The universal failure mode is not following up too aggressively. It is stopping 
 
 Two rules carry the whole cadence. Every message must add value or ask a new question, which means the word "just" gets deleted from your vocabulary. And always offer specific times rather than asking what works. "How about Monday at 2?" outperforms "let me know when you are free" every time.
 
-More in [the follow-up cadence that stops leads from ghosting you](/blog/catering-follow-up-cadence).
+More in the follow-up cadence that stops leads from ghosting you.
 
 ## Qualify before you quote
 
@@ -103,7 +103,7 @@ On the call, three questions do most of the work: what is the occasion, who is c
 
 Know what they came to ask, too. Across roughly eight to ten thousand customer interactions in our research, five questions dominate: pricing (about 80 percent), availability (about 70 percent), menu (about 65 percent), what is included (about 60 percent), and service area (about 50 percent). Answer all five before they have to ask.
 
-See [how to build a two-tier inquiry form that qualifies and converts](/blog/two-tier-catering-inquiry-form).
+See how to build a two-tier inquiry form that qualifies and converts.
 
 ## Instant quote or discovery call?
 
@@ -111,7 +111,7 @@ This is the sharpest disagreement in the research. The instant-quote camp argues
 
 The reconciliation most operators land on: automate the logistics so nobody waits, then spend the freed-up time on genuine high-touch selling. An instant quote is not the end of the conversation, it is what buys you the right to have one.
 
-Details in [instant quoting vs the discovery call](/blog/instant-quote-vs-discovery-call).
+Details in instant quoting vs the discovery call.
 
 ## Sell the experience, not the cart
 
@@ -119,7 +119,7 @@ Nobody buys espresso. They buy the moment where their guests are happy and the h
 
 That has direct copy consequences. Bullet lists of certifications, cups, and napkins are logic selling, and people buy emotionally then justify logically. Replace the feature list with narrative and "you" language. Scatter single-sentence review quotes across every page as speed bumps rather than burying them on a testimonials page, which draws under one to two percent of traffic. Around 90 percent of buyers look for social proof before they buy, so it needs to sit where they already are. Match the proof to the event: corporate testimonials for corporate buyers, wedding testimonials for weddings.
 
-More in [selling the experience, not the bartender](/blog/sell-the-experience-not-the-product).
+More in selling the experience, not the bartender.
 
 ## "You're too expensive" is a value problem
 
@@ -136,7 +136,7 @@ Never say a flat no. Say "not yet," because everyone is a future client, an advo
 
 Structure helps too. In a three-tier menu the middle tier books around 95 percent of the time, and adding a genuinely expensive anchor lifts middle-tier selection by about 40 percent. And know your floor: every event carries roughly $300 to $500 in fixed cost before you serve anyone.
 
-More in [how to handle the price objection](/blog/catering-price-objection) and [why you should not lead with price](/blog/should-you-put-prices-on-your-website).
+More in how to handle the price objection and why you should not lead with price.
 
 ## Venue and vendor partnerships: the durable engine
 
@@ -146,7 +146,7 @@ Each amplifier, meaning a venue, planner, photographer, DJ, or coordinator, touc
 
 Getting on a preferred-vendor list is a straightforward sequence: insurance and licensing on file, sign the venue rules, meet a human in person. Email first, then a drop-by with rack cards, then stay visible. Referral shares of 5 to 15 percent of margin are standard and worth paying.
 
-See [venue and vendor partnerships](/blog/venue-vendor-referral-partnerships) and [the referral kickback structure that keeps vendors sending work](/blog/vendor-referral-fee-structure).
+See venue and vendor partnerships and the referral kickback structure that keeps vendors sending work.
 
 ## Corporate and wedding leads are two different funnels
 
@@ -156,7 +156,7 @@ Weddings are a referral market. Couples rarely rebook, so the durable asset is t
 
 Median lead time in the Flashquotes dataset is 41 days, and only about nine percent of bookings arrive with under a week's notice. Your pipeline is roughly six weeks long.
 
-More in [how to get found and booked by corporate clients](/blog/corporate-catering-clients) and [cold outreach for caterers](/blog/cold-outreach-for-caterers). If you are weighing a booth, read [turning a bridal expo into a year of bookings](/blog/bridal-expo-bookings) first.
+More in how to get found and booked by corporate clients and cold outreach for caterers. If you are weighing a booth, read turning a bridal expo into a year of bookings first.
 
 ## Turn one gig into a repeat client
 

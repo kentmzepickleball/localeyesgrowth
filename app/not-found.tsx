@@ -13,7 +13,7 @@ const EMPTY_ROWS = [
 
 export default function NotFound() {
   return (
-    <main className="relative min-h-[100dvh] lg:mb-[-140px] w-full overflow-x-clip bg-[#ededd5] text-[#261f15] selection:bg-[#c9932b] selection:text-[#261f15]">
+    <main className="relative min-h-[100dvh] w-full overflow-x-clip bg-[#ededd5] text-[#261f15] selection:bg-[#c9932b] selection:text-[#261f15]">
       <section className="relative mx-auto w-full max-w-[1480px] px-6 pb-24 pt-32 md:px-12 md:pb-32 md:pt-40">
         <style>{`
           @keyframes nf-in {
@@ -66,7 +66,7 @@ export default function NotFound() {
             {/* giant 404 — decorative; the message lives in real text below */}
             <p
               aria-hidden="true"
-              className="nf-in mt-4 font-heading font-thin leading-[0.9] tracking-[-0.02em] text-[clamp(6.5rem,21vw,15rem)]"
+              className="nf-in mt-4 font-heading font-thin leading-[0.9] tracking-[-0.02em] text-[clamp(4rem,21vw,15rem)]"
               style={{ animationDelay: "500ms" }}
             >
               404
@@ -95,7 +95,7 @@ export default function NotFound() {
               {/* primary — gold, confident; the site's chip-bloom pill */}
               <Link
                 href="/"
-                className="group/btn relative inline-flex cursor-pointer items-center gap-3 overflow-hidden rounded-full border border-[#261f15]/25 py-1 pl-6 pr-1.5 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-[#261f15] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                className="group/btn relative inline-flex shrink-0 cursor-pointer items-center gap-3 overflow-hidden whitespace-nowrap rounded-full border border-[#261f15]/25 py-1 pl-6 pr-1.5 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-[#261f15] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
               >
                 <span className="relative z-10 py-1">Back to Home</span>
                 <span className="relative flex h-9 w-9 shrink-0 items-center justify-center">
@@ -119,14 +119,16 @@ export default function NotFound() {
                 href="/results"
                 className="group/link relative rounded-sm font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[#4a3421]/75 transition-colors duration-300 hover:text-[#261f15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a3843f]"
               >
-                See what we do for pages that DO exist
-                <span
-                  aria-hidden="true"
-                  className="mx-2 text-[0.8em] text-[#a3843f]"
-                >
-                  ✦
+                See what we do for pages that DO exist{" "}
+                <span className="whitespace-nowrap">
+                  <span
+                    aria-hidden="true"
+                    className="mx-2 text-[0.8em] text-[#a3843f]"
+                  >
+                    ✦
+                  </span>
+                  Results
                 </span>
-                Results
                 <span
                   aria-hidden="true"
                   className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-[#a3843f] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/link:scale-x-100"

@@ -27,6 +27,12 @@ export type BlogPostMeta = {
      back to a plain layout when a post doesn't set one. */
   statValue: string | null;
   statLabel: string | null;
+  /* optional downloadable lead-magnet (a PDF/Word playbook) shown in a
+     sticky sidebar on the article page — null on most posts */
+  resourceLabel: string | null;
+  resourceDescription: string | null;
+  resourcePdfUrl: string | null;
+  resourceDocxUrl: string | null;
 };
 
 const sql = neon(process.env.DATABASE_URL!);
@@ -55,6 +61,10 @@ type PostRow = {
   author: string | null;
   stat_value: string | null;
   stat_label: string | null;
+  resource_label: string | null;
+  resource_description: string | null;
+  resource_pdf_url: string | null;
+  resource_docx_url: string | null;
 };
 
 function toMeta(row: PostRow): BlogPostMeta {
@@ -68,6 +78,10 @@ function toMeta(row: PostRow): BlogPostMeta {
     author: row.author,
     statValue: row.stat_value,
     statLabel: row.stat_label,
+    resourceLabel: row.resource_label,
+    resourceDescription: row.resource_description,
+    resourcePdfUrl: row.resource_pdf_url,
+    resourceDocxUrl: row.resource_docx_url,
   };
 }
 
@@ -78,7 +92,8 @@ export async function getAllBlogSlugs(): Promise<string[]> {
 
 export async function getAllBlogPosts(): Promise<BlogPostMeta[]> {
   const rows = (await sql`
-    SELECT slug, title, category, excerpt, date, content, author, stat_value, stat_label
+    SELECT slug, title, category, excerpt, date, content, author, stat_value, stat_label,
+      resource_label, resource_description, resource_pdf_url, resource_docx_url
     FROM blog_posts
     ORDER BY date DESC
   `) as PostRow[];
@@ -90,7 +105,8 @@ export async function getBlogPostBySlug(
   slug: string,
 ): Promise<{ meta: BlogPostMeta; content: string } | null> {
   const rows = (await sql`
-    SELECT slug, title, category, excerpt, date, content, author, stat_value, stat_label
+    SELECT slug, title, category, excerpt, date, content, author, stat_value, stat_label,
+      resource_label, resource_description, resource_pdf_url, resource_docx_url
     FROM blog_posts
     WHERE slug = ${slug}
     LIMIT 1

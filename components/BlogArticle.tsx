@@ -5,9 +5,20 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ArrowLeft, ArrowUpRight, Check, Copy, Minus, Plus, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Check,
+  Copy,
+  Download,
+  Minus,
+  Plus,
+  X,
+} from "lucide-react";
 import type { BlogPostMeta } from "@/lib/blog-posts";
 import { useGrowthDiagnostic } from "@/components/growth-diagnostic/GrowthDiagnosticProvider";
+import Image from "next/image";
+import reviewSystem from "../public/review-system-map.png";
 
 const FONT_SCALE_MIN = 0.85;
 const FONT_SCALE_MAX = 1.3;
@@ -47,6 +58,71 @@ function stripLeadingH1(content: string): string {
   return content.replace(/^\s*#\s+.+\n+/, "");
 }
 
+/* Downloadable lead-magnet card — only rendered when a post's frontmatter
+   sets resource_pdf_url. `sticky` styles it for the desktop rail (follows
+   the scroll); the mobile render is the same card without that behavior,
+   placed inline right under the article head instead. */
+function ResourceCard({
+  meta,
+  sticky,
+}: {
+  meta: BlogPostMeta;
+  sticky?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-2xl border border-[#c6a66a]/30 bg-[#f7f5e8] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.1),0_24px_48px_-28px_rgba(38,31,21,0.35)] ${
+        sticky ? "sticky top-28" : ""
+      }`}
+    >
+      <span className="inline-flex w-fit rounded-full bg-[#c6a66a]/15 px-3 py-1 font-sans text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-[#8a6f3d]">
+        Free Resource
+      </span>
+
+      <h3 className="mt-4 font-heading font-thin not-italic text-xl leading-[1.15] text-[#261f15]">
+        {meta.resourceLabel}
+      </h3>
+
+      {meta.resourceDescription && (
+        <p className="mt-2.5 font-sans text-[0.8rem] leading-relaxed text-[#261f15]/65">
+          {meta.resourceDescription}
+        </p>
+      )}
+
+      <div>
+        <Image
+          style={{ borderRadius: "4px", margin: "20px 0" }}
+          src={reviewSystem}
+          alt="review-system image"
+        />
+      </div>
+
+      <div className="mt-5 flex flex-col gap-2.5">
+        {meta.resourcePdfUrl && (
+          <a
+            href={meta.resourcePdfUrl}
+            download
+            className="group/dl relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full bg-[#261f15] px-5 py-2.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[#3a3020]"
+          >
+            <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
+            Download PDF
+          </a>
+        )}
+        {meta.resourceDocxUrl && (
+          <a
+            href={meta.resourceDocxUrl}
+            download
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-[#261f15]/20 px-5 py-2.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#261f15]/75 transition-colors duration-300 hover:border-[#8a6f3d] hover:text-[#8a6f3d]"
+          >
+            <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
+            Download Word
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function BlogArticle({
   meta,
   content,
@@ -60,12 +136,17 @@ export default function BlogArticle({
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [fontScale, setFontScale] = useState(1);
+  const hasResource = Boolean(meta.resourcePdfUrl);
 
   const bumpFontScale = (direction: 1 | -1) => {
-    setFontScale((s) =>
-      Math.round(
-        Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, s + direction * FONT_SCALE_STEP)) * 100,
-      ) / 100,
+    setFontScale(
+      (s) =>
+        Math.round(
+          Math.min(
+            FONT_SCALE_MAX,
+            Math.max(FONT_SCALE_MIN, s + direction * FONT_SCALE_STEP),
+          ) * 100,
+        ) / 100,
     );
   };
 
@@ -153,8 +234,10 @@ export default function BlogArticle({
 
     const update = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress =
+        docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0;
       bar.style.transform = `scaleX(${progress})`;
     };
 
@@ -236,7 +319,9 @@ export default function BlogArticle({
     ),
     table: ({ children }) => (
       <div className="le-article-table-scroll mt-8 overflow-x-auto rounded-2xl border border-[#c6a66a]/25">
-        <table className="w-full min-w-[560px] border-collapse text-left">{children}</table>
+        <table className="w-full min-w-[560px] border-collapse text-left">
+          {children}
+        </table>
       </div>
     ),
     thead: ({ children }) => (
@@ -252,7 +337,9 @@ export default function BlogArticle({
         {children}
       </td>
     ),
-    tr: ({ children }) => <tr className="in-[tbody]:odd:bg-[#f7f5e8]">{children}</tr>,
+    tr: ({ children }) => (
+      <tr className="in-[tbody]:odd:bg-[#f7f5e8]">{children}</tr>
+    ),
     blockquote: ({ children }) => (
       <blockquote className="mt-6 border-l-2 border-[#c6a66a]/50 pl-5 font-sans text-[1.05em] not-italic text-[#261f15]/70">
         {children}
@@ -280,7 +367,7 @@ export default function BlogArticle({
   return (
     <section
       ref={articleRef}
-      className="relative w-full overflow-hidden bg-[#ededd5] pb-24 pt-40 text-[#261f15] md:pb-32 md:pt-48"
+      className="relative w-full overflow-x-clip bg-[#ededd5] pb-24 pt-40 text-[#261f15] md:pb-32 md:pt-48"
     >
       {/* Wide tables (common in these posts) get a real horizontal
          scrollbar on mobile instead of the page bleeding sideways —
@@ -324,97 +411,120 @@ export default function BlogArticle({
         ))}
       </div>
 
-      <div className="relative z-20 mx-auto w-full max-w-[960px] px-6 md:px-12">
-        <a
-          href="/blog"
-          className="group inline-flex items-center gap-2 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#261f15]/50 transition-colors duration-300 hover:text-[#8a6f3d]"
-        >
-          <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-          The Journal
-        </a>
+      <div
+        className={`relative z-20 mx-auto w-full px-6 md:px-12 ${
+          hasResource
+            ? "max-w-[1180px] min-[900px]:grid min-[900px]:grid-cols-[1fr_280px] min-[900px]:gap-10"
+            : "max-w-[960px]"
+        }`}
+      >
+        <div className={hasResource ? "min-w-0" : ""}>
+          <a
+            href="/blog"
+            className="group inline-flex items-center gap-2 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#261f15]/50 transition-colors duration-300 hover:text-[#8a6f3d]"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+            The Journal
+          </a>
 
-        <div className="le-article-head mt-8">
-          <span className="inline-flex w-fit rounded-full bg-[#c6a66a]/15 px-3 py-1 font-sans text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-[#8a6f3d]">
-            {meta.category}
-          </span>
+          <div className="le-article-head mt-8">
+            <span className="inline-flex w-fit rounded-full bg-[#c6a66a]/15 px-3 py-1 font-sans text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-[#8a6f3d]">
+              {meta.category}
+            </span>
 
-          <h1 className="mt-5 font-heading font-thin not-italic text-[clamp(2.2rem,4.8vw,3.4rem)] leading-[1.08] tracking-[-0.01em] text-[#261f15]">
-            {meta.title}
-          </h1>
+            <h1 className="mt-5 font-heading font-thin not-italic text-[clamp(2.2rem,4.8vw,3.4rem)] leading-[1.08] tracking-[-0.01em] text-[#261f15]">
+              {meta.title}
+            </h1>
 
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-            <p className="font-sans text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-[#261f15]/45">
-              {meta.author && (
-                <>
-                  By {meta.author}
-                  <span className="mx-2 text-[#8a6f3d]/70">✦</span>
-                </>
-              )}
-              {meta.date}
-              <span className="mx-2 text-[#8a6f3d]/70">✦</span>
-              {meta.readTime}
-            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+              <p className="font-sans text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-[#261f15]/45">
+                {meta.author && (
+                  <>
+                    By {meta.author}
+                    <span className="mx-2 text-[#8a6f3d]/70">✦</span>
+                  </>
+                )}
+                {meta.date}
+                <span className="mx-2 text-[#8a6f3d]/70">✦</span>
+                {meta.readTime}
+              </p>
 
-            {/* text-size controls — nobody should have to strain to
+              {/* text-size controls — nobody should have to strain to
                read a 3,000-word guide on a phone in bright sun */}
-            <div className="flex items-center gap-1.5">
-              <span className="mr-1 font-sans text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-[#261f15]/40">
-                Text
-              </span>
-              <button
-                type="button"
-                onClick={() => bumpFontScale(-1)}
-                disabled={fontScale <= FONT_SCALE_MIN}
-                aria-label="Decrease text size"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#261f15]/20 text-[#261f15]/70 transition-colors duration-300 hover:border-[#8a6f3d] hover:text-[#8a6f3d] disabled:pointer-events-none disabled:opacity-30"
-              >
-                <Minus className="h-3.5 w-3.5" strokeWidth={2} />
-              </button>
-              <button
-                type="button"
-                onClick={() => bumpFontScale(1)}
-                disabled={fontScale >= FONT_SCALE_MAX}
-                aria-label="Increase text size"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#261f15]/20 text-[#261f15]/70 transition-colors duration-300 hover:border-[#8a6f3d] hover:text-[#8a6f3d] disabled:pointer-events-none disabled:opacity-30"
-              >
-                <Plus className="h-3.5 w-3.5" strokeWidth={2} />
-              </button>
+              <div className="flex items-center gap-1.5">
+                <span className="mr-1 font-sans text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-[#261f15]/40">
+                  Text
+                </span>
+                <button
+                  type="button"
+                  onClick={() => bumpFontScale(-1)}
+                  disabled={fontScale <= FONT_SCALE_MIN}
+                  aria-label="Decrease text size"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-[#261f15]/20 text-[#261f15]/70 transition-colors duration-300 hover:border-[#8a6f3d] hover:text-[#8a6f3d] disabled:pointer-events-none disabled:opacity-30"
+                >
+                  <Minus className="h-3.5 w-3.5" strokeWidth={2} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => bumpFontScale(1)}
+                  disabled={fontScale >= FONT_SCALE_MAX}
+                  aria-label="Increase text size"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-[#261f15]/20 text-[#261f15]/70 transition-colors duration-300 hover:border-[#8a6f3d] hover:text-[#8a6f3d] disabled:pointer-events-none disabled:opacity-30"
+                >
+                  <Plus className="h-3.5 w-3.5" strokeWidth={2} />
+                </button>
+              </div>
             </div>
+          </div>
+
+          {hasResource && (
+            <div className="mt-8 min-[900px]:hidden">
+              <ResourceCard meta={meta} />
+            </div>
+          )}
+
+          <article
+            className="le-article-body mt-12"
+            style={{ fontSize: `${fontScale}rem` }}
+          >
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={markdownComponents}
+            >
+              {stripLeadingH1(content)}
+            </ReactMarkdown>
+          </article>
+
+          <div className="mt-16 border-t border-[#261f15]/10 pt-10">
+            <a
+              href="/blog"
+              className="group/btn relative inline-flex cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-full border border-[#261f15]/25 py-1 pl-6 pr-1 font-sans text-[0.7rem] uppercase tracking-[0.12em] text-[#261f15] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:gap-4 sm:py-1.5 sm:pl-8 sm:pr-1.5 sm:text-xs"
+            >
+              <span className="relative z-10 py-1 transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:text-white">
+                More From The Journal
+              </span>
+              <span className="relative flex h-10 w-10 shrink-0 items-center justify-center sm:h-11 sm:w-11">
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 scale-100 rounded-full bg-[#4a3421] transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/btn:scale-[25] group-hover/btn:duration-[1100ms]"
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-full bg-[#4a3421] transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:bg-white"
+                />
+                <span className="relative z-10 flex rotate-0 will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.34,1.2,0.4,1)] group-hover/btn:rotate-45">
+                  <ArrowUpRight className="h-[1.15rem] w-[1.15rem] text-[#ededd5] transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:text-[#4a3421]" />
+                </span>
+              </span>
+            </a>
           </div>
         </div>
 
-        <article
-          className="le-article-body mt-12"
-          style={{ fontSize: `${fontScale}rem` }}
-        >
-          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-            {stripLeadingH1(content)}
-          </ReactMarkdown>
-        </article>
-
-        <div className="mt-16 border-t border-[#261f15]/10 pt-10">
-          <a
-            href="/blog"
-            className="group/btn relative inline-flex cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-full border border-[#261f15]/25 py-1 pl-6 pr-1 font-sans text-[0.7rem] uppercase tracking-[0.12em] text-[#261f15] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:gap-4 sm:py-1.5 sm:pl-8 sm:pr-1.5 sm:text-xs"
-          >
-            <span className="relative z-10 py-1 transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:text-white">
-              More From The Journal
-            </span>
-            <span className="relative flex h-10 w-10 shrink-0 items-center justify-center sm:h-11 sm:w-11">
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 scale-100 rounded-full bg-[#4a3421] transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/btn:scale-[25] group-hover/btn:duration-[1100ms]"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 rounded-full bg-[#4a3421] transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:bg-white"
-              />
-              <span className="relative z-10 flex rotate-0 will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.34,1.2,0.4,1)] group-hover/btn:rotate-45">
-                <ArrowUpRight className="h-[1.15rem] w-[1.15rem] text-[#ededd5] transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:text-[#4a3421]" />
-              </span>
-            </span>
-          </a>
-        </div>
+        {hasResource && (
+          <aside className="hidden min-[900px]:block">
+            <ResourceCard meta={meta} sticky />
+          </aside>
+        )}
       </div>
 
       {lightboxSrc && (

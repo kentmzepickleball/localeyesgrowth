@@ -39,6 +39,12 @@ async function main() {
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS author TEXT`;
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS stat_value TEXT`;
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS stat_label TEXT`;
+  // optional downloadable lead-magnet (e.g. a PDF playbook) shown in a
+  // sticky sidebar on the individual article page — null on most posts
+  await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_label TEXT`;
+  await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_description TEXT`;
+  await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_pdf_url TEXT`;
+  await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_docx_url TEXT`;
   console.log("Table blog_posts ready.");
 
   const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".md"));
@@ -55,6 +61,10 @@ async function main() {
     const author = data.author ?? null;
     const statValue = data.stat_value ?? null;
     const statLabel = data.stat_label ?? null;
+    const resourceLabel = data.resource_label ?? null;
+    const resourceDescription = data.resource_description ?? null;
+    const resourcePdfUrl = data.resource_pdf_url ?? null;
+    const resourceDocxUrl = data.resource_docx_url ?? null;
 
     if (!title || !date) {
       console.warn(`Skipping ${file}: missing title or date in frontmatter.`);
@@ -62,8 +72,14 @@ async function main() {
     }
 
     await sql`
-      INSERT INTO blog_posts (slug, title, category, excerpt, date, content, author, stat_value, stat_label, updated_at)
-      VALUES (${slug}, ${title}, ${category}, ${excerpt}, ${date}, ${content.trim()}, ${author}, ${statValue}, ${statLabel}, now())
+      INSERT INTO blog_posts (
+        slug, title, category, excerpt, date, content, author, stat_value, stat_label,
+        resource_label, resource_description, resource_pdf_url, resource_docx_url, updated_at
+      )
+      VALUES (
+        ${slug}, ${title}, ${category}, ${excerpt}, ${date}, ${content.trim()}, ${author}, ${statValue}, ${statLabel},
+        ${resourceLabel}, ${resourceDescription}, ${resourcePdfUrl}, ${resourceDocxUrl}, now()
+      )
       ON CONFLICT (slug) DO UPDATE SET
         title = EXCLUDED.title,
         category = EXCLUDED.category,
@@ -73,6 +89,10 @@ async function main() {
         author = EXCLUDED.author,
         stat_value = EXCLUDED.stat_value,
         stat_label = EXCLUDED.stat_label,
+        resource_label = EXCLUDED.resource_label,
+        resource_description = EXCLUDED.resource_description,
+        resource_pdf_url = EXCLUDED.resource_pdf_url,
+        resource_docx_url = EXCLUDED.resource_docx_url,
         updated_at = now()
     `;
     console.log(`Upserted: ${slug}`);

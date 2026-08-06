@@ -31,6 +31,7 @@ export type BlogPostMeta = {
      sticky sidebar on the article page — null on most posts */
   resourceLabel: string | null;
   resourceDescription: string | null;
+  resourceImageUrl: string | null;
   resourcePdfUrl: string | null;
   resourceDocxUrl: string | null;
 };
@@ -63,6 +64,7 @@ type PostRow = {
   stat_label: string | null;
   resource_label: string | null;
   resource_description: string | null;
+  resource_image_url: string | null;
   resource_pdf_url: string | null;
   resource_docx_url: string | null;
 };
@@ -80,6 +82,7 @@ function toMeta(row: PostRow): BlogPostMeta {
     statLabel: row.stat_label,
     resourceLabel: row.resource_label,
     resourceDescription: row.resource_description,
+    resourceImageUrl: row.resource_image_url,
     resourcePdfUrl: row.resource_pdf_url,
     resourceDocxUrl: row.resource_docx_url,
   };
@@ -93,7 +96,7 @@ export async function getAllBlogSlugs(): Promise<string[]> {
 export async function getAllBlogPosts(): Promise<BlogPostMeta[]> {
   const rows = (await sql`
     SELECT slug, title, category, excerpt, date, content, author, stat_value, stat_label,
-      resource_label, resource_description, resource_pdf_url, resource_docx_url
+      resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url
     FROM blog_posts
     ORDER BY date DESC
   `) as PostRow[];
@@ -106,7 +109,7 @@ export async function getBlogPostBySlug(
 ): Promise<{ meta: BlogPostMeta; content: string } | null> {
   const rows = (await sql`
     SELECT slug, title, category, excerpt, date, content, author, stat_value, stat_label,
-      resource_label, resource_description, resource_pdf_url, resource_docx_url
+      resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url
     FROM blog_posts
     WHERE slug = ${slug}
     LIMIT 1

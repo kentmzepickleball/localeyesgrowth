@@ -18,7 +18,6 @@ import {
 import type { BlogPostMeta } from "@/lib/blog-posts";
 import { useGrowthDiagnostic } from "@/components/growth-diagnostic/GrowthDiagnosticProvider";
 import Image from "next/image";
-import reviewSystem from "../public/review-system-map.png";
 
 const FONT_SCALE_MIN = 0.85;
 const FONT_SCALE_MAX = 1.3;
@@ -89,13 +88,15 @@ function ResourceCard({
         </p>
       )}
 
-      <div>
+      {meta.resourceImageUrl && (
         <Image
-          style={{ borderRadius: "4px", margin: "20px 0" }}
-          src={reviewSystem}
-          alt="review-system image"
+          src={meta.resourceImageUrl}
+          alt={meta.resourceLabel ?? ""}
+          width={1552}
+          height={752}
+          className="mt-4 w-full rounded-lg border border-[#261f15]/10"
         />
-      </div>
+      )}
 
       <div className="mt-5 flex flex-col gap-2.5">
         {meta.resourcePdfUrl && (

@@ -43,6 +43,7 @@ async function main() {
   // sticky sidebar on the individual article page — null on most posts
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_label TEXT`;
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_description TEXT`;
+  await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_image_url TEXT`;
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_pdf_url TEXT`;
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_docx_url TEXT`;
   console.log("Table blog_posts ready.");
@@ -63,6 +64,7 @@ async function main() {
     const statLabel = data.stat_label ?? null;
     const resourceLabel = data.resource_label ?? null;
     const resourceDescription = data.resource_description ?? null;
+    const resourceImageUrl = data.resource_image_url ?? null;
     const resourcePdfUrl = data.resource_pdf_url ?? null;
     const resourceDocxUrl = data.resource_docx_url ?? null;
 
@@ -74,11 +76,11 @@ async function main() {
     await sql`
       INSERT INTO blog_posts (
         slug, title, category, excerpt, date, content, author, stat_value, stat_label,
-        resource_label, resource_description, resource_pdf_url, resource_docx_url, updated_at
+        resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url, updated_at
       )
       VALUES (
         ${slug}, ${title}, ${category}, ${excerpt}, ${date}, ${content.trim()}, ${author}, ${statValue}, ${statLabel},
-        ${resourceLabel}, ${resourceDescription}, ${resourcePdfUrl}, ${resourceDocxUrl}, now()
+        ${resourceLabel}, ${resourceDescription}, ${resourceImageUrl}, ${resourcePdfUrl}, ${resourceDocxUrl}, now()
       )
       ON CONFLICT (slug) DO UPDATE SET
         title = EXCLUDED.title,
@@ -91,6 +93,7 @@ async function main() {
         stat_label = EXCLUDED.stat_label,
         resource_label = EXCLUDED.resource_label,
         resource_description = EXCLUDED.resource_description,
+        resource_image_url = EXCLUDED.resource_image_url,
         resource_pdf_url = EXCLUDED.resource_pdf_url,
         resource_docx_url = EXCLUDED.resource_docx_url,
         updated_at = now()

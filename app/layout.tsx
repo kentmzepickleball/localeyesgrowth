@@ -10,6 +10,7 @@ import { GrowthDiagnosticProvider } from "@/components/growth-diagnostic/GrowthD
 import BackToTop from "@/components/sections/BackToTop";
 
 const GA_MEASUREMENT_ID = "G-NRVFYH9E7D";
+const CLARITY_PROJECT_ID = "wgpmuxn0sl";
 
 const display = localFont({
   src: "./(fonts)/ivy-presto-headline-thin.otf",
@@ -72,6 +73,15 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
           `}
         </Script>
       </head>

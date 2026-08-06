@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useMotionValue, useSpring } from "motion/react";
@@ -126,10 +127,23 @@ export default function BlogListing({ posts }: { posts: BlogPostMeta[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [reduced, setReduced] = useState(false);
-  const [page, setPage] = useState(1);
   const firstRender = useRef(true);
 
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+
+  /* Page number lives in the URL (?page=N), not just component state —
+     so page 2+ is a real, shareable, back/forward-navigable address
+     instead of vanishing on refresh. */
+  const requestedPage = Number(searchParams.get("page"));
+  const page =
+    Number.isFinite(requestedPage) && requestedPage >= 1 && requestedPage <= totalPages
+      ? requestedPage
+      : 1;
+
   const pagePosts = posts.slice(
     (page - 1) * POSTS_PER_PAGE,
     page * POSTS_PER_PAGE,
@@ -201,7 +215,16 @@ export default function BlogListing({ posts }: { posts: BlogPostMeta[] }) {
   function goToPage(next: number) {
     const clamped = Math.max(1, Math.min(totalPages, next));
     if (clamped === page) return;
-    setPage(clamped);
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (clamped === 1) {
+      params.delete("page");
+    } else {
+      params.set("page", String(clamped));
+    }
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+
     sectionRef.current
       ?.querySelector(".le-journal-head")
       ?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });

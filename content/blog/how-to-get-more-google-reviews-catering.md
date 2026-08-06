@@ -10,6 +10,7 @@ stat_value: "2"
 stat_label: "five-star reviews a week beats 40 all at once"
 resource_label: "The Review Playbook"
 resource_description: "The full staff-incentive scripts, signage templates, and follow-up sequence from this article, laid out as a printable playbook."
+resource_image_url: "/review-system-map.png"
 resource_pdf_url: "/LocalEyes-Review-Playbook.pdf"
 resource_docx_url: "/LocalEyes-Review-Playbook.docx"
 draft: true

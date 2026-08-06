@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import BlogListing from "@/components/BlogListing";
 import { getAllBlogPosts } from "@/lib/blog-posts";
 
@@ -20,7 +21,9 @@ export default async function BlogPage() {
 
   return (
     <main className="relative min-h-dvh w-full overflow-x-clip bg-[#ededd5] text-[#261f15] selection:bg-[#c9932b] selection:text-[#261f15]">
-      <BlogListing posts={posts} />
+      <Suspense fallback={null}>
+        <BlogListing posts={posts} />
+      </Suspense>
     </main>
   );
 }

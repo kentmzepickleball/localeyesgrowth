@@ -8,9 +8,11 @@ import Footer from "@/components/sections/Footer";
 import { CalendlyProvider } from "@/components/sections/CalendlyModal";
 import { GrowthDiagnosticProvider } from "@/components/growth-diagnostic/GrowthDiagnosticProvider";
 import BackToTop from "@/components/sections/BackToTop";
+import { MetaPixelRouteTracker } from "@/components/analytics/MetaPixelRouteTracker";
 
 const GA_MEASUREMENT_ID = "G-NRVFYH9E7D";
 const CLARITY_PROJECT_ID = "wgpmuxn0sl";
+const META_PIXEL_ID = "317714534152790";
 
 const display = localFont({
   src: "./(fonts)/ivy-presto-headline-thin.otf",
@@ -84,8 +86,33 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
           `}
         </Script>
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '${META_PIXEL_ID}');
+            fbq('track', 'PageView');
+          `}
+        </Script>
       </head>
       <body className="min-h-full antialiased flex flex-col bg-cream text-espresso">
+        <noscript>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            height="1"
+            width="1"
+            alt=""
+            style={{ display: "none" }}
+            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+          />
+        </noscript>
+        <MetaPixelRouteTracker />
         <CalendlyProvider>
           <GrowthDiagnosticProvider>
             <Header />

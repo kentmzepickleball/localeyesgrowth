@@ -312,6 +312,11 @@ export default function GrowthDiagnostic({
     }
     setEmail(em);
     submitLead(intake, em, answers);
+    window.fbq?.("track", "CompleteRegistration", {
+      content_name: "growth_score_complete",
+      value: 79,
+      currency: "USD",
+    });
     celebrateRef.current = true;
     goTo(RESULTS_STEP);
   };
@@ -407,7 +412,14 @@ export default function GrowthDiagnostic({
             <span className="free">FREE today</span>
           </div>
         </div>
-        <button type="button" className="btn w100" onClick={() => goTo(0)}>
+        <button
+          type="button"
+          className="btn w100"
+          onClick={() => {
+            window.fbq?.("track", "Lead", { content_name: "growth_score_start" });
+            goTo(0);
+          }}
+        >
           Get my free Growth Score &rarr;
         </button>
         <p className="note" style={{ marginTop: 10, textAlign: "center" }}>

@@ -65,7 +65,7 @@ export function Noise({
     canvas.height = CANVAS_SIZE;
 
     let frame = 0;
-    let animationId: number;
+    let animationId: number | null = null;
 
     const pool = getPool(ctx, patternAlpha);
     let poolIndex = 0;
@@ -82,9 +82,33 @@ export function Noise({
       animationId = window.requestAnimationFrame(loop);
     };
 
-    loop();
+    const stop = () => {
+      if (animationId !== null) {
+        window.cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    };
 
-    return () => window.cancelAnimationFrame(animationId);
+    /* A page can have a dozen of these mounted (Hero, SeoServices,
+       WebsitePreviews, Footer, ...) — most sit scrolled out of view at
+       any given moment, so only pay the rAF + putImageData cost for
+       whichever ones are actually on screen. */
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (animationId === null) loop();
+        } else {
+          stop();
+        }
+      },
+      { threshold: 0 },
+    );
+    observer.observe(canvas);
+
+    return () => {
+      observer.disconnect();
+      stop();
+    };
   }, [patternAlpha, patternRefreshInterval]);
 
   return (

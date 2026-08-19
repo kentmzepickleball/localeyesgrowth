@@ -100,6 +100,12 @@ export default function TrustedBy() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return () => observer.disconnect();
     }
+    /* mobile: skip the entrance tween setup too — less JS work on the
+       slowest devices (the marquee drift itself is plain CSS, cheap
+       either way) */
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      return () => observer.disconnect();
+    }
 
     /* Gentle scroll-in — heading first, then the band of marks.
        GSAP touches only these two wrappers; every CSS transition

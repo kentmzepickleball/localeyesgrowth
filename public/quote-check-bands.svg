@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 776 250" width="776" height="250" font-family="Inter,Helvetica,Arial">
+<rect width="100%" height="100%" fill="#FAF6EF"/>
+<rect x="0" y="0" width="776" height="5" fill="#C07A22"/>
+<text x="28" y="36" font-size="20" font-weight="700" fill="#15140F">Is your quote fair?</text>
+<rect x="34.0" y="96" width="120.4" height="46" fill="#A8452C"/>
+<text x="94.2" y="116" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" font-weight="700" fill="#FAF6EF">Red flag</text>
+<text x="94.2" y="131" text-anchor="middle" font-family="InterT,Arial" font-size="8.5" fill="#FAF6EF">Below the 10th percentile</text>
+<rect x="154.4" y="96" width="30.1" height="46" fill="#F0DFC4"/>
+<text x="169.4" y="125" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" font-weight="700" fill="#15140F">Low</text>
+<rect x="184.4" y="96" width="183.9" height="46" fill="#1E3A31"/>
+<text x="276.4" y="116" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" font-weight="700" fill="#FAF6EF">Normal range</text>
+<text x="276.4" y="131" text-anchor="middle" font-family="InterT,Arial" font-size="8.5" fill="#FAF6EF">Half of all bookings</text>
+<rect x="368.3" y="96" width="255.7" height="46" fill="#C07A22"/>
+<text x="496.2" y="116" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" font-weight="700" fill="#FAF6EF">Premium</text>
+<text x="496.2" y="131" text-anchor="middle" font-family="InterT,Arial" font-size="8.5" fill="#FAF6EF">Larger, longer, or branded</text>
+<rect x="624.0" y="96" width="118.0" height="46" fill="#A8452C"/>
+<text x="683.0" y="116" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" font-weight="700" fill="#FAF6EF">Top 10%</text>
+<text x="683.0" y="131" text-anchor="middle" font-family="InterT,Arial" font-size="8.5" fill="#FAF6EF">Multi-cart or multi-day</text>
+<line x1="154.4" y1="142" x2="154.4" y2="150" stroke="#6C6558" stroke-width="1"/>
+<text x="154.4" y="164" text-anchor="middle" font-family="InterT,Arial" font-size="10.5" fill="#2A2822">$612</text>
+<line x1="184.4" y1="142" x2="184.4" y2="150" stroke="#6C6558" stroke-width="1"/>
+<text x="184.4" y="164" text-anchor="middle" font-family="InterT,Arial" font-size="10.5" fill="#2A2822">$765</text>
+<line x1="238.5" y1="142" x2="238.5" y2="150" stroke="#6C6558" stroke-width="1"/>
+<text x="238.5" y="164" text-anchor="middle" font-family="InterT,Arial" font-size="10.5" fill="#2A2822">$1,040</text>
+<line x1="368.3" y1="142" x2="368.3" y2="150" stroke="#6C6558" stroke-width="1"/>
+<text x="368.3" y="164" text-anchor="middle" font-family="InterT,Arial" font-size="10.5" fill="#2A2822">$1,700</text>
+<line x1="624.0" y1="142" x2="624.0" y2="150" stroke="#6C6558" stroke-width="1"/>
+<text x="624.0" y="164" text-anchor="middle" font-family="InterT,Arial" font-size="10.5" fill="#2A2822">$3,000</text>
+<line x1="238.5" y1="82" x2="238.5" y2="96" stroke="#15140F" stroke-width="2"/>
+<text x="238.5" y="76" text-anchor="middle" font-family="InterT,Arial" font-size="11" font-weight="700" fill="#15140F">median $1,040</text>
+<text x="34" y="188" font-family="InterT,Arial" font-size="11.5" fill="#6C6558">Under $250 for a two-hour event means someone has not priced their own labour.</text>
+<text x="28" y="236" font-size="12.5" fill="#6C6558" font-style="italic">Percentiles from the Flashquotes Coffee Catering Pricing Dataset 2023-2026, CC BY 4.0.</text>
+</svg>

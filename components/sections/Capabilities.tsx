@@ -157,6 +157,8 @@ export default function Capabilities() {
     const section = sectionRef.current;
     if (!section) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* mobile: skip entrance animation setup entirely — faster paint, less JS work on the slowest devices */
+    if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const eyebrow = section.querySelector<HTMLElement>(".le-cap-eyebrow");
     const words = section.querySelectorAll<HTMLElement>(".le-cap-w");

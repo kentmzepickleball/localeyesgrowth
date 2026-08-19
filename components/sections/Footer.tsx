@@ -41,7 +41,18 @@ const CONTACT_EMAIL = "hello@localeyesgrowth.com";
 const LEGAL_LINKS = [
   { label: "Privacy Policy", href: "#privacy-policy" },
   { label: "Terms of Service", href: "#terms-of-service" },
-  { label: "Cookies Settings", href: "#cookies-settings" },
+];
+const FOOTER_NAV_LINKS = [
+  { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
+  { label: "About", href: "/about" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Coffee Catering Calculator", href: "/coffee-cart-pricing-calculator" },
+];
+const FOOTER_INDUSTRY_LINKS = [
+  { label: "SEO for Coffee Carts", href: "/coffee-cart-seo" },
+  { label: "SEO for Mobile Bars", href: "/mobile-bar-seo" },
+  { label: "SEO for Charcuterie Catering", href: "/charcuterie-catering-seo" },
 ];
 
 export default function Footer() {
@@ -113,7 +124,7 @@ export default function Footer() {
 
       <div className="relative z-20 mx-auto w-full max-w-[1480px] px-6 pb-8 pt-16 md:px-12 md:pb-10 md:pt-24">
         {/* --------------------- the working row ----------------------- */}
-        <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between md:gap-16">
+        <div className="flex flex-col gap-12 md:flex-row md:flex-wrap md:items-start md:justify-between md:gap-x-10 md:gap-y-12">
           {/* mark + signature + contact */}
           <div>
             <p className="font-heading text-3xl tracking-wide md:text-4xl">
@@ -133,9 +144,48 @@ export default function Footer() {
             </a>
           </div>
 
+          {/* site navigation — two quiet columns, sits between the
+             signature block and the closing CTA */}
+          <div className="flex flex-wrap gap-x-20 gap-y-10 md:ml-8 lg:ml-16">
+            <div>
+              <p className="font-sans text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-[#261f15]/40">
+                Links
+              </p>
+              <ul className="mt-3 flex flex-col gap-1.5">
+                {FOOTER_NAV_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="le-foot-link inline-block py-1 font-sans text-sm text-[#261f15]/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a3843f]"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="font-sans text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-[#261f15]/40">
+                Industries
+              </p>
+              <ul className="mt-3 flex flex-col gap-1.5">
+                {FOOTER_INDUSTRY_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="le-foot-link inline-block py-1 font-sans text-sm text-[#261f15]/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a3843f]"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           {/* one last nudge + the pill — kept narrow on purpose so the
              line wraps into a 3–4 line editorial block */}
-          <div className="md:max-w-[23rem] md:text-right">
+          <div className="md:ml-auto md:max-w-[23rem] md:text-right">
             <p className="font-heading font-thin not-italic text-[clamp(1.5rem,2.6vw,2.1rem)] leading-[1.25] tracking-[-0.01em]">
               Made it this far? Do yourself a favor and click the button below
               to transform your monthly leads

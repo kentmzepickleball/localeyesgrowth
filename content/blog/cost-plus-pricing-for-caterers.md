@@ -22,6 +22,8 @@ Catering does not work that way. A 100-guest, two-hour coffee service is about 5
 
 Your product is not the coffee or the cocktail. It is labor, logistics, and the promise that you show up on a specific date and do not embarrass the person who hired you. Price the job, not the ingredients. The deeper version of this mistake is covered in pricing out of your own wallet.
 
+![The margin gap between cost-of-goods pricing and true cost-plus pricing](/margin-gap-chart.svg)
+
 ## The catering cost stack
 
 Five buckets, in the order most operators forget them.

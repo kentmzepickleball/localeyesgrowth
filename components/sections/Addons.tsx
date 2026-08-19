@@ -81,6 +81,8 @@ export default function AddOns() {
     const list = listRef.current;
     if (!header || !list) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* mobile: skip entrance animation setup entirely — faster paint, less JS work on the slowest devices */
+    if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const rows = list.querySelectorAll<HTMLElement>(".le-addon");
     const tweens: gsap.core.Tween[] = [];

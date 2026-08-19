@@ -46,6 +46,11 @@ async function main() {
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_image_url TEXT`;
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_pdf_url TEXT`;
   await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS resource_docx_url TEXT`;
+  // optional prominent CTA button near the top of the article, for posts
+  // whose conversion goal isn't the default Growth Diagnostic
+  await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS cta_label TEXT`;
+  await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS cta_href TEXT`;
+  await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS cta_note TEXT`;
   console.log("Table blog_posts ready.");
 
   const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".md"));
@@ -67,6 +72,9 @@ async function main() {
     const resourceImageUrl = data.resource_image_url ?? null;
     const resourcePdfUrl = data.resource_pdf_url ?? null;
     const resourceDocxUrl = data.resource_docx_url ?? null;
+    const ctaLabel = data.cta_label ?? null;
+    const ctaHref = data.cta_href ?? null;
+    const ctaNote = data.cta_note ?? null;
 
     if (!title || !date) {
       console.warn(`Skipping ${file}: missing title or date in frontmatter.`);
@@ -76,11 +84,13 @@ async function main() {
     await sql`
       INSERT INTO blog_posts (
         slug, title, category, excerpt, date, content, author, stat_value, stat_label,
-        resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url, updated_at
+        resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url,
+        cta_label, cta_href, cta_note, updated_at
       )
       VALUES (
         ${slug}, ${title}, ${category}, ${excerpt}, ${date}, ${content.trim()}, ${author}, ${statValue}, ${statLabel},
-        ${resourceLabel}, ${resourceDescription}, ${resourceImageUrl}, ${resourcePdfUrl}, ${resourceDocxUrl}, now()
+        ${resourceLabel}, ${resourceDescription}, ${resourceImageUrl}, ${resourcePdfUrl}, ${resourceDocxUrl},
+        ${ctaLabel}, ${ctaHref}, ${ctaNote}, now()
       )
       ON CONFLICT (slug) DO UPDATE SET
         title = EXCLUDED.title,
@@ -96,6 +106,9 @@ async function main() {
         resource_image_url = EXCLUDED.resource_image_url,
         resource_pdf_url = EXCLUDED.resource_pdf_url,
         resource_docx_url = EXCLUDED.resource_docx_url,
+        cta_label = EXCLUDED.cta_label,
+        cta_href = EXCLUDED.cta_href,
+        cta_note = EXCLUDED.cta_note,
         updated_at = now()
     `;
     console.log(`Upserted: ${slug}`);

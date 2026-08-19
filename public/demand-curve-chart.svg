@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 776 360" width="776" height="360" font-family="Inter,Helvetica,Arial">
+<rect width="100%" height="100%" fill="#FAF6EF"/>
+<rect x="0" y="0" width="776" height="5" fill="#C07A22"/>
+<text x="28" y="36" font-size="20" font-weight="700" fill="#15140F">The annual mobile catering demand curve</text>
+<line x1="34" y1="218.3" x2="746" y2="218.3" stroke="#DDD3C2" stroke-width="1"/>
+<text x="752" y="222.3" font-family="InterT,Arial" font-size="10" fill="#6C6558">25</text>
+<line x1="34" y1="176.7" x2="746" y2="176.7" stroke="#DDD3C2" stroke-width="1"/>
+<text x="752" y="180.7" font-family="InterT,Arial" font-size="10" fill="#6C6558">50</text>
+<line x1="34" y1="135.0" x2="746" y2="135.0" stroke="#DDD3C2" stroke-width="1"/>
+<text x="752" y="139.0" font-family="InterT,Arial" font-size="10" fill="#6C6558">75</text>
+<line x1="34" y1="93.3" x2="746" y2="93.3" stroke="#DDD3C2" stroke-width="1"/>
+<text x="752" y="97.3" font-family="InterT,Arial" font-size="10" fill="#6C6558">100</text>
+<rect x="39.0" y="218.3" width="49.3" height="41.7" rx="2" fill="#A8452C"/>
+<text x="63.7" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Jan</text>
+<rect x="98.3" y="223.3" width="49.3" height="36.7" rx="2" fill="#A8452C"/>
+<text x="123.0" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Feb</text>
+<rect x="157.7" y="185.0" width="49.3" height="75.0" rx="2" fill="#C07A22"/>
+<text x="182.3" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Mar</text>
+<rect x="217.0" y="135.0" width="49.3" height="125.0" rx="2" fill="#C07A22"/>
+<text x="241.7" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Apr</text>
+<rect x="276.3" y="93.3" width="49.3" height="166.7" rx="2" fill="#1E3A31"/>
+<text x="301.0" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">May</text>
+<text x="301.0" y="85.3" text-anchor="middle" font-family="InterT,Arial" font-size="10.5" font-weight="700" fill="#1E3A31">Peak</text>
+<rect x="335.7" y="160.0" width="49.3" height="100.0" rx="2" fill="#A8452C"/>
+<text x="360.3" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Jun</text>
+<rect x="395.0" y="200.0" width="49.3" height="60.0" rx="2" fill="#A8452C"/>
+<text x="419.7" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Jul</text>
+<rect x="454.3" y="185.0" width="49.3" height="75.0" rx="2" fill="#C07A22"/>
+<text x="479.0" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Aug</text>
+<rect x="513.7" y="163.3" width="49.3" height="96.7" rx="2" fill="#C07A22"/>
+<text x="538.3" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Sep</text>
+<rect x="573.0" y="146.7" width="49.3" height="113.3" rx="2" fill="#C07A22"/>
+<text x="597.7" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Oct</text>
+<rect x="632.3" y="156.7" width="49.3" height="103.3" rx="2" fill="#C07A22"/>
+<text x="657.0" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Nov</text>
+<rect x="691.7" y="68.3" width="49.3" height="191.7" rx="2" fill="#1E3A31"/>
+<text x="716.3" y="278" text-anchor="middle" font-family="InterT,Arial" font-size="11.5" fill="#2A2822">Dec</text>
+<text x="716.3" y="60.3" text-anchor="middle" font-family="InterT,Arial" font-size="10.5" font-weight="700" fill="#1E3A31">Record</text>
+<rect x="34" y="302" width="12" height="12" fill="#C07A22"/>
+<text x="52" y="312" font-family="InterT,Arial" font-size="10.5" fill="#6C6558">Building or steady</text>
+<rect x="199" y="302" width="12" height="12" fill="#A8452C"/>
+<text x="217" y="312" font-family="InterT,Arial" font-size="10.5" fill="#6C6558">Trough / dead zone</text>
+<rect x="379" y="302" width="12" height="12" fill="#1E3A31"/>
+<text x="397" y="312" font-family="InterT,Arial" font-size="10.5" fill="#6C6558">Peak / record month</text>
+<text x="28" y="348" font-size="12.5" fill="#6C6558" font-style="italic">Illustrative shape of the annual curve, indexed to May = 100. Exact timing shifts by vertical and geography.</text>
+</svg>

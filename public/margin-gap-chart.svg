@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 776 320" width="776" height="320" font-family="Inter,Helvetica,Arial">
+<rect width="100%" height="100%" fill="#FAF6EF"/>
+<rect x="0" y="0" width="776" height="5" fill="#C07A22"/>
+<text x="28" y="36" font-size="20" font-weight="700" fill="#15140F">Profit margin: generalist vs. niched positioning</text>
+<line x1="28" y1="240" x2="706" y2="240" stroke="#DDD3C2" stroke-width="1.5"/>
+<line x1="28" y1="179.3" x2="706" y2="179.3" stroke="#DDD3C2" stroke-width="1"/>
+<text x="712" y="183.3" font-family="InterT,Arial" font-size="10.5" fill="#6C6558">25%</text>
+<line x1="28" y1="118.6" x2="706" y2="118.6" stroke="#DDD3C2" stroke-width="1"/>
+<text x="712" y="122.6" font-family="InterT,Arial" font-size="10.5" fill="#6C6558">50%</text>
+<rect x="190" y="227.9" width="160" height="12.1" rx="3" fill="#A8452C"/>
+<text x="270.0" y="215.9" text-anchor="middle" font-family="InterT,Arial" font-size="17" font-weight="700" fill="#15140F">5%</text>
+<text x="270.0" y="262" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" fill="#2A2822">Generalist</text>
+<text x="270.0" y="277" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" fill="#2A2822">(casual-catering pricing)</text>
+<rect x="470" y="106.4" width="160" height="133.6" rx="3" fill="#C07A22"/>
+<text x="550.0" y="94.4" text-anchor="middle" font-family="InterT,Arial" font-size="17" font-weight="700" fill="#15140F">50 to 60%</text>
+<text x="550.0" y="262" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" fill="#2A2822">Niched, positioned business</text>
+<text x="28" y="305" font-size="12.5" fill="#6C6558" font-style="italic">Ranges from operator-reported margins in LocalEyes catering research. Illustrative, not a guarantee.</text>
+</svg>

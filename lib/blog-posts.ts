@@ -34,6 +34,13 @@ export type BlogPostMeta = {
   resourceImageUrl: string | null;
   resourcePdfUrl: string | null;
   resourceDocxUrl: string | null;
+  /* optional prominent CTA button rendered near the top of the article,
+     for posts whose real conversion goal is a specific page (e.g. the
+     pricing calculator) rather than the default Growth Diagnostic —
+     null on most posts */
+  ctaLabel: string | null;
+  ctaHref: string | null;
+  ctaNote: string | null;
 };
 
 const sql = neon(process.env.DATABASE_URL!);
@@ -67,6 +74,9 @@ type PostRow = {
   resource_image_url: string | null;
   resource_pdf_url: string | null;
   resource_docx_url: string | null;
+  cta_label: string | null;
+  cta_href: string | null;
+  cta_note: string | null;
 };
 
 function toMeta(row: PostRow): BlogPostMeta {
@@ -85,6 +95,9 @@ function toMeta(row: PostRow): BlogPostMeta {
     resourceImageUrl: row.resource_image_url,
     resourcePdfUrl: row.resource_pdf_url,
     resourceDocxUrl: row.resource_docx_url,
+    ctaLabel: row.cta_label,
+    ctaHref: row.cta_href,
+    ctaNote: row.cta_note,
   };
 }
 
@@ -96,9 +109,10 @@ export async function getAllBlogSlugs(): Promise<string[]> {
 export async function getAllBlogPosts(): Promise<BlogPostMeta[]> {
   const rows = (await sql`
     SELECT slug, title, category, excerpt, date, content, author, stat_value, stat_label,
-      resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url
+      resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url,
+      cta_label, cta_href, cta_note
     FROM blog_posts
-    ORDER BY date DESC
+    ORDER BY created_at DESC
   `) as PostRow[];
 
   return rows.map(toMeta);
@@ -109,7 +123,8 @@ export async function getBlogPostBySlug(
 ): Promise<{ meta: BlogPostMeta; content: string } | null> {
   const rows = (await sql`
     SELECT slug, title, category, excerpt, date, content, author, stat_value, stat_label,
-      resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url
+      resource_label, resource_description, resource_image_url, resource_pdf_url, resource_docx_url,
+      cta_label, cta_href, cta_note
     FROM blog_posts
     WHERE slug = ${slug}
     LIMIT 1
@@ -119,4 +134,27 @@ export async function getBlogPostBySlug(
   if (!row) return null;
 
   return { meta: toMeta(row), content: row.content };
+}
+
+/* Pulls Q&A pairs out of a post's "## FAQ" / "## Frequently asked
+   questions" section (### Question, then its answer paragraph(s)) for
+   FAQPage structured data — every post follows this shape, so this
+   runs for all of them rather than needing a per-post flag. */
+export function extractFaqPairs(
+  content: string,
+): { question: string; answer: string }[] {
+  const section = content.match(
+    /\n##\s+(?:FAQ|Frequently asked questions)\s*\n([\s\S]*?)(?=\n##\s+|$)/i,
+  )?.[1];
+  if (!section) return [];
+
+  const pairs: { question: string; answer: string }[] = [];
+  const qaRegex = /###\s+(.+?)\n([\s\S]*?)(?=\n###\s+|$)/g;
+  let match: RegExpExecArray | null;
+  while ((match = qaRegex.exec(section)) !== null) {
+    const question = match[1].trim();
+    const answer = match[2].trim().replace(/\s+/g, " ");
+    if (question && answer) pairs.push({ question, answer });
+  }
+  return pairs;
 }

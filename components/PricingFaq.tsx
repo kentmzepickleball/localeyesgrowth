@@ -15,19 +15,19 @@ type FAQ = {
 
 const FAQS: FAQ[] = [
   {
-    question: "Why is there a 6-month commitment for The Booking Engine?",
+    question: "Why is there a 6-month commitment for Growth?",
     answer:
       "SEO and systemic growth require runway. We rebuild your local presence, restructure your citations, and engineer your site to capture search intent. It takes time for Google to index these changes and for the lead volume to stabilize. A 6-month commitment ensures we have the necessary time to deliver a measurable, permanent return on investment.",
   },
   {
     question: "Can I go month-to-month instead of committing?",
     answer:
-      "Yes. The Booking Engine runs $1,800/mo and The Growth Engine $2,800/mo on a month-to-month basis. The committed rates — $1,440 and $2,200 — reward the six months of runway the work actually needs. The Solo Plan is month-to-month by design.",
+      "Yes. Growth runs $1,800/mo and Scale $2,800/mo on a month-to-month basis. The committed rates — $1,440 and $2,200 — reward the six months of runway the work actually needs. Solo is month-to-month by design.",
   },
   {
     question: "What exactly do I get for the monthly rate?",
     answer:
-      "Every plan is a working system, not a report. Depending on your tier: new SEO pages and backlinks every month, citation building, full Google Business Profile management, a lead intake form with automations, conversion optimization, and keyword tracking — from a monthly report on Solo up to a live dashboard on Growth.",
+      "Every plan is a working system, not a report. Depending on your tier: new SEO pages and backlinks every month, citation building, full Google Business Profile management, a lead intake form with automations, conversion optimization, and keyword tracking — from a monthly report on Solo up to a live dashboard on Scale.",
   },
   {
     question: "Are there any setup fees or hidden costs?",
@@ -40,9 +40,9 @@ const FAQS: FAQ[] = [
       "We guarantee the execution of a proven system built specifically for mobile coffee operators. We cannot honestly guarantee a specific number of bookings — your market, your pricing, and your sales process all play a role. What we control is the machine that puts high-intent, qualified inquiries in front of you.",
   },
   {
-    question: "Can I upgrade from The Solo Plan to The Booking Engine later?",
+    question: "Can I upgrade from Solo to Growth later?",
     answer:
-      "Absolutely. Many of our partners start on The Solo Plan to establish their baseline, and as their calendar fills and revenue grows, they graduate to The Booking Engine or Growth Engine to capture more market share and expand their fleet.",
+      "Absolutely. Many of our partners start on Solo to establish their baseline, and as their calendar fills and revenue grows, they graduate to Growth or Scale to capture more market share and expand their fleet.",
   },
   {
     question: "How do we communicate throughout the month?",

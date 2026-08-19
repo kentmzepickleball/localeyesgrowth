@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 776 250" width="776" height="250" font-family="Inter,Helvetica,Arial">
+<rect width="100%" height="100%" fill="#FAF6EF"/>
+<rect x="0" y="0" width="776" height="5" fill="#C07A22"/>
+<text x="28" y="36" font-size="20" font-weight="700" fill="#15140F">The event intake field checklist</text>
+<rect x="28.0" y="58.0" width="170.0" height="78" rx="4" fill="#FFFFFF" stroke="#DDD3C2"/>
+<rect x="40.0" y="72.0" width="16" height="16" rx="3" fill="#F0DFC4" stroke="#C07A22" stroke-width="1.5"/>
+<path d="M43.0 81.0 L47.0 85.0 L53.0 76.0" stroke="#1E3A31" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="64.0" y="85.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Headcount &amp;</text>
+<text x="64.0" y="102.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">timing</text>
+<rect x="208.0" y="58.0" width="170.0" height="78" rx="4" fill="#FFFFFF" stroke="#DDD3C2"/>
+<rect x="220.0" y="72.0" width="16" height="16" rx="3" fill="#F0DFC4" stroke="#C07A22" stroke-width="1.5"/>
+<path d="M223.0 81.0 L227.0 85.0 L233.0 76.0" stroke="#1E3A31" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="244.0" y="85.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Venue access</text>
+<text x="244.0" y="102.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">&amp; parking</text>
+<rect x="388.0" y="58.0" width="170.0" height="78" rx="4" fill="#FFFFFF" stroke="#DDD3C2"/>
+<rect x="400.0" y="72.0" width="16" height="16" rx="3" fill="#F0DFC4" stroke="#C07A22" stroke-width="1.5"/>
+<path d="M403.0 81.0 L407.0 85.0 L413.0 76.0" stroke="#1E3A31" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="424.0" y="85.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Power &amp;</text>
+<text x="424.0" y="102.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">water</text>
+<rect x="568.0" y="58.0" width="170.0" height="78" rx="4" fill="#FFFFFF" stroke="#DDD3C2"/>
+<rect x="580.0" y="72.0" width="16" height="16" rx="3" fill="#F0DFC4" stroke="#C07A22" stroke-width="1.5"/>
+<path d="M583.0 81.0 L587.0 85.0 L593.0 76.0" stroke="#1E3A31" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="604.0" y="85.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Dietary &amp;</text>
+<text x="604.0" y="102.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">allergies</text>
+<rect x="28.0" y="146.0" width="170.0" height="78" rx="4" fill="#FFFFFF" stroke="#DDD3C2"/>
+<rect x="40.0" y="160.0" width="16" height="16" rx="3" fill="#F0DFC4" stroke="#C07A22" stroke-width="1.5"/>
+<path d="M43.0 169.0 L47.0 173.0 L53.0 164.0" stroke="#1E3A31" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="64.0" y="173.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Weather &amp;</text>
+<text x="64.0" y="190.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">heat limits</text>
+<rect x="208.0" y="146.0" width="170.0" height="78" rx="4" fill="#FFFFFF" stroke="#DDD3C2"/>
+<rect x="220.0" y="160.0" width="16" height="16" rx="3" fill="#F0DFC4" stroke="#C07A22" stroke-width="1.5"/>
+<path d="M223.0 169.0 L227.0 173.0 L233.0 164.0" stroke="#1E3A31" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="244.0" y="173.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Add-ons &amp;</text>
+<text x="244.0" y="190.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">menu changes</text>
+<rect x="388.0" y="146.0" width="170.0" height="78" rx="4" fill="#FFFFFF" stroke="#DDD3C2"/>
+<rect x="400.0" y="160.0" width="16" height="16" rx="3" fill="#F0DFC4" stroke="#C07A22" stroke-width="1.5"/>
+<path d="M403.0 169.0 L407.0 173.0 L413.0 164.0" stroke="#1E3A31" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="424.0" y="173.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Staff &amp;</text>
+<text x="424.0" y="190.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">equipment</text>
+<rect x="568.0" y="146.0" width="170.0" height="78" rx="4" fill="#FFFFFF" stroke="#DDD3C2"/>
+<rect x="580.0" y="160.0" width="16" height="16" rx="3" fill="#F0DFC4" stroke="#C07A22" stroke-width="1.5"/>
+<path d="M583.0 169.0 L587.0 173.0 L593.0 164.0" stroke="#1E3A31" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="604.0" y="173.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Payment &amp;</text>
+<text x="604.0" y="190.0" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">deposit status</text>
+<text x="28" y="236" font-size="12.5" fill="#6C6558" font-style="italic">Send as one form. Every field maps to a specific on-site failure mode when it goes missing.</text>
+</svg>

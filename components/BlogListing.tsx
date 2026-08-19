@@ -133,7 +133,19 @@ export default function BlogListing({ posts }: { posts: BlogPostMeta[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+  /* Category, like page, lives in the URL (?category=X) so a filtered
+     view is a real, shareable address. "All" is the absence of the
+     param, matching how page 1 is the absence of ?page. */
+  const categories = Array.from(new Set(posts.map((post) => post.category))).sort();
+  const requestedCategory = searchParams.get("category");
+  const category =
+    requestedCategory && categories.includes(requestedCategory) ? requestedCategory : null;
+
+  const filteredPosts = category
+    ? posts.filter((post) => post.category === category)
+    : posts;
+
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
 
   /* Page number lives in the URL (?page=N), not just component state —
      so page 2+ is a real, shareable, back/forward-navigable address
@@ -144,7 +156,7 @@ export default function BlogListing({ posts }: { posts: BlogPostMeta[] }) {
       ? requestedPage
       : 1;
 
-  const pagePosts = posts.slice(
+  const pagePosts = filteredPosts.slice(
     (page - 1) * POSTS_PER_PAGE,
     page * POSTS_PER_PAGE,
   );
@@ -230,6 +242,20 @@ export default function BlogListing({ posts }: { posts: BlogPostMeta[] }) {
       ?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
   }
 
+  function goToCategory(next: string | null) {
+    if (next === category) return;
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (next) {
+      params.set("category", next);
+    } else {
+      params.delete("category");
+    }
+    params.delete("page");
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }
+
   return (
     <section
       ref={sectionRef}
@@ -271,13 +297,53 @@ export default function BlogListing({ posts }: { posts: BlogPostMeta[] }) {
         </div>
 
         <div
-          ref={gridRef}
-          className="mt-14 grid grid-cols-1 gap-6 md:mt-20 md:grid-cols-3 md:gap-8"
+          role="group"
+          aria-label="Filter by category"
+          className="mt-10 flex flex-wrap items-center justify-center gap-2.5 md:mt-14"
         >
-          {pagePosts.map((post) => (
-            <JournalCard key={post.slug} post={post} reduced={reduced} />
+          <button
+            type="button"
+            onClick={() => goToCategory(null)}
+            aria-current={category === null ? "true" : undefined}
+            className={`rounded-full px-4 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 ${
+              category === null
+                ? "bg-[#261f15] text-[#ededd5]"
+                : "border border-[#261f15]/20 text-[#261f15]/60 hover:border-[#8a6f3d] hover:text-[#8a6f3d]"
+            }`}
+          >
+            All
+          </button>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => goToCategory(cat)}
+              aria-current={category === cat ? "true" : undefined}
+              className={`rounded-full px-4 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 ${
+                category === cat
+                  ? "bg-[#261f15] text-[#ededd5]"
+                  : "border border-[#261f15]/20 text-[#261f15]/60 hover:border-[#8a6f3d] hover:text-[#8a6f3d]"
+              }`}
+            >
+              {cat}
+            </button>
           ))}
         </div>
+
+        {pagePosts.length > 0 ? (
+          <div
+            ref={gridRef}
+            className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-14 md:gap-8 lg:grid-cols-3"
+          >
+            {pagePosts.map((post) => (
+              <JournalCard key={post.slug} post={post} reduced={reduced} />
+            ))}
+          </div>
+        ) : (
+          <p className="mt-10 text-center font-sans text-sm text-[#261f15]/50 md:mt-14">
+            No posts in this category yet.
+          </p>
+        )}
 
         {totalPages > 1 && (
           <nav

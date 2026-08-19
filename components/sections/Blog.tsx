@@ -167,6 +167,8 @@ export default function Blog({ posts }: { posts: BlogPostMeta[] }) {
     const section = sectionRef.current;
     if (!section) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* mobile: skip entrance animation setup entirely — faster paint, less JS work on the slowest devices */
+    if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const head = section.querySelector<HTMLElement>(".le-blog-head");
     const cards = section.querySelectorAll<HTMLElement>(".le-blog-card");
@@ -251,7 +253,7 @@ export default function Blog({ posts }: { posts: BlogPostMeta[] }) {
           </div>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-3 md:gap-8">
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 md:gap-8 lg:grid-cols-3">
           {posts.map((post) => (
             <BlogCard key={post.slug} post={post} reduced={reduced} />
           ))}

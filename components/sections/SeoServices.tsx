@@ -158,6 +158,8 @@ export default function SeoServices() {
     const right = rightRef.current;
     if (!copy || !right) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* mobile: skip entrance animation setup entirely — faster paint, less JS work on the slowest devices */
+    if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const tweens = [copy, right].map((el, i) =>
       gsap.fromTo(

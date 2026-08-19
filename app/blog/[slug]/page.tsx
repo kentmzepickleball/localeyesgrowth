@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BlogArticle from "@/components/BlogArticle";
-import { getBlogPostBySlug } from "@/lib/blog-posts";
+import { extractFaqPairs, getBlogPostBySlug } from "@/lib/blog-posts";
 
 /* Content lives in Postgres now (lib/blog-posts.ts) — no
    generateStaticParams, so a post added straight to the database shows
@@ -36,8 +36,27 @@ export default async function BlogArticlePage({
   const post = await getBlogPostBySlug(slug);
   if (!post) notFound();
 
+  const faqPairs = extractFaqPairs(post.content);
+
   return (
     <main className="relative min-h-dvh w-full overflow-x-clip bg-[#ededd5] text-[#261f15] selection:bg-[#c9932b] selection:text-[#261f15]">
+      {faqPairs.length > 0 && (
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqPairs.map(({ question, answer }) => ({
+                "@type": "Question",
+                name: question,
+                acceptedAnswer: { "@type": "Answer", text: answer },
+              })),
+            }),
+          }}
+        />
+      )}
       <BlogArticle meta={post.meta} content={post.content} />
     </main>
   );

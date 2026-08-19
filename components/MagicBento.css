@@ -1,0 +1,193 @@
+/* Recolored to the brand palette (ink/cream/gold) — see MagicBento.jsx
+   for what else was adapted from the stock React Bits version. */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  font-size: 1rem;
+}
+
+@media (min-width: 640px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+.magic-bento-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  min-height: 15rem;
+  width: 100%;
+  padding: 1.75rem;
+  border-radius: 0;
+  border: 1px solid rgba(237, 237, 213, 0.14);
+  background: #261f15;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
+
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 220px;
+}
+
+.magic-bento-card:hover,
+.magic-bento-card:focus-visible {
+  border-color: rgba(198, 166, 106, 0.4);
+}
+
+.magic-bento-card:focus-visible {
+  outline: 2px solid #a67c3d;
+  outline-offset: 3px;
+}
+
+.magic-bento-card__header,
+.magic-bento-card__content {
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+.magic-bento-card__header {
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.magic-bento-card__number {
+  font-family: var(--font-heading, serif);
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #a67c3d;
+}
+
+.magic-bento-card__meta {
+  color: rgba(237, 237, 213, 0.5);
+  text-align: right;
+}
+
+.magic-bento-card__content {
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.magic-bento-card__title {
+  font-family: var(--font-heading, serif);
+  font-weight: 300;
+  font-style: normal;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: #ededd5;
+  margin: 0 0 0.6rem;
+}
+
+.magic-bento-card__description {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(237, 237, 213, 0.55);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.magic-bento-card__footer {
+  position: relative;
+  z-index: 2;
+  margin-top: 1.5rem;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(198, 166, 106, 0.75);
+  transition: color 0.4s ease;
+}
+
+.magic-bento-card:hover .magic-bento-card__footer {
+  color: #c6a66a;
+}
+
+/* Border glow effect — follows the cursor via --glow-x/y/intensity,
+   set by the global spotlight in MagicBento.jsx */
+.magic-bento-card--border-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(198, 166, 106, calc(var(--glow-intensity) * 0.85)) 0%,
+    rgba(198, 166, 106, calc(var(--glow-intensity) * 0.35)) 30%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.particle::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: rgba(198, 166, 106, 0.2);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Global spotlight styles */
+.global-spotlight {
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  z-index: 200 !important;
+  pointer-events: none;
+}
+
+.bento-section {
+  position: relative;
+  user-select: none;
+}

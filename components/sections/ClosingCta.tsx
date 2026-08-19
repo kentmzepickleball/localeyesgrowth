@@ -53,6 +53,8 @@ export default function ClosingCta() {
     const section = sectionRef.current;
     if (!section) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* mobile: skip entrance animation setup entirely — faster paint, less JS work on the slowest devices */
+    if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const parts = [
       section.querySelector<HTMLElement>(".le-cta-head"),

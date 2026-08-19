@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 776 240" width="776" height="240" font-family="Inter,Helvetica,Arial">
+<rect width="100%" height="100%" fill="#FAF6EF"/>
+<rect x="0" y="0" width="776" height="5" fill="#C07A22"/>
+<text x="28" y="36" font-size="20" font-weight="700" fill="#15140F">Market the season 2 to 3 months before it peaks</text>
+<line x1="40.0" y1="186" x2="40.0" y2="194" stroke="#6C6558" stroke-width="1"/>
+<text x="40.0" y="210" text-anchor="middle" font-family="InterT,Arial" font-size="12" fill="#6C6558">Aug</text>
+<line x1="212.5" y1="186" x2="212.5" y2="194" stroke="#6C6558" stroke-width="1"/>
+<text x="212.5" y="210" text-anchor="middle" font-family="InterT,Arial" font-size="12" fill="#6C6558">Sep</text>
+<line x1="385.0" y1="186" x2="385.0" y2="194" stroke="#6C6558" stroke-width="1"/>
+<text x="385.0" y="210" text-anchor="middle" font-family="InterT,Arial" font-size="12" fill="#6C6558">Oct</text>
+<line x1="557.5" y1="186" x2="557.5" y2="194" stroke="#6C6558" stroke-width="1"/>
+<text x="557.5" y="210" text-anchor="middle" font-family="InterT,Arial" font-size="12" fill="#6C6558">Nov</text>
+<line x1="730.0" y1="186" x2="730.0" y2="194" stroke="#6C6558" stroke-width="1"/>
+<text x="730.0" y="210" text-anchor="middle" font-family="InterT,Arial" font-size="12" fill="#6C6558">Dec</text>
+<line x1="40" y1="190" x2="730" y2="190" stroke="#DDD3C2" stroke-width="1.5"/>
+<rect x="212.5" y="80" width="517.5" height="24" rx="4" fill="#C07A22"/>
+<text x="212.5" y="70" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Holiday marketing: start in September</text>
+<rect x="385.0" y="130" width="345.0" height="24" rx="4" fill="#1E3A31"/>
+<text x="385.0" y="120" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Corporate Q4 outreach: start early October</text>
+<line x1="557.5" y1="60" x2="557.5" y2="190" stroke="#A8452C" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="557.5" y="52" text-anchor="middle" font-family="InterT,Arial" font-size="11" font-weight="700" fill="#A8452C">Most operators start here. Clients have already booked.</text>
+<text x="28" y="226" font-size="12.5" fill="#6C6558" font-style="italic">By the time a slow fall season is visible in the calendar, the holiday and Q4 corporate windows are already closing.</text>
+</svg>

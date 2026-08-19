@@ -57,10 +57,17 @@ function stripLeadingH1(content: string): string {
   return content.replace(/^\s*#\s+.+\n+/, "");
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 /* Downloadable lead-magnet card — only rendered when a post's frontmatter
    sets resource_pdf_url. `sticky` styles it for the desktop rail (follows
    the scroll); the mobile render is the same card without that behavior,
-   placed inline right under the article head instead. */
+   placed inline right under the article head instead.
+   The download itself is gated behind an email capture: clicking a
+   format button doesn't link out, it opens an inline email field; on
+   submit the lead is posted to /api/download-resource (same
+   sheet-webhook pattern as the quiz and quote form) and only then does
+   the actual file download fire. */
 function ResourceCard({
   meta,
   sticky,
@@ -68,6 +75,59 @@ function ResourceCard({
   meta: BlogPostMeta;
   sticky?: boolean;
 }) {
+  const [pendingFormat, setPendingFormat] = useState<"pdf" | "docx" | null>(null);
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const formatUrl = (format: "pdf" | "docx") =>
+    format === "pdf" ? meta.resourcePdfUrl : meta.resourceDocxUrl;
+
+  const requestFormat = (format: "pdf" | "docx") => {
+    setPendingFormat(format);
+    setError(false);
+    setDone(false);
+  };
+
+  const submitEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = email.trim();
+    if (!EMAIL_RE.test(trimmed) || !pendingFormat) {
+      setError(true);
+      return;
+    }
+    const url = formatUrl(pendingFormat);
+    if (!url) return;
+
+    setSubmitting(true);
+    setError(false);
+    try {
+      await fetch("/api/download-resource", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: trimmed,
+          resourceLabel: meta.resourceLabel,
+          resourceUrl: url,
+          postSlug: meta.slug,
+        }),
+      });
+    } catch {
+      // best-effort lead capture — never block the download on it
+    }
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setSubmitting(false);
+    setDone(true);
+  };
+
   return (
     <div
       className={`rounded-2xl border border-[#c6a66a]/30 bg-[#f7f5e8] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.1),0_24px_48px_-28px_rgba(38,31,21,0.35)] ${
@@ -98,28 +158,82 @@ function ResourceCard({
         />
       )}
 
-      <div className="mt-5 flex flex-col gap-2.5">
-        {meta.resourcePdfUrl && (
-          <a
-            href={meta.resourcePdfUrl}
-            download
-            className="group/dl relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full bg-[#261f15] px-5 py-2.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[#3a3020]"
-          >
-            <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
-            Download PDF
-          </a>
-        )}
-        {meta.resourceDocxUrl && (
-          <a
-            href={meta.resourceDocxUrl}
-            download
-            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-[#261f15]/20 px-5 py-2.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#261f15]/75 transition-colors duration-300 hover:border-[#8a6f3d] hover:text-[#8a6f3d]"
-          >
-            <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
-            Download Word
-          </a>
-        )}
-      </div>
+      {pendingFormat ? (
+        <form onSubmit={submitEmail} className="mt-5">
+          {done ? (
+            <p className="flex items-center gap-2 font-sans text-[0.8rem] font-semibold text-[#4a6b3d]">
+              <Check className="h-4 w-4" strokeWidth={2} />
+              Sent — your download has started.
+            </p>
+          ) : (
+            <>
+              <label
+                htmlFor="resource-email"
+                className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#261f15]/60"
+              >
+                Where should we send it?
+              </label>
+              <input
+                id="resource-email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError(false);
+                }}
+                placeholder="you@business.com"
+                className="mt-2 w-full rounded-full border border-[#261f15]/20 bg-[#ededd5] px-4 py-2.5 font-sans text-sm text-[#261f15] outline-none transition-colors duration-300 focus:border-[#8a6f3d]"
+              />
+              {error && (
+                <p className="mt-1.5 font-sans text-[0.72rem] text-[#a3432f]">
+                  Enter a valid email to continue.
+                </p>
+              )}
+              <div className="mt-3 flex flex-wrap gap-2.5">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="inline-flex flex-1 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#261f15] px-5 py-2.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[#3a3020] disabled:opacity-60"
+                >
+                  <Download className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
+                  {submitting ? "Sending…" : `Get the ${pendingFormat === "pdf" ? "PDF" : "Word doc"}`}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPendingFormat(null)}
+                  className="cursor-pointer whitespace-nowrap rounded-full px-3 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#261f15]/50 transition-colors duration-300 hover:text-[#261f15]"
+                >
+                  Back
+                </button>
+              </div>
+            </>
+          )}
+        </form>
+      ) : (
+        <div className="mt-5 flex flex-col gap-2.5">
+          {meta.resourcePdfUrl && (
+            <button
+              type="button"
+              onClick={() => requestFormat("pdf")}
+              className="group/dl relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full bg-[#261f15] px-5 py-2.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[#3a3020]"
+            >
+              <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
+              Download PDF
+            </button>
+          )}
+          {meta.resourceDocxUrl && (
+            <button
+              type="button"
+              onClick={() => requestFormat("docx")}
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-[#261f15]/20 px-5 py-2.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#261f15]/75 transition-colors duration-300 hover:border-[#8a6f3d] hover:text-[#8a6f3d]"
+            >
+              <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
+              Download Word
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -477,6 +591,25 @@ export default function BlogArticle({
               </div>
             </div>
           </div>
+
+          {meta.ctaLabel && meta.ctaHref && (
+            <a
+              href={meta.ctaHref}
+              className="group/cta mt-8 flex items-center justify-between gap-4 rounded-2xl border border-[#c6a66a]/40 bg-[#261f15] px-6 py-5 text-[#ededd5] transition-colors duration-300 hover:bg-[#3a3020] sm:px-8 sm:py-6"
+            >
+              <div>
+                <p className="font-heading font-thin not-italic text-lg leading-snug text-[#ededd5] sm:text-xl">
+                  {meta.ctaLabel}
+                </p>
+                {meta.ctaNote && (
+                  <p className="mt-1.5 font-sans text-[0.8rem] text-[#ededd5]/60">
+                    {meta.ctaNote}
+                  </p>
+                )}
+              </div>
+              <ArrowUpRight className="h-6 w-6 shrink-0 text-[#c6a66a] transition-transform duration-500 ease-[cubic-bezier(0.34,1.2,0.4,1)] group-hover/cta:rotate-45" />
+            </a>
+          )}
 
           {hasResource && (
             <div className="mt-8 min-[900px]:hidden">

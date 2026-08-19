@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 776 250" width="776" height="250" font-family="Inter,Helvetica,Arial">
+<rect width="100%" height="100%" fill="#FAF6EF"/>
+<rect x="0" y="0" width="776" height="5" fill="#C07A22"/>
+<text x="28" y="36" font-size="20" font-weight="700" fill="#15140F">The 6-step startup sequence</text>
+<line x1="44" y1="130" x2="732" y2="130" stroke="#DDD3C2" stroke-width="2"/>
+<circle cx="44.0" cy="130" r="20" fill="#C07A22"/>
+<text x="44.0" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="16" font-weight="700" fill="#FAF6EF">1</text>
+<text x="44.0" y="77.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Decide your</text>
+<text x="44.0" y="92.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">end goal</text>
+<line x1="44.0" y1="112" x2="44.0" y2="98" stroke="#DDD3C2" stroke-width="1"/>
+<circle cx="181.6" cy="130" r="20" fill="#C07A22"/>
+<text x="181.6" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="16" font-weight="700" fill="#FAF6EF">2</text>
+<text x="181.6" y="174.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Practice</text>
+<text x="181.6" y="189.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">for free</text>
+<line x1="181.6" y1="148" x2="181.6" y2="162" stroke="#DDD3C2" stroke-width="1"/>
+<circle cx="319.2" cy="130" r="20" fill="#C07A22"/>
+<text x="319.2" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="16" font-weight="700" fill="#FAF6EF">3</text>
+<text x="319.2" y="77.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Cover yourself</text>
+<text x="319.2" y="92.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">legally</text>
+<line x1="319.2" y1="112" x2="319.2" y2="98" stroke="#DDD3C2" stroke-width="1"/>
+<circle cx="456.8" cy="130" r="20" fill="#1E3A31"/>
+<text x="456.8" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="16" font-weight="700" fill="#FAF6EF">4</text>
+<text x="456.8" y="174.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Build website</text>
+<text x="456.8" y="189.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">&amp; start SEO</text>
+<line x1="456.8" y1="148" x2="456.8" y2="162" stroke="#DDD3C2" stroke-width="1"/>
+<circle cx="594.4" cy="130" r="20" fill="#C07A22"/>
+<text x="594.4" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="16" font-weight="700" fill="#FAF6EF">5</text>
+<text x="594.4" y="77.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Buy equipment,</text>
+<text x="594.4" y="92.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">scrappy first</text>
+<line x1="594.4" y1="112" x2="594.4" y2="98" stroke="#DDD3C2" stroke-width="1"/>
+<circle cx="732.0" cy="130" r="20" fill="#C07A22"/>
+<text x="732.0" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="16" font-weight="700" fill="#FAF6EF">6</text>
+<text x="732.0" y="174.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">Launch &amp;</text>
+<text x="732.0" y="189.0" text-anchor="middle" font-family="InterT,Arial" font-size="12.5" font-weight="700" fill="#15140F">book work</text>
+<line x1="732.0" y1="148" x2="732.0" y2="162" stroke="#DDD3C2" stroke-width="1"/>
+<text x="28" y="232" font-size="12.5" fill="#6C6558" font-style="italic">Step 4 (highlighted) is the one most startup guides skip. It should run parallel with step 5, not after it.</text>
+</svg>

@@ -45,7 +45,7 @@ type Plan = {
 const PLANS: Plan[] = [
   {
     id: "solo",
-    name: "The Solo",
+    name: "Solo",
     price: "$997",
     per: "/mo",
     note: "Exclusive entry",
@@ -61,7 +61,7 @@ const PLANS: Plan[] = [
   },
   {
     id: "booking",
-    name: "The Booking Engine",
+    name: "Growth",
     price: "$1440",
     per: "/mo",
     note: "6-month commit · $1800 month-to-month",
@@ -78,7 +78,7 @@ const PLANS: Plan[] = [
   },
   {
     id: "growth",
-    name: "The Growth Engine",
+    name: "Scale",
     price: "$2200",
     per: "/mo",
     note: "6-month commit · $2800 month-to-month",
@@ -94,8 +94,8 @@ const PLANS: Plan[] = [
   },
 ];
 
-/* Feature ledger — values are indexed by plan position (Solo, Booking
-   Engine, Growth Engine). Edit a row's label or any value here. */
+/* Feature ledger — values are indexed by plan position (Solo, Growth,
+   Scale). Edit a row's label or any value here. */
 const FEATURE_ROWS: { label: string; values: [string, string, string] }[] = [
   { label: "Pages", values: ["2 / month", "4 / month", "6 / month"] },
   {
@@ -146,8 +146,8 @@ const FEATURE_ROWS: { label: string; values: [string, string, string] }[] = [
     label: "Strategy Call",
     values: [
       "30-min · Quarterly",
+      "45-min · Every quarter",
       "45-min · Every other month",
-      "45-min · Monthly",
     ],
   },
   {
@@ -164,7 +164,7 @@ const FEATURE_ROWS: { label: string; values: [string, string, string] }[] = [
   },
   {
     label: "Ads Management Discount",
-    values: ["—", "$200 off", "$400 off"],
+    values: ["—", "$100 off", "$200 off"],
   },
 ];
 
@@ -211,6 +211,8 @@ export default function Pricing({
     const inner = cardInnerRef.current;
     if (!inner) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* mobile: skip entrance animation setup entirely — faster paint, less JS work on the slowest devices */
+    if (window.matchMedia("(max-width: 767px)").matches) return;
     const tween = gsap.fromTo(
       inner,
       { autoAlpha: 0, y: 14 },
@@ -244,6 +246,8 @@ export default function Pricing({
     const card = cardRef.current;
     if (!header || !rail || !card) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* mobile: skip entrance animation setup entirely — faster paint, less JS work on the slowest devices */
+    if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const rows = rail.querySelectorAll<HTMLElement>(".le-plan-row");
     const tweens: gsap.core.Tween[] = [];

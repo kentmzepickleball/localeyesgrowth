@@ -53,9 +53,14 @@ export default function CityRankings() {
   const [inView, setInView] = useState(false);
   const [reduced, setReduced] = useState(false);
 
-  /* Read the OS motion preference on the client */
+  /* Read the OS motion preference on the client — mobile skips the
+     count-up too (straight to the final numbers), less JS work on the
+     slowest devices */
   useEffect(() => {
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    setReduced(
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        window.matchMedia("(max-width: 767px)").matches,
+    );
   }, []);
 
   /* Trigger the count-up once, the first time the band scrolls into view */

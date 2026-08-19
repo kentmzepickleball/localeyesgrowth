@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 776 270" width="776" height="270" font-family="Inter,Helvetica,Arial">
+<rect width="100%" height="100%" fill="#FAF6EF"/>
+<rect x="0" y="0" width="776" height="5" fill="#C07A22"/>
+<text x="28" y="36" font-size="20" font-weight="700" fill="#15140F">Five ways to define your niche</text>
+<circle cx="100.0" cy="92" r="22" fill="#1E3A31"/>
+<text x="100.0" y="99" text-anchor="middle" font-family="InterT,Arial" font-size="18" font-weight="700" fill="#FAF6EF">1</text>
+<text x="100.0" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="13" font-weight="700" fill="#15140F">Product philosophy</text>
+<text x="100.0" y="158" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">Sustainable, seasonal,</text>
+<text x="100.0" y="172" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">zero-waste ingredients</text>
+<circle cx="244.0" cy="92" r="22" fill="#C07A22"/>
+<text x="244.0" y="99" text-anchor="middle" font-family="InterT,Arial" font-size="18" font-weight="700" fill="#FAF6EF">2</text>
+<text x="244.0" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="13" font-weight="700" fill="#15140F">Buyer segment</text>
+<text x="244.0" y="158" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">Ad agencies, planners,</text>
+<text x="244.0" y="172" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">wellness spas, offices</text>
+<line x1="172.0" y1="66" x2="172.0" y2="216" stroke="#DDD3C2" stroke-width="1"/>
+<circle cx="388.0" cy="92" r="22" fill="#1E3A31"/>
+<text x="388.0" y="99" text-anchor="middle" font-family="InterT,Arial" font-size="18" font-weight="700" fill="#FAF6EF">3</text>
+<text x="388.0" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="13" font-weight="700" fill="#15140F">Event type</text>
+<text x="388.0" y="158" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">Corporate activations,</text>
+<text x="388.0" y="172" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">micro-weddings, dry events</text>
+<line x1="316.0" y1="66" x2="316.0" y2="216" stroke="#DDD3C2" stroke-width="1"/>
+<circle cx="532.0" cy="92" r="22" fill="#C07A22"/>
+<text x="532.0" y="99" text-anchor="middle" font-family="InterT,Arial" font-size="18" font-weight="700" fill="#FAF6EF">4</text>
+<text x="532.0" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="13" font-weight="700" fill="#15140F">Price tier</text>
+<text x="532.0" y="158" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">Premium and up,</text>
+<text x="532.0" y="172" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">never the cheapest quote</text>
+<line x1="460.0" y1="66" x2="460.0" y2="216" stroke="#DDD3C2" stroke-width="1"/>
+<circle cx="676.0" cy="92" r="22" fill="#1E3A31"/>
+<text x="676.0" y="99" text-anchor="middle" font-family="InterT,Arial" font-size="18" font-weight="700" fill="#FAF6EF">5</text>
+<text x="676.0" y="136" text-anchor="middle" font-family="InterT,Arial" font-size="13" font-weight="700" fill="#15140F">Personality / story</text>
+<text x="676.0" y="158" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">The founder's own</text>
+<text x="676.0" y="172" text-anchor="middle" font-family="InterT,Arial" font-size="11" fill="#6C6558">taste and background</text>
+<line x1="604.0" y1="66" x2="604.0" y2="216" stroke="#DDD3C2" stroke-width="1"/>
+<text x="28" y="250" font-size="12.5" fill="#6C6558" font-style="italic">Pick one primary axis and let pricing, menu, and marketing follow from it.</text>
+</svg>

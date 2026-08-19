@@ -9,6 +9,7 @@ import Pricing from "@/components/sections/Pricing";
 import SeoServices from "@/components/sections/SeoServices";
 import Services from "@/components/sections/Services";
 import Logos from "@/components/sections/Logos";
+import WebsitePreviews from "@/components/sections/WebsitePreviews";
 import ClosingCta from "@/components/sections/ClosingCta";
 import { getAllBlogPosts } from "@/lib/blog-posts";
 
@@ -23,6 +24,7 @@ export default async function Home() {
     <>
       <Hero />
       <CityRankings />
+      <WebsitePreviews />
       <KnownFor />
       <Logos />
       <CaseStudies />

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion, useMotionValue, useSpring } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { Noise } from "@/components/effects/Noise";
 import type { BlogPostMeta } from "@/lib/blog-posts";
@@ -17,8 +16,10 @@ gsap.registerPlugin(ScrollTrigger);
    inset letterpress frame as the Pricing section's card, so the premium
    card language stays consistent across the site.
    The distinctive touch: each card tracks the cursor with a subtle 3D
-   tilt + spring settle (same physics family as TiltedCard, rebuilt
-   here since these cards hold rich text, not a single image).
+   tilt on mousemove, built with GSAP (not the `motion` package — this
+   section already loads GSAP for the entrance animation below, so the
+   tilt reuses it instead of pulling in a second animation library for
+   one effect).
    - Scroll-triggered entrance (header, then cards staggered); plays
      once; fully static under prefers-reduced-motion (tilt physics are
      skipped entirely, not just the entrance).
@@ -30,7 +31,6 @@ gsap.registerPlugin(ScrollTrigger);
    ---------------------------------------------------------------------- */
 
 const TILT_AMPLITUDE = 8;
-const SPRING = { damping: 24, stiffness: 220, mass: 1 };
 
 function BlogCard({
   post,
@@ -39,43 +39,52 @@ function BlogCard({
   post: BlogPostMeta;
   reduced: boolean;
 }) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const rotateX = useSpring(useMotionValue(0), SPRING);
-  const rotateY = useSpring(useMotionValue(0), SPRING);
-  const lift = useSpring(0, SPRING);
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   function handleMouseMove(e: MouseEvent<HTMLAnchorElement>) {
-    const el = ref.current;
-    if (!el || reduced) return;
-    const rect = el.getBoundingClientRect();
+    const link = linkRef.current;
+    const card = cardRef.current;
+    if (!link || !card || reduced) return;
+    const rect = link.getBoundingClientRect();
     const offsetX = e.clientX - rect.left - rect.width / 2;
     const offsetY = e.clientY - rect.top - rect.height / 2;
-    rotateX.set((offsetY / (rect.height / 2)) * -TILT_AMPLITUDE);
-    rotateY.set((offsetX / (rect.width / 2)) * TILT_AMPLITUDE);
+    gsap.to(card, {
+      rotateX: (offsetY / (rect.height / 2)) * -TILT_AMPLITUDE,
+      rotateY: (offsetX / (rect.width / 2)) * TILT_AMPLITUDE,
+      duration: 0.4,
+      ease: "power2.out",
+      transformPerspective: 1000,
+    });
   }
 
   function handleMouseEnter() {
-    if (reduced) return;
-    lift.set(-6);
+    if (reduced || !cardRef.current) return;
+    gsap.to(cardRef.current, { y: -6, duration: 0.4, ease: "power2.out" });
   }
 
   function handleMouseLeave() {
-    rotateX.set(0);
-    rotateY.set(0);
-    lift.set(0);
+    if (!cardRef.current) return;
+    gsap.to(cardRef.current, {
+      rotateX: 0,
+      rotateY: 0,
+      y: 0,
+      duration: 0.5,
+      ease: "power2.out",
+    });
   }
 
   return (
     <a
       href={`/blog/${post.slug}`}
-      ref={ref}
+      ref={linkRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="le-blog-card group relative block h-full [perspective:1000px]"
     >
-      <motion.div
-        style={{ rotateX, rotateY, y: lift }}
+      <div
+        ref={cardRef}
         className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#c6a66a]/25 bg-[#f7f5e8] p-7 text-[#261f15] shadow-[0_1px_2px_rgba(0,0,0,0.12),0_28px_56px_-26px_rgba(38,31,21,0.35)] transition-shadow duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-[0_1px_2px_rgba(0,0,0,0.14),0_44px_84px_-26px_rgba(38,31,21,0.45)] sm:p-8"
       >
         {/* gilded top edge — brighter than a hairline, the card's one
@@ -150,7 +159,7 @@ function BlogCard({
             </span>
           </div>
         </div>
-      </motion.div>
+      </div>
     </a>
   );
 }

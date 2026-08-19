@@ -99,22 +99,22 @@ const TRIOS: Trio[] = [
   {
     key: "ads",
     word: "Ads",
-    /* REAL project screenshots — /public/ads-project-0*.jpg */
+    /* REAL project screenshots */
     photos: [
       {
-        src: "/Ads-01.jpg",
+        src: "/google-ads-performance-dashboard.webp",
         alt: "Google Ads performance dashboard — conversions up 233%, cost per conversion down 71%",
         pos: "object-center",
         fit: "contain",
       },
       {
-        src: "/Ads-02.jpeg",
+        src: "/user-activity-over-time-analytics-dashboard.webp",
         alt: "Active users trending up over the past month",
         pos: "object-center",
         fit: "contain",
       },
       {
-        src: "/Ads-03.jpeg",
+        src: "/google-keyword-rankings-dashboard.webp",
         alt: "Top keyword rankings on Google, all trending up",
         pos: "object-center",
         fit: "contain",

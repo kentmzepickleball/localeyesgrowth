@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import ServiceLandingPage, {
   type ServiceContent,
 } from "@/components/ServiceLandingPage";
-import imgAdsResults from "@/public/Ads-01.jpg";
-import imgAdsTraffic from "@/public/Ads-02.jpeg";
+import imgAdsResults from "@/public/google-ads-performance-dashboard.webp";
+import imgAdsTraffic from "@/public/user-activity-over-time-analytics-dashboard.webp";
 
 export const metadata: Metadata = {
   title: "Google Ads for Mobile Caterers | LocalEyes",

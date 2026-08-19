@@ -70,16 +70,18 @@
   transform-origin: 0% 100%;
 }
 
-/* Eyebrow — tracks in from wide letter-spacing with a soft focus pull */
+/* Eyebrow — fades in with a soft focus pull. Used to also animate
+   letter-spacing for a "tracks in" effect, but that property forces a
+   layout reflow on every frame (Lighthouse flags it as a non-composited
+   animation) — opacity + filter alone are GPU-composited and read
+   almost identically. */
 @keyframes le-eyebrow-in {
   0% {
     opacity: 0;
-    letter-spacing: 0.52em;
     filter: blur(4px);
   }
   100% {
     opacity: 1;
-    letter-spacing: 0.26em;
     filter: blur(0);
   }
 }

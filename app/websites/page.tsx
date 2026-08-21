@@ -58,6 +58,20 @@ const content: ServiceContent = {
       },
     ],
   },
+  pricing: {
+    eyebrow: "Pricing",
+    heading: "Website Kickstart",
+    price: "$2,400",
+    body: "A custom 6-page site built to rank from day one — not a template with your logo dropped in.",
+    features: [
+      "Custom 6-page site, designed around your brand",
+      "Google Business Profile setup",
+      "Analytics and call tracking wired in",
+      "Lead form integrated and tested",
+    ],
+    buyLabel: "Buy Now — $2,400",
+    buyUrl: "https://buy.stripe.com/7sYeVe2k93OR5tLe5J18c0h",
+  },
   closing: {
     heading: "See what your current site is costing you",
     body: "Run the free Growth Diagnostic to see how your site, rankings, and Google presence compare to the operators winning your market right now.",

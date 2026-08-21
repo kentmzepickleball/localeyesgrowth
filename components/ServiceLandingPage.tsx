@@ -1,9 +1,13 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { Noise } from "@/components/effects/Noise";
 import { useGrowthDiagnostic } from "@/components/growth-diagnostic/GrowthDiagnosticProvider";
+import {
+  useCalendly,
+  CALENDLY_BOOKING_URL,
+} from "@/components/sections/CalendlyModal";
 
 /* ----------------------------------------------------------------------
    Reusable service landing page — one component, one content shape,
@@ -31,11 +35,25 @@ export type ServiceContent = {
   proof: ProofItem[];
   intro: { heading: string; paragraphs: string[] };
   approach: { heading: string; intro: string; items: { title: string; body: string }[] };
+  /* Fixed-price services only (e.g. Websites) — renders a real pricing
+     card with a buy button instead of just linking off to /pricing.
+     Omit for retainer services (SEO, Ads), which stay Calendly-only. */
+  pricing?: {
+    eyebrow: string;
+    heading: string;
+    price: string;
+    per?: string;
+    body: string;
+    features: string[];
+    buyLabel: string;
+    buyUrl: string;
+  };
   closing: { heading: string; body: string };
 };
 
 export default function ServiceLandingPage({ content }: { content: ServiceContent }) {
   const { open: openQuiz } = useGrowthDiagnostic();
+  const { open: openCalendly } = useCalendly();
 
   return (
     <main className="relative w-full overflow-x-clip bg-[#ededd5] text-[#261f15] selection:bg-[#c9932b] selection:text-[#261f15]">
@@ -188,6 +206,77 @@ export default function ServiceLandingPage({ content }: { content: ServiceConten
             </div>
           </div>
 
+          {/* --------------------------- pricing ----------------------------
+             Fixed-price services only (content.pricing set — currently just
+             Websites). A real price and a real buy button, not another link
+             to the Growth Diagnostic. */}
+          {content.pricing && (
+            <div className="mx-auto mt-16 max-w-2xl md:mt-20">
+              <div className="rounded-[1.75rem] border border-[#261f15]/12 bg-white px-8 py-10 shadow-[0_1px_2px_rgba(38,31,21,0.05),0_28px_56px_-28px_rgba(38,31,21,0.35)] sm:px-12 sm:py-12">
+                <p className="text-center font-sans text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-[#8a6f3d]">
+                  {content.pricing.eyebrow}
+                </p>
+                <h2 className="mt-4 text-center font-heading font-thin not-italic text-[clamp(1.7rem,3vw,2.2rem)] leading-[1.15] tracking-[-0.01em] text-[#261f15]">
+                  {content.pricing.heading}
+                </h2>
+                <div className="mt-6 flex items-baseline justify-center gap-2">
+                  <span className="font-heading font-thin not-italic text-[3.4rem] leading-none tracking-[-0.02em] text-[#261f15]">
+                    {content.pricing.price}
+                  </span>
+                  {content.pricing.per && (
+                    <span className="font-sans text-sm font-semibold text-[#261f15]/45">
+                      {content.pricing.per}
+                    </span>
+                  )}
+                </div>
+                <p className="mx-auto mt-4 max-w-md text-center font-sans text-sm leading-relaxed text-[#261f15]/65">
+                  {content.pricing.body}
+                </p>
+                <ul className="mx-auto mt-8 flex w-fit flex-col gap-3">
+                  {content.pricing.features.map((f) => (
+                    <li key={f} className="flex items-start gap-3 font-sans text-sm text-[#261f15]/75">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#a67c3d]" strokeWidth={2} />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-9 flex justify-center">
+                  <a
+                    href={content.pricing.buyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/buy relative inline-flex cursor-pointer items-center gap-3 overflow-hidden rounded-full bg-[#261f15] py-2 pl-7 pr-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#261f15] sm:text-xs"
+                  >
+                    <span className="relative z-10 py-2">{content.pricing.buyLabel}</span>
+                    <span className="relative flex h-9 w-9 shrink-0 items-center justify-center">
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-0 scale-100 rounded-full bg-[#c6a66a] transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/buy:scale-[12] group-hover/buy:duration-1100"
+                      />
+                      <span className="relative z-10 flex rotate-0 transition-transform duration-700 ease-[cubic-bezier(0.34,1.2,0.4,1)] group-hover/buy:rotate-45">
+                        <ArrowUpRight className="h-4 w-4 text-[#261f15] transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                      </span>
+                    </span>
+                  </a>
+                </div>
+                <p className="mt-5 text-center font-sans text-[0.72rem] text-[#261f15]/45">
+                  Secure checkout via Stripe. Prefer to talk it through first?{" "}
+                  <a
+                    href={CALENDLY_BOOKING_URL}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openCalendly();
+                    }}
+                    className="cursor-pointer border-b border-[#261f15]/25 pb-0.5 text-[#261f15]/65 transition-colors hover:border-[#261f15]/50 hover:text-[#261f15]"
+                  >
+                    Book a call
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* --------------------------- closing ---------------------------- */}
           <div className="mx-auto mt-20 max-w-2xl rounded-[1.75rem] border border-[#c6a66a]/35 bg-[#261f15] px-8 py-12 text-center text-[#ededd5] md:mt-24 md:px-14 md:py-16">
             <h2 className="font-heading font-thin not-italic text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.15] tracking-[-0.01em]">
@@ -218,6 +307,24 @@ export default function ServiceLandingPage({ content }: { content: ServiceConten
                 </span>
               </span>
             </button>
+            <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+              <a
+                href={CALENDLY_BOOKING_URL}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openCalendly();
+                }}
+                className="cursor-pointer font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5]/55 underline decoration-[#ededd5]/25 underline-offset-4 transition-colors hover:text-[#ededd5] hover:decoration-[#ededd5]/60 sm:text-xs"
+              >
+                Book a Call
+              </a>
+              <a
+                href="/pricing"
+                className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5]/55 underline decoration-[#ededd5]/25 underline-offset-4 transition-colors hover:text-[#ededd5] hover:decoration-[#ededd5]/60 sm:text-xs"
+              >
+                View Pricing
+              </a>
+            </div>
           </div>
         </div>
       </section>

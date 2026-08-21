@@ -328,12 +328,17 @@ export default function WebsitePreviews() {
 
         {/* A grid of dark, glowing bento cards on the light section —
            structurally nothing like CaseStudies' hairline list: cards
-           instead of rows, a cursor-tracked gold glow/spotlight and
-           subtle tilt instead of an underline sweep, dark tiles set
-           against the light page instead of a dark section. Adapted
-           from React Bits' MagicBento (see components/MagicBento.jsx) —
-           event-driven hover effects only, no canvas, auto-disabled on
-           mobile. */}
+           instead of rows, subtle tilt instead of an underline sweep,
+           dark tiles set against the light page instead of a dark
+           section. Adapted from React Bits' MagicBento (see
+           components/MagicBento.jsx) — event-driven hover effects
+           only, no canvas, auto-disabled on mobile. The cursor-tracked
+           spotlight and per-card glow ring are both switched off here:
+           built for the original flat dark cards, they read as a
+           stray glow/outline on top of a real photo (and the spotlight
+           barely shows against this section's light page background
+           anyway), so depth now comes from the tilt and hover shadow
+           alone. */}
         <div ref={listRef} className="mt-12 md:mt-16">
           <MagicBento
             items={WEBSITE_PROJECTS.map((p, i) => ({
@@ -345,6 +350,7 @@ export default function WebsitePreviews() {
               bobbleColor: p.bobbleColor,
             }))}
             onCardClick={open}
+            enableSpotlight={false}
           />
         </div>
       </div>

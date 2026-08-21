@@ -141,7 +141,7 @@
    the header/content text blocks used for the no-photo variant. */
 .magic-bento-card--photo {
   padding: 0;
-  border-color: transparent;
+  border: none;
   box-shadow: none;
 }
 
@@ -152,7 +152,7 @@
    appear. */
 .magic-bento-card--photo:hover,
 .magic-bento-card--photo:focus-visible {
-  border-color: transparent;
+  border: none;
   box-shadow: 0 20px 40px -14px rgba(20, 16, 10, 0.4);
 }
 

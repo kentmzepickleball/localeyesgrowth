@@ -141,6 +141,21 @@
    the header/content text blocks used for the no-photo variant. */
 .magic-bento-card--photo {
   padding: 0;
+  border-color: transparent;
+  box-shadow: 0 24px 48px -24px rgba(20, 16, 10, 0.5);
+}
+
+.magic-bento-card--photo:hover,
+.magic-bento-card--photo:focus-visible {
+  border-color: transparent;
+  box-shadow: 0 32px 60px -20px rgba(20, 16, 10, 0.6);
+}
+
+/* The cursor-tracked glow ring reads as a stray colored outline on top
+   of a real photo (it was designed for the flat dark text-card look)
+   — dropped for photo cards. Depth now comes from the shadow alone. */
+.magic-bento-card--photo.magic-bento-card--border-glow::after {
+  display: none;
 }
 
 .magic-bento-card__photo {

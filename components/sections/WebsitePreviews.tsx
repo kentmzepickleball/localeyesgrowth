@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight, Lock, Monitor, Smartphone, X } from "lucide-react";
@@ -28,13 +29,25 @@ type WebsiteProject = {
   blurb: string;
   liveUrl: string;
   /* Real screenshot — the grid tiles are photo-forward now, this is
-     what actually shows on the card. */
+     what actually shows on the card. Also used as the preview-modal
+     fallback for sites that refuse to be framed (see `embeddable`). */
   image: string;
   /* Each card's soft-focus glow bobble — same technique as the plan
      glows on the Pricing rate card, reusing colors already established
      there instead of introducing new ones. Only used as a fallback if
      a project ever ships without an image. */
   bobbleColor: string;
+  /* Set to false only when the live site itself sends an X-Frame-Options
+     or CSP frame-ancestors header that blocks embedding (confirmed via
+     `curl -I` on the real URL — there's no reliable way to detect this
+     from the browser at runtime, since a blocked frame throws the same
+     cross-origin SecurityError as one that loaded fine). Onward's
+     onward-coffee.webflow.io staging domain sends
+     `frame-ancestors 'self' *.webflow.com *.webflow.io webflow.com`,
+     which excludes our own origin. When false, the preview modal shows
+     the real screenshot instead of a blank "refused to connect" iframe.
+     Omit (defaults to true) for anything that embeds fine. */
+  embeddable?: boolean;
 };
 
 const WEBSITE_PROJECTS: WebsiteProject[] = [
@@ -57,6 +70,7 @@ const WEBSITE_PROJECTS: WebsiteProject[] = [
     liveUrl: "https://onward-coffee.webflow.io/",
     image: "/onward-coffee-website-homepage.webp",
     bobbleColor: "#4a6b8a",
+    embeddable: false,
   },
   {
     name: "Social Graze",
@@ -262,6 +276,7 @@ export default function WebsitePreviews() {
   }, []);
 
   const project = openIndex !== null ? WEBSITE_PROJECTS[openIndex] : null;
+  const iframeBlocked = project?.embeddable === false;
 
   return (
     <section
@@ -372,9 +387,10 @@ export default function WebsitePreviews() {
                   <button
                     type="button"
                     onClick={() => setDevice("mobile")}
+                    disabled={iframeBlocked}
                     aria-pressed={device === "mobile"}
                     aria-label="Preview as mobile"
-                    className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-300 ${
+                    className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-40 ${
                       device === "mobile"
                         ? "bg-[#261f15] text-[#ededd5]"
                         : "text-[#261f15]/45 hover:text-[#261f15]"
@@ -453,18 +469,37 @@ export default function WebsitePreviews() {
                     <Lock className="h-2.5 w-2.5 shrink-0" strokeWidth={2} />
                     <span className="truncate">{hostnameOf(project.liveUrl)}</span>
                   </span>
+                  {iframeBlocked && (
+                    <span className="shrink-0 font-sans text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-[#a67c3d]">
+                      Homepage preview
+                    </span>
+                  )}
                 </div>
                 <div className="relative flex min-h-0 flex-1 justify-center overflow-auto bg-[#e6e3cf]">
                   <div
-                    className={`h-full shrink-0 bg-white shadow-[0_0_40px_-8px_rgba(38,31,21,0.2)] transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    className={`relative h-full shrink-0 bg-white shadow-[0_0_40px_-8px_rgba(38,31,21,0.2)] transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                       device === "mobile" ? "w-[390px]" : "w-full"
                     }`}
                   >
-                    <iframe
-                      src={project.liveUrl}
-                      title={`${project.name} — live, interactive preview`}
-                      className="h-full w-full border-0"
-                    />
+                    {iframeBlocked ? (
+                      <div className="absolute inset-0 overflow-y-auto bg-white">
+                        <div className="relative aspect-1280/800 w-full">
+                          <Image
+                            src={project.image}
+                            alt={`${project.name} homepage`}
+                            fill
+                            sizes="(min-width: 768px) 74vw, 100vw"
+                            className="object-cover object-top"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <iframe
+                        src={project.liveUrl}
+                        title={`${project.name} — live, interactive preview`}
+                        className="h-full w-full border-0"
+                      />
+                    )}
                   </div>
                 </div>
               </div>

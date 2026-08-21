@@ -142,18 +142,23 @@
 .magic-bento-card--photo {
   padding: 0;
   border-color: transparent;
-  box-shadow: 0 24px 48px -24px rgba(20, 16, 10, 0.5);
+  box-shadow: none;
 }
 
+/* A resting shadow blurs outward on every side, not just downward —
+   at rest that reads as exactly the faint all-around outline this was
+   meant to remove. Kept shadow-free at rest; the grid gap alone does
+   the separating. Only on hover, as a deliberate lift, does a shadow
+   appear. */
 .magic-bento-card--photo:hover,
 .magic-bento-card--photo:focus-visible {
   border-color: transparent;
-  box-shadow: 0 32px 60px -20px rgba(20, 16, 10, 0.6);
+  box-shadow: 0 20px 40px -14px rgba(20, 16, 10, 0.4);
 }
 
 /* The cursor-tracked glow ring reads as a stray colored outline on top
    of a real photo (it was designed for the flat dark text-card look)
-   — dropped for photo cards. Depth now comes from the shadow alone. */
+   — dropped for photo cards. */
 .magic-bento-card--photo.magic-bento-card--border-glow::after {
   display: none;
 }

@@ -30,7 +30,9 @@ import { Noise } from "@/components/effects/Noise";
       (WebKit + Firefox).
    4. Embed affordance — copy-paste iframe snippet + backlink.
    5. Editorial: what drives pricing / how carts underprice / FAQ.
-   6. FAQPage JSON-LD generated from the same CONFIG copy.
+   6. Structured data — WebApplication JSON-LD as the page's primary
+      schema (at the top), FAQPage JSON-LD generated from the same
+      CONFIG copy as its own separate script (at the end, by the FAQ).
 
    ?embed=1 hides header, footer, intro and editorial — renders only the
    calculator card plus a "Powered by LocalEyes" backlink.
@@ -1816,6 +1818,27 @@ export default function CoffeeCartCalculatorPage() {
   const posMeta = CONFIG.model.POSITIONING[positioning];
   const setupSentence = `${quote.baristas} barista${quote.baristas === 1 ? "" : "s"} · ${quote.carts} cart${quote.carts === 1 ? "" : "s"} · serving ~${quote.totalDrinks} drinks over ${hours} hr${hours === 1 ? "" : "s"}. (~${Math.round(quote.drinksPerHour)} drinks/hr — ${CONFIG.copy.results.setupPace}.)`;
 
+  /* WebApplication JSON-LD — the calculator is a tool, so this is the
+     page's PRIMARY schema. FAQPage stays as its own separate script,
+     placed at the end of the page near the actual FAQ content instead
+     of describing the whole page. */
+  const webApplicationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Coffee Catering Price Calculator",
+    url: CONFIG.links.CANONICAL_URL,
+    description:
+      "Know exactly what to charge for any coffee cart or mobile espresso event — in seconds. Get value, standard, and premium pricing instantly, plus a client-ready quote.",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Any",
+    isAccessibleForFree: true,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
+
   /* FAQPage JSON-LD — generated from the same CONFIG copy */
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -2651,7 +2674,7 @@ export default function CoffeeCartCalculatorPage() {
       <main className="relative min-h-[100dvh] w-full overflow-x-clip bg-[#ededd5] px-5 py-8 text-[#261f15] selection:bg-[#c9932b] selection:text-[#261f15] sm:px-8">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd) }}
         />
         <PageStyles />
         <div className="mx-auto w-full max-w-[1200px]">
@@ -2679,6 +2702,10 @@ export default function CoffeeCartCalculatorPage() {
         <div aria-hidden="true" className="h-24 lg:hidden" />
         {quoteModal}
         {mobileBar}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
       </main>
     );
   }
@@ -2688,7 +2715,7 @@ export default function CoffeeCartCalculatorPage() {
     <main className="relative min-h-[100dvh] w-full overflow-x-clip bg-[#ededd5] text-[#261f15] selection:bg-[#c9932b] selection:text-[#261f15]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd) }}
       />
       <PageStyles />
 
@@ -2944,6 +2971,10 @@ export default function CoffeeCartCalculatorPage() {
       <div aria-hidden="true" className="h-24 lg:hidden" />
       {quoteModal}
       {mobileBar}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
     </main>
   );
 }

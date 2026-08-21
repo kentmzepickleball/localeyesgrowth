@@ -122,15 +122,7 @@ function hostnameOf(url: string) {
   }
 }
 
-export default function WebsitePreviews({
-  showHeader = true,
-}: {
-  /* The /websites page puts this section right above ServiceLandingPage,
-     whose own H1 is this same headline ("Websites Built to Rank, Not
-     Just Look Good") — showing it twice back to back reads as a bug.
-     Homepage usage keeps the header; /websites passes false. */
-  showHeader?: boolean;
-} = {}) {
+export default function WebsitePreviews() {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -313,29 +305,25 @@ export default function WebsitePreviews({
           ref={headerRef}
           className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-10"
         >
-          {showHeader && (
-            <>
-              <div>
-                <p className="flex items-center gap-4 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#a67c3d] sm:text-xs">
-                  <span aria-hidden="true" className="text-[0.8em]">
-                    ✦
-                  </span>
-                  Our Work
-                </p>
-                <h2 className="mt-6 max-w-2xl font-heading font-thin not-italic text-[clamp(2.4rem,5.5vw,4.5rem)] leading-[1.05] tracking-[-0.01em] text-[#261f15]">
-                  Websites built to <span className="text-[#a67c3d]">rank</span>, not
-                  just look good
-                </h2>
-              </div>
-              <a
-                href="/websites"
-                className="group/link inline-flex shrink-0 items-center gap-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[#261f15]/60 transition-colors duration-300 hover:text-[#261f15]"
-              >
-                See how we build them
-                <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-500 ease-[cubic-bezier(0.34,1.2,0.4,1)] group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
-              </a>
-            </>
-          )}
+          <div>
+            <p className="flex items-center gap-4 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#a67c3d] sm:text-xs">
+              <span aria-hidden="true" className="text-[0.8em]">
+                ✦
+              </span>
+              Our Work
+            </p>
+            <h2 className="mt-6 max-w-2xl font-heading font-thin not-italic text-[clamp(2.4rem,5.5vw,4.5rem)] leading-[1.05] tracking-[-0.01em] text-[#261f15]">
+              Websites built to <span className="text-[#a67c3d]">rank</span>, not
+              just look good
+            </h2>
+          </div>
+          <a
+            href="/websites"
+            className="group/link inline-flex shrink-0 items-center gap-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[#261f15]/60 transition-colors duration-300 hover:text-[#261f15]"
+          >
+            See how we build them
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-500 ease-[cubic-bezier(0.34,1.2,0.4,1)] group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+          </a>
         </div>
 
         {/* A grid of dark, glowing bento cards on the light section —

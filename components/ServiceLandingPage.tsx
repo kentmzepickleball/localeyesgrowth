@@ -113,36 +113,6 @@ export default function ServiceLandingPage({ content }: { content: ServiceConten
                     </span>
                   </span>
                 </button>
-
-                {/* Fixed-price services (Websites) get the buy button
-                   right up top too — the full pricing card further down
-                   the page is easy to miss on a long scroll, so this is
-                   the one guaranteed-visible path to it. */}
-                {content.pricing && (
-                  <a
-                    href={content.pricing.buyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/hbuy relative inline-flex cursor-pointer items-center gap-3 overflow-hidden rounded-full border border-[#261f15]/25 py-1 pl-6 pr-1 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#261f15] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-xs"
-                  >
-                    <span className="relative z-10 py-1 transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/hbuy:text-[#ededd5]">
-                      {content.pricing.buyLabel}
-                    </span>
-                    <span className="relative flex h-8 w-8 shrink-0 items-center justify-center">
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0 scale-100 rounded-full bg-[#4a3421] transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/hbuy:scale-[12] group-hover/hbuy:duration-1100"
-                      />
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0 rounded-full bg-[#4a3421] transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                      />
-                      <span className="relative z-10 flex rotate-0 transition-transform duration-700 ease-[cubic-bezier(0.34,1.2,0.4,1)] group-hover/hbuy:rotate-45">
-                        <ArrowUpRight className="h-4 w-4 text-[#ededd5]" />
-                      </span>
-                    </span>
-                  </a>
-                )}
               </div>
             </div>
           </div>
@@ -277,6 +247,16 @@ export default function ServiceLandingPage({ content }: { content: ServiceConten
               >
                 Book a Call
               </a>
+              {content.pricing && (
+                <a
+                  href={content.pricing.buyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5]/55 underline decoration-[#ededd5]/25 underline-offset-4 transition-colors hover:text-[#ededd5] hover:decoration-[#ededd5]/60 sm:text-xs"
+                >
+                  {content.pricing.buyLabel}
+                </a>
+              )}
               <a
                 href="/pricing"
                 className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5]/55 underline decoration-[#ededd5]/25 underline-offset-4 transition-colors hover:text-[#ededd5] hover:decoration-[#ededd5]/60 sm:text-xs"

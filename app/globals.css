@@ -70,19 +70,19 @@
   transform-origin: 0% 100%;
 }
 
-/* Eyebrow — fades in with a soft focus pull. Used to also animate
-   letter-spacing for a "tracks in" effect, but that property forces a
-   layout reflow on every frame (Lighthouse flags it as a non-composited
-   animation) — opacity + filter alone are GPU-composited and read
-   almost identically. */
+/* Eyebrow — fades in. Used to also animate letter-spacing (dropped —
+   forces a layout reflow every frame) and filter: blur (dropped too —
+   Chrome still won't promote a filter animation to the compositor,
+   flagged as "Filter-related property may move pixels" even alone).
+   opacity is the one property guaranteed to run on the compositor
+   thread with zero main-thread repaint cost, and reads almost
+   identically for a fade this quick. */
 @keyframes le-eyebrow-in {
   0% {
     opacity: 0;
-    filter: blur(4px);
   }
   100% {
     opacity: 1;
-    filter: blur(0);
   }
 }
 .animate-le-eyebrow-in {

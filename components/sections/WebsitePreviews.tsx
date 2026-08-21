@@ -62,17 +62,6 @@ const WEBSITE_PROJECTS: WebsiteProject[] = [
     bobbleColor: "#a8703a",
   },
   {
-    name: "Onward Coffee",
-    category: "Specialty Coffee Catering",
-    location: "Huntsville, AL",
-    blurb:
-      "A mobile coffee cart bringing barista-crafted specialty drinks to weddings, corporate events, and private celebrations across North Alabama.",
-    liveUrl: "https://onward-coffee.webflow.io/",
-    image: "/onward-coffee-website-homepage.webp",
-    bobbleColor: "#4a6b8a",
-    embeddable: false,
-  },
-  {
     name: "Social Graze",
     category: "Charcuterie & Grazing Tables",
     location: "Sacramento, CA",

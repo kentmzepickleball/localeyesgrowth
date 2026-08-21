@@ -68,7 +68,7 @@ const content: ServiceContent = {
       "Analytics and call tracking wired in",
       "Lead form integrated and tested",
     ],
-    buyLabel: "Buy Now — $2,400",
+    buyLabel: "Buy Now",
     buyUrl: "https://buy.stripe.com/7sYeVe2k93OR5tLe5J18c0h",
   },
   closing: {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ServiceLandingPage, {
   type ServiceContent,
 } from "@/components/ServiceLandingPage";
+import WebsitePreviews from "@/components/sections/WebsitePreviews";
 import imgSite1 from "@/public/website-project-01.webp";
 import imgSite2 from "@/public/website-project-02.webp";
 import imgSite3 from "@/public/website-project-03.webp";
@@ -64,5 +65,10 @@ const content: ServiceContent = {
 };
 
 export default function WebsitesPage() {
-  return <ServiceLandingPage content={content} />;
+  return (
+    <>
+      <WebsitePreviews />
+      <ServiceLandingPage content={content} />
+    </>
+  );
 }

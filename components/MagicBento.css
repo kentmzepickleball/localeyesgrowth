@@ -136,6 +136,64 @@
   color: #c6a66a;
 }
 
+/* Photo cards — the screenshot fills the whole tile edge-to-edge; the
+   numeral + name sit in a minimal label over a bottom scrim instead of
+   the header/content text blocks used for the no-photo variant. */
+.magic-bento-card--photo {
+  padding: 0;
+}
+
+.magic-bento-card__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.magic-bento-card--photo:hover .magic-bento-card__photo {
+  transform: scale(1.05);
+}
+
+.magic-bento-card__photo-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(18, 15, 10, 0.88) 0%, rgba(18, 15, 10, 0.25) 45%, transparent 70%);
+  pointer-events: none;
+}
+
+.magic-bento-card__photo-label {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding: 1.25rem 1.5rem;
+}
+
+.magic-bento-card__photo-title {
+  font-family: var(--font-heading, serif);
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.15rem;
+  line-height: 1.1;
+  color: #ededd5;
+  text-align: right;
+}
+
+.magic-bento-card--photo .magic-bento-card__footer {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  z-index: 2;
+  margin-top: 0;
+  color: rgba(237, 237, 213, 0.85);
+}
+
 /* Border glow effect — follows the cursor via --glow-x/y/intensity,
    set by the global spotlight in MagicBento.jsx */
 .magic-bento-card--border-glow::after {

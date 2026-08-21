@@ -27,9 +27,13 @@ type WebsiteProject = {
   location: string;
   blurb: string;
   liveUrl: string;
+  /* Real screenshot — the grid tiles are photo-forward now, this is
+     what actually shows on the card. */
+  image: string;
   /* Each card's soft-focus glow bobble — same technique as the plan
      glows on the Pricing rate card, reusing colors already established
-     there instead of introducing new ones. */
+     there instead of introducing new ones. Only used as a fallback if
+     a project ever ships without an image. */
   bobbleColor: string;
 };
 
@@ -41,7 +45,38 @@ const WEBSITE_PROJECTS: WebsiteProject[] = [
     blurb:
       "Handcrafted espresso from a traveling cart, styled for weddings and corporate gatherings across Raleigh and the Carolinas.",
     liveUrl: "https://www.arbourcoffeeco.com/",
+    image: "/arbour-coffee-co-website-homepage.webp",
     bobbleColor: "#a8703a",
+  },
+  {
+    name: "Onward Coffee",
+    category: "Specialty Coffee Catering",
+    location: "Huntsville, AL",
+    blurb:
+      "A mobile coffee cart bringing barista-crafted specialty drinks to weddings, corporate events, and private celebrations across North Alabama.",
+    liveUrl: "https://onward-coffee.webflow.io/",
+    image: "/onward-coffee-website-homepage.webp",
+    bobbleColor: "#4a6b8a",
+  },
+  {
+    name: "Social Graze",
+    category: "Charcuterie & Grazing Tables",
+    location: "Sacramento, CA",
+    blurb:
+      "Grazing tables and charcuterie boards for weddings, corporate events, and milestone celebrations around Sacramento.",
+    liveUrl: "https://socialgrazecart.com/",
+    image: "/website-project-02.webp",
+    bobbleColor: "#b2883c",
+  },
+  {
+    name: "Stiir",
+    category: "Mobile Cocktail Bar",
+    location: "New Jersey & NYC",
+    blurb:
+      "A luxury mobile cocktail bar and professional bartending service for weddings, corporate events, and private parties across New Jersey and NYC.",
+    liveUrl: "https://stiirbar.com/",
+    image: "/stiir-website-homepage.webp",
+    bobbleColor: "#75804a",
   },
   {
     name: "Serve Coffee",
@@ -50,6 +85,7 @@ const WEBSITE_PROJECTS: WebsiteProject[] = [
     blurb:
       "A mobile espresso bar bringing personalized hospitality to weddings, corporate events, and film sets across Manhattan, Brooklyn, and Queens.",
     liveUrl: "https://www.servecoffee.nyc/",
+    image: "/serve-coffee-website-homepage.webp",
     bobbleColor: "#c6a66a",
   },
   {
@@ -59,25 +95,8 @@ const WEBSITE_PROJECTS: WebsiteProject[] = [
     blurb:
       "A mobile espresso bar and coffee cart catering for weddings, corporate events, and brand activations across Dallas–Fort Worth.",
     liveUrl: "https://www.redefinedcoffeehouse.com/",
+    image: "/redefined-coffeehouse-website-homepage.webp",
     bobbleColor: "#8a6f3d",
-  },
-  {
-    name: "Stiir",
-    category: "Mobile Cocktail Bar",
-    location: "New Jersey & NYC",
-    blurb:
-      "A luxury mobile cocktail bar and professional bartending service for weddings, corporate events, and private parties across New Jersey and NYC.",
-    liveUrl: "https://stiirbar.com/",
-    bobbleColor: "#75804a",
-  },
-  {
-    name: "Social Graze",
-    category: "Charcuterie & Grazing Tables",
-    location: "Sacramento, CA",
-    blurb:
-      "Grazing tables and charcuterie boards for weddings, corporate events, and milestone celebrations around Sacramento.",
-    liveUrl: "https://socialgrazecart.com/",
-    bobbleColor: "#b2883c",
   },
 ];
 
@@ -307,6 +326,7 @@ export default function WebsitePreviews() {
               meta: p.location,
               title: p.name,
               description: p.category,
+              image: p.image,
               bobbleColor: p.bobbleColor,
             }))}
             onCardClick={open}

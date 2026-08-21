@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import './MagicBento.css';
 
@@ -480,7 +481,7 @@ const MagicBento = ({
 
       <div className="card-grid bento-section" ref={gridRef}>
         {items.map((item, index) => {
-          const baseClassName = `magic-bento-card ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''}`;
+          const baseClassName = `magic-bento-card ${item.image ? 'magic-bento-card--photo' : ''} ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''}`;
 
           return (
             <ParticleCard
@@ -495,21 +496,42 @@ const MagicBento = ({
               enableMagnetism={enableMagnetism}
               onActivate={() => onCardClick?.(index)}
             >
-              {item.bobbleColor && (
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -right-10 -top-10 z-0 h-40 w-40 rounded-full blur-3xl"
-                  style={{ backgroundColor: `${item.bobbleColor}66` }}
-                />
+              {item.image ? (
+                <>
+                  {/* the screenshot IS the card — everything else is a
+                     minimal label over a scrim, not competing content */}
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="magic-bento-card__photo"
+                  />
+                  <span aria-hidden="true" className="magic-bento-card__photo-scrim" />
+                  <div className="magic-bento-card__photo-label">
+                    <span className="magic-bento-card__number">{item.number}</span>
+                    <span className="magic-bento-card__photo-title">{item.title}</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {item.bobbleColor && (
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -right-10 -top-10 z-0 h-40 w-40 rounded-full blur-3xl"
+                      style={{ backgroundColor: `${item.bobbleColor}66` }}
+                    />
+                  )}
+                  <div className="magic-bento-card__header">
+                    <span className="magic-bento-card__number">{item.number}</span>
+                    <span className="magic-bento-card__meta">{item.meta}</span>
+                  </div>
+                  <div className="magic-bento-card__content">
+                    <h3 className="magic-bento-card__title">{item.title}</h3>
+                    {item.description && <p className="magic-bento-card__description">{item.description}</p>}
+                  </div>
+                </>
               )}
-              <div className="magic-bento-card__header">
-                <span className="magic-bento-card__number">{item.number}</span>
-                <span className="magic-bento-card__meta">{item.meta}</span>
-              </div>
-              <div className="magic-bento-card__content">
-                <h3 className="magic-bento-card__title">{item.title}</h3>
-                {item.description && <p className="magic-bento-card__description">{item.description}</p>}
-              </div>
               <span className="magic-bento-card__footer">
                 Preview <span aria-hidden="true">↗</span>
               </span>

@@ -40,10 +40,10 @@ export default async function Home() {
     <>
       <Hero />
       <CityRankings />
-      <WebsitePreviews />
       <KnownFor />
       <Logos />
       <CaseStudies />
+      <WebsitePreviews />
       <SeoServices />
       <Pricing />
       <AddOns />

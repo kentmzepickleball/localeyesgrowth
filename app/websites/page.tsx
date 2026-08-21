@@ -81,7 +81,7 @@ const content: ServiceContent = {
 export default function WebsitesPage() {
   return (
     <>
-      <WebsitePreviews />
+      <WebsitePreviews showHeader={false} />
       <ServiceLandingPage content={content} />
     </>
   );

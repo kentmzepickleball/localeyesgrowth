@@ -96,7 +96,7 @@ export default function Hero() {
                 <span className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] pt-[0.08em] -mt-[0.08em] pl-[0.06em] -ml-[0.06em] align-baseline">
                   <span
                     className="inline-block animate-le-word-rise"
-                    style={{ animationDelay: `${200 + i * 85}ms` }}
+                    style={{ animationDelay: `${100 + i * 42}ms` }}
                   >
                     {word}
                   </span>

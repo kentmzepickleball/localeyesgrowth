@@ -56,7 +56,14 @@
   }
 }
 
-/* Luxury headline reveal — words rise out of clipping masks */
+/* Luxury headline reveal — words rise out of clipping masks.
+   This is the LCP element on the homepage — each word is invisible
+   (translated below its own clip box) until its animation runs, so
+   the stagger directly delays when the headline finishes painting.
+   Timing halved from the original (1.3s, 85ms/word) after a real
+   Lighthouse trace showed the last word's completion accounting for
+   ~2.4s of LCP — still a word-by-word rise, just readable much
+   sooner. */
 @keyframes le-word-rise {
   0% {
     transform: translateY(118%) rotate(3.5deg);
@@ -66,7 +73,7 @@
   }
 }
 .animate-le-word-rise {
-  animation: le-word-rise 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: le-word-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
   transform-origin: 0% 100%;
 }
 

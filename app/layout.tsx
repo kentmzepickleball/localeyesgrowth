@@ -70,7 +70,13 @@ export default function RootLayout({
            throttled connection they were competing with hydration for
            main-thread time (measured ~625ms combined CPU in production
            Lighthouse). Loading them once the browser is idle keeps that
-           cost off the critical path entirely. */}
+           cost off the critical path entirely.
+           Tried moving GTM to strategy="worker" via Partytown (its
+           script was consistently the single biggest third-party cost
+           in Lighthouse traces) — reverted after verification showed
+           gtag.js never actually fetched under that setup, silently
+           killing Analytics tracking. Not worth the risk without a
+           confirmed-working setup. */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="lazyOnload"

@@ -10,13 +10,12 @@ import { Play, X } from "lucide-react";
    the rest of the visit. A richer entrance than BackToTop's plain
    fade: slides up and scales in from slightly below full size, with a
    springy overshoot easing instead of a flat curve.
-   Dismissible — once closed it stays closed for the rest of the
-   session (sessionStorage).
+   Dismissible — the X just hides it for the current page view; it's
+   not remembered across reloads, so it shows again every fresh visit.
    ---------------------------------------------------------------------- */
 
 const YOUTUBE_ID = "WtfVjOL8TiU";
 const THUMBNAIL = `https://i.ytimg.com/vi/${YOUTUBE_ID}/hqdefault.jpg`;
-const DISMISS_KEY = "le-podcast-promo-dismissed";
 const APPEAR_DELAY_MS = 3000;
 
 export function PodcastPromoCard() {
@@ -24,10 +23,6 @@ export function PodcastPromoCard() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem(DISMISS_KEY) === "1") {
-      setDismissed(true);
-      return;
-    }
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const showTimer = window.setTimeout(
       () => setVisible(true),
@@ -35,11 +30,6 @@ export function PodcastPromoCard() {
     );
     return () => window.clearTimeout(showTimer);
   }, []);
-
-  const dismiss = () => {
-    setDismissed(true);
-    sessionStorage.setItem(DISMISS_KEY, "1");
-  };
 
   const shown = visible && !dismissed;
 
@@ -90,7 +80,7 @@ export function PodcastPromoCard() {
 
         <button
           type="button"
-          onClick={dismiss}
+          onClick={() => setDismissed(true)}
           aria-label="Dismiss"
           tabIndex={shown ? 0 : -1}
           className="absolute right-2.5 top-2.5 flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full text-[#261f15]/40 transition-colors duration-300 hover:bg-[#261f15]/10 hover:text-[#261f15]"

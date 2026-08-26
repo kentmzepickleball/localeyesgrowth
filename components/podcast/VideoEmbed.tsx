@@ -68,6 +68,7 @@ export function VideoEmbed({
               src={`https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg`}
               alt=""
               aria-hidden="true"
+              fetchPriority="high"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/play:scale-[1.03]"
             />
             <span

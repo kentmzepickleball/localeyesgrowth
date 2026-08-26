@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Hero from "@/components/general/Hero";
 import CityRankings from "@/components/sections/CityRankings";
+import PodcastPromoCard from "@/components/podcast/PodcastPromoCardLoader";
 import { getAllBlogPosts } from "@/lib/blog-posts";
 
 /* Everything below the first couple of sections is code-split into its
@@ -28,9 +29,11 @@ const Capabilities = dynamic(
 const Services = dynamic(() => import("@/components/sections/Services"));
 const Blog = dynamic(() => import("@/components/sections/Blog"));
 const ClosingCta = dynamic(() => import("@/components/sections/ClosingCta"));
-const PodcastPromoCard = dynamic(() =>
-  import("@/components/podcast/PodcastPromoCard").then((m) => m.PodcastPromoCard),
-);
+/* PodcastPromoCard is ssr:false, unlike every section above — see
+   PodcastPromoCardLoader.tsx. Next's dynamic(..., {ssr:false}) is only
+   legal inside a Client Component, and this file is a Server
+   Component, so that opt-out lives in its own client wrapper instead
+   of inline here. */
 
 /* Content lives in Postgres now — revalidate periodically so a post
    added straight to the database shows up without a redeploy. */

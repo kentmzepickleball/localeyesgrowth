@@ -54,11 +54,22 @@ export function PodcastPromoCard() {
               src={THUMBNAIL}
               alt=""
               aria-hidden="true"
+              loading="lazy"
+              fetchPriority="low"
               className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/promo:scale-110"
             />
             <span aria-hidden="true" className="absolute inset-0 bg-[#150f09]/25" />
             <span className="absolute inset-0 flex items-center justify-center">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#c6a66a] shadow-[0_6px_16px_-2px_rgba(21,15,9,0.6)] transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/promo:scale-110">
+              {/* idle breathing glow — reuses the sitewide .animate-le-breathe
+                 keyframe (opacity + transform only, so it's compositor-only
+                 and costs nothing on the main thread; already respects
+                 prefers-reduced-motion via its own global media query). No
+                 JS, no rAF — this is as close to free as an animation gets. */}
+              <span
+                aria-hidden="true"
+                className="animate-le-breathe absolute h-11 w-11 rounded-full bg-[#c6a66a] blur-md"
+              />
+              <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#c6a66a] shadow-[0_6px_16px_-2px_rgba(21,15,9,0.6)] transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/promo:scale-110">
                 <Play
                   className="h-4 w-4 translate-x-px fill-[#261f15] text-[#261f15]"
                   strokeWidth={0}

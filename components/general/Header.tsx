@@ -15,6 +15,9 @@ const CALCULATOR_PATH = "/coffee-cart-pricing-calculator"; /* VERIFY */
 const NAV_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
+  /* Points straight at episode 1 — there's no /podcast index yet.
+     Repoint at /podcast once a real index page exists (episode 2+). */
+  { label: "Podcast", href: "/podcast/episode-1-catering-seo-lessons" },
   { label: "About", href: "/about" },
   { label: "Coffee Catering Calculator", href: CALCULATOR_PATH },
 ];

@@ -26,6 +26,27 @@ export function VideoEmbed({
 
   return (
     <div className="relative mt-10 w-full overflow-hidden rounded-2xl border border-[#c6a66a]/25 bg-[#150f09] shadow-[0_1px_2px_rgba(38,31,21,0.05),0_28px_56px_-28px_rgba(38,31,21,0.5)]">
+      {/* Ripple rings only run while the button is hovered — driven by
+         group-hover so they start/stop cleanly rather than looping
+         forever off-screen. Two rings staggered half a beat apart read
+         as one continuous pulse instead of a single expanding circle. */}
+      <style>{`
+        @keyframes le-play-ripple {
+          0% { transform: scale(0.9); opacity: 0.55; }
+          100% { transform: scale(1.9); opacity: 0; }
+        }
+        .le-play-ripple {
+          animation: none;
+        }
+        .group\\/play:hover .le-play-ripple {
+          animation: le-play-ripple 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .group\\/play:hover .le-play-ripple {
+            animation: none;
+          }
+        }
+      `}</style>
       <div className="relative aspect-video w-full">
         {playing ? (
           <iframe
@@ -56,16 +77,28 @@ export function VideoEmbed({
 
             <span className="absolute inset-0 flex items-center justify-center">
               <span className="relative flex h-20 w-20 shrink-0 items-center justify-center sm:h-24 sm:w-24">
+                {/* soft gold glow bleeding out behind the button on hover */}
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 scale-100 rounded-full bg-[#c6a66a] transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/play:scale-110"
+                  className="absolute -inset-8 rounded-full bg-[#c6a66a] opacity-0 blur-2xl transition-opacity duration-700 ease-out group-hover/play:opacity-45"
+                />
+                {/* two staggered sonar rings, hover-only */}
+                <span
+                  aria-hidden="true"
+                  className="le-play-ripple absolute inset-0 rounded-full border border-[#ededd5]/60"
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 rounded-full ring-1 ring-[#ededd5]/25 transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/play:scale-125 group-hover/play:opacity-0"
+                  className="le-play-ripple absolute inset-0 rounded-full border border-[#ededd5]/60"
+                  style={{ animationDelay: "0.8s" }}
+                />
+                {/* main circle — springy overshoot instead of a flat ease */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 scale-100 rounded-full bg-[#c6a66a] shadow-[0_10px_30px_-8px_rgba(21,15,9,0.6)] transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/play:scale-[1.14]"
                 />
                 <Play
-                  className="relative z-10 h-8 w-8 translate-x-0.5 fill-[#261f15] text-[#261f15] sm:h-9 sm:w-9"
+                  className="relative z-10 h-8 w-8 translate-x-0.5 fill-[#261f15] text-[#261f15] transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/play:scale-110 sm:h-9 sm:w-9"
                   strokeWidth={0}
                 />
               </span>

@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { VideoEmbed } from "@/components/podcast/VideoEmbed";
 import { EpisodeFaq, type EpisodeFaqItem } from "@/components/podcast/EpisodeFaq";
 import { GrowthDiagnosticCta } from "@/components/podcast/GrowthDiagnosticCta";
+import googleVsInstagramChart from "@/public/google-vs-instagram@2x.webp";
+import eraComparisonChart from "@/public/2023-vs-2026@2x.webp";
+import threeWsChart from "@/public/three-ws-h1@2x.webp";
+import aboveFoldChart from "@/public/above-the-fold-anatomy@2x.webp";
 
 /* ----------------------------------------------------------------------
    /podcast/episode-1-catering-seo-lessons
@@ -428,23 +433,13 @@ export default function PodcastEpisodeOnePage() {
           />
 
           {/* ---------------- Google vs Instagram stat ------------------ */}
-          <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[#261f15]/12 bg-[#261f15]/12">
-            <div className="flex flex-col items-center gap-2 bg-[#261f15] px-4 py-8 text-center sm:py-10">
-              <span className="font-heading font-thin not-italic text-[3rem] leading-none tracking-[-0.02em] text-[#c6a66a] sm:text-[3.6rem]">
-                95%+
-              </span>
-              <span className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5]/70">
-                of client leads come from Google
-              </span>
-            </div>
-            <div className="flex flex-col items-center gap-2 bg-[#f7f5e8] px-4 py-8 text-center sm:py-10">
-              <span className="font-heading font-thin not-italic text-[3rem] leading-none tracking-[-0.02em] text-[#261f15]/40 sm:text-[3.6rem]">
-                &lt;10%
-              </span>
-              <span className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#261f15]/50">
-                come from Instagram, even with large followings
-              </span>
-            </div>
+          <div className="mt-10 overflow-hidden rounded-2xl border border-[#261f15]/12">
+            <Image
+              src={googleVsInstagramChart}
+              alt="Instagram is the brochure, Google is the lead source. Over 95% of LocalEyes client catering leads come from Google and under 10% from Instagram."
+              className="h-auto w-full"
+              sizes="(min-width: 820px) 820px, 100vw"
+            />
           </div>
 
           {/* -------------------------- short version -------------------------- */}
@@ -494,6 +489,15 @@ export default function PodcastEpisodeOnePage() {
 
           {/* -------------------------- 2023 vs 2026 -------------------------- */}
           <SectionH2>What actually changed between 2023 and now</SectionH2>
+          <div className="mt-8 overflow-hidden rounded-2xl border border-[#261f15]/12">
+            <Image
+              src={eraComparisonChart}
+              alt="Catering SEO in 2023 versus 2026: the pitch, the objections, the typical website, and what actually wins have all changed."
+              className="h-auto w-full"
+              sizes="(min-width: 820px) 820px, 100vw"
+            />
+          </div>
+          {/* the table below is the same comparison as accessible text */}
           <ArticleTable
             head={
               <tr>
@@ -528,20 +532,13 @@ export default function PodcastEpisodeOnePage() {
           </Paragraph>
           <Paragraph>The formula is three questions, answered in one line:</Paragraph>
 
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {[
-              { w: "What", q: "do you do?" },
-              { w: "Who", q: "do you do it for?" },
-              { w: "Where", q: "do you do it?" },
-            ].map((item) => (
-              <div
-                key={item.w}
-                className="rounded-2xl border border-[#261f15]/12 bg-[#f7f5e8] px-6 py-7 text-center"
-              >
-                <p className="font-heading font-thin not-italic text-3xl text-[#8a6f3d]">{item.w}</p>
-                <p className="mt-1.5 font-sans text-sm text-[#261f15]/65">{item.q}</p>
-              </div>
-            ))}
+          <div className="mt-6 overflow-hidden rounded-2xl border border-[#261f15]/12">
+            <Image
+              src={threeWsChart}
+              alt="The three W's H1 formula: what you do, where you do it, who it is for, shown on a New York mobile bar example."
+              className="h-auto w-full"
+              sizes="(min-width: 820px) 820px, 100vw"
+            />
           </div>
 
           <div className="mt-6 rounded-2xl border border-[#c6a66a]/35 bg-[#261f15] px-6 py-7 sm:px-8 sm:py-8">
@@ -576,6 +573,15 @@ export default function PodcastEpisodeOnePage() {
                 <span className="mt-1 font-sans text-sm leading-relaxed text-[#261f15]/75">{item.text}</span>
               </div>
             ))}
+          </div>
+
+          <div className="mt-6 overflow-hidden rounded-2xl border border-[#261f15]/12">
+            <Image
+              src={aboveFoldChart}
+              alt="Six things that belong above the fold on a catering website: clean nav, a person in the hero, the H1, one quote-shaped CTA, social proof under it, and a real mobile check."
+              className="h-auto w-full"
+              sizes="(min-width: 820px) 820px, 100vw"
+            />
           </div>
 
           <Paragraph>

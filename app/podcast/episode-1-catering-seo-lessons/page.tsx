@@ -3,7 +3,6 @@ import Image from "next/image";
 import { VideoEmbed } from "@/components/podcast/VideoEmbed";
 import { EpisodeFaq, type EpisodeFaqItem } from "@/components/podcast/EpisodeFaq";
 import { GrowthDiagnosticCta } from "@/components/podcast/GrowthDiagnosticCta";
-import googleVsInstagramChart from "@/public/google-vs-instagram@2x.webp";
 import eraComparisonChart from "@/public/2023-vs-2026@2x.webp";
 import threeWsChart from "@/public/three-ws-h1@2x.webp";
 import aboveFoldChart from "@/public/above-the-fold-anatomy@2x.webp";
@@ -433,13 +432,23 @@ export default function PodcastEpisodeOnePage() {
           />
 
           {/* ---------------- Google vs Instagram stat ------------------ */}
-          <div className="mt-10 overflow-hidden rounded-2xl border border-[#261f15]/12">
-            <Image
-              src={googleVsInstagramChart}
-              alt="Instagram is the brochure, Google is the lead source. Over 95% of LocalEyes client catering leads come from Google and under 10% from Instagram."
-              className="h-auto w-full"
-              sizes="(min-width: 820px) 820px, 100vw"
-            />
+          <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[#261f15]/12 bg-[#261f15]/12">
+            <div className="flex flex-col items-center gap-2 bg-[#261f15] px-4 py-8 text-center sm:py-10">
+              <span className="font-heading font-thin not-italic text-[3rem] leading-none tracking-[-0.02em] text-[#c6a66a] sm:text-[3.6rem]">
+                95%+
+              </span>
+              <span className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#ededd5]/70">
+                of client leads come from Google
+              </span>
+            </div>
+            <div className="flex flex-col items-center gap-2 bg-[#f7f5e8] px-4 py-8 text-center sm:py-10">
+              <span className="font-heading font-thin not-italic text-[3rem] leading-none tracking-[-0.02em] text-[#261f15]/40 sm:text-[3.6rem]">
+                &lt;10%
+              </span>
+              <span className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#261f15]/50">
+                come from Instagram, even with large followings
+              </span>
+            </div>
           </div>
 
           {/* -------------------------- short version -------------------------- */}

@@ -28,6 +28,9 @@ const Capabilities = dynamic(
 const Services = dynamic(() => import("@/components/sections/Services"));
 const Blog = dynamic(() => import("@/components/sections/Blog"));
 const ClosingCta = dynamic(() => import("@/components/sections/ClosingCta"));
+const PodcastPromoCard = dynamic(() =>
+  import("@/components/podcast/PodcastPromoCard").then((m) => m.PodcastPromoCard),
+);
 
 /* Content lives in Postgres now — revalidate periodically so a post
    added straight to the database shows up without a redeploy. */
@@ -51,6 +54,7 @@ export default async function Home() {
       <Services />
       <Blog posts={posts} />
       <ClosingCta />
+      <PodcastPromoCard />
     </>
   );
 }

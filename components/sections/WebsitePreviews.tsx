@@ -52,6 +52,16 @@ type WebsiteProject = {
 
 const WEBSITE_PROJECTS: WebsiteProject[] = [
   {
+    name: "Onward Coffee",
+    category: "Specialty Coffee Catering",
+    location: "Huntsville, AL",
+    blurb:
+      "A mobile coffee cart bringing barista-crafted specialty drinks to weddings, corporate events, and private celebrations across North Alabama.",
+    liveUrl: "https://www.onwardcoffeeco.com/",
+    image: "/onward.webp",
+    bobbleColor: "#4a6b8a",
+  },
+  {
     name: "Arbour Coffee Co.",
     category: "Premium Coffee Catering",
     location: "Raleigh, NC",
@@ -359,7 +369,7 @@ export default function WebsitePreviews() {
           {/* project details + controls on the left, live preview on the
              right — the preview gets the full height of the modal */}
           <div className="flex min-h-0 flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
-            <div className="flex shrink-0 flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10 md:w-[26%] md:justify-center md:overflow-y-auto">
+            <div className="flex shrink-0 flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10 md:w-[20%] md:justify-center md:overflow-y-auto">
               <div className="flex items-center justify-between gap-3">
                 <div
                   role="group"

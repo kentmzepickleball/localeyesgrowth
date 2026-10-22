@@ -252,37 +252,6 @@
 .le-word-bold {
   font-weight: 400;
 }
-/* SEO section — React Bits ScrollStack scoped to its own compact frame.
-   The library defaults (20vh/50rem paddings, fixed 20rem cards) are built
-   for full-page stacks; these unlayered overrides keep the panel tight.
-   The bottom padding is the internal scroll runway — sized so the stack
-   completes just before the scroller runs out, meaning you can never
-   scroll past the settled arrangement into empty space. */
-.le-seo-stack .scroll-stack-inner {
-  /* --le-stack-pad is measured in SeoServices so the settled stack sits
-     with EQUAL visible space above and below (it also feeds the
-     stackPosition prop, keeping rest and pin positions identical).
-     The large bottom padding is the INVISIBLE scroll runway — the
-     scrollable distance the stacking animation plays across; the visible
-     bottom gap is governed by the measured pad, not this value. */
-  padding: var(--le-stack-pad, 2.75rem) 1.25rem 8.5rem;
-  min-height: 0;
-}
-.le-seo-stack .scroll-stack-card {
-  height: auto;
-  margin: 0;
-  padding: 0;
-  border-radius: 1rem;
-  box-shadow: none;
-}
-/* Hide the native scrollbar inside the frame — wheel/touch/keys still work */
-.le-seo-stack .scroll-stack-scroller {
-  scrollbar-width: none;
-}
-.le-seo-stack .scroll-stack-scroller::-webkit-scrollbar {
-  display: none;
-}
-
 /* Curved Loop CSS */
 
 .curved-loop-jacket {

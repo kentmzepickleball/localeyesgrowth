@@ -20,6 +20,9 @@ const WebsitePreviews = dynamic(
 const KnownFor = dynamic(() => import("@/components/sections/Knownfor"));
 const Logos = dynamic(() => import("@/components/sections/Logos"));
 const CaseStudies = dynamic(() => import("@/components/sections/CaseStudies"));
+const FeaturedCases = dynamic(
+  () => import("@/components/sections/FeaturedCases"),
+);
 const SeoServices = dynamic(() => import("@/components/sections/SeoServices"));
 const Pricing = dynamic(() => import("@/components/sections/Pricing"));
 const AddOns = dynamic(() => import("@/components/sections/Addons"));
@@ -49,6 +52,7 @@ export default async function Home() {
       <KnownFor />
       <Logos />
       <CaseStudies />
+      <FeaturedCases />
       <WebsitePreviews />
       <SeoServices />
       <Pricing />

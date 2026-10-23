@@ -10,16 +10,9 @@ import {
 import { X } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 
-/* Your image imports — keep your actual paths */
-import imgNyc from "@/public/nyc-01.webp";
-import imgChicago from "@/public/chicago-01.webp";
-import imgLa from "@/public/LA-01.webp";
-import imgOrlando from "@/public/orlando-01.webp";
-import imgDenver from "@/public/denver.webp";
-import imgDallasRedefined from "@/public/redefined-dallas-01.webp";
-import imgDallasEllie from "@/public/dallas-01.webp";
+import { CASES } from "@/lib/rankings";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,55 +27,8 @@ gsap.registerPlugin(ScrollTrigger);
      so it can never get stuck on screen.
    - Desktop fine-pointer only; touch and reduced motion never enable it.
    - prefers-reduced-motion: everything renders static and legible.
-   Add/remove case studies in the CASES array below.
+   Add/remove case studies in the CASES array in lib/rankings.ts.
    ---------------------------------------------------------------------- */
-
-type CaseStudy = {
-  keyword: string;
-  city: string;
-  client: string;
-  image: StaticImageData;
-};
-
-const CASES: CaseStudy[] = [
-  { keyword: "Coffee Catering", city: "NYC", client: "Anecho", image: imgNyc },
-  {
-    keyword: "Coffee Cart Catering",
-    city: "Chicago",
-    client: "North Village",
-    image: imgChicago,
-  },
-  {
-    keyword: "Coffee Catering",
-    city: "LA",
-    client: "Always Kind",
-    image: imgLa,
-  },
-  {
-    keyword: "Coffee Catering",
-    city: "Orlando",
-    client: "Take a Shot",
-    image: imgOrlando,
-  },
-  {
-    keyword: "Coffee Catering",
-    city: "Denver",
-    client: "Selah",
-    image: imgDenver,
-  },
-  {
-    keyword: "Coffee Catering",
-    city: "Dallas",
-    client: "Re:defined",
-    image: imgDallasRedefined,
-  },
-  {
-    keyword: "Mocktail Cart Catering",
-    city: "Dallas",
-    client: "Ellie & Juice",
-    image: imgDallasEllie,
-  },
-];
 
 export default function CaseStudies() {
   const sectionRef = useRef<HTMLElement>(null);

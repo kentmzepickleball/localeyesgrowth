@@ -109,6 +109,16 @@ export default function WebsitesHero() {
     };
   }, [reduced]);
 
+  /* without the scene, the site on show still changes on its own */
+  useEffect(() => {
+    if (!failed || reduced) return;
+    const id = window.setInterval(() => {
+      shownRef.current = (shownRef.current + 1) % SHOWCASE_SITES.length;
+      setShown(shownRef.current);
+    }, 9000);
+    return () => window.clearInterval(id);
+  }, [failed, reduced]);
+
   const step = (d: number) => {
     const i = (shownRef.current + d + SHOWCASE_SITES.length) % SHOWCASE_SITES.length;
     if (sceneRef.current) sceneRef.current.go(i);

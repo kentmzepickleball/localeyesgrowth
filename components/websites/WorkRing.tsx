@@ -61,7 +61,7 @@ export default function WorkRing() {
     let last = 0;
     let running = false;
     let hover = false;
-    let drag: { x: number; rot: number; lastX: number; t: number; v: number } | null = null;
+    let drag: { x: number; y: number; axis: "x" | null; rot: number; lastX: number; t: number; v: number } | null = null;
 
     const cardWidth = () => Math.min(600, Math.max(232, window.innerWidth * 0.39));
     const paint = () => {
@@ -112,6 +112,17 @@ export default function WorkRing() {
     const onMove = (e: PointerEvent) => {
       if (!drag) return;
       const dx = e.clientX - drag.x;
+      /* a finger going up or down is scrolling the page, not turning the
+         ring: let it go, so the ring carries on turning on its own */
+      if (drag.axis === null) {
+        const dy = e.clientY - drag.y;
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        if (Math.abs(dy) > Math.abs(dx)) {
+          onUp();
+          return;
+        }
+        drag.axis = "x";
+      }
       if (Math.abs(dx) > 6) moved.current = true;
       const k = STEP / (cardWidth() * SPACING);
       rot = drag.rot + dx * k;
@@ -133,7 +144,7 @@ export default function WorkRing() {
     };
     const onDown = (e: PointerEvent) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
-      drag = { x: e.clientX, rot, lastX: e.clientX, t: e.timeStamp, v: 0 };
+      drag = { x: e.clientX, y: e.clientY, axis: e.pointerType === "mouse" ? "x" : null, rot, lastX: e.clientX, t: e.timeStamp, v: 0 };
       moved.current = false;
       window.addEventListener("pointermove", onMove);
       window.addEventListener("pointerup", onUp);

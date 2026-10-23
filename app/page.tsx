@@ -19,7 +19,8 @@ const WebsitePreviews = dynamic(
 );
 const KnownFor = dynamic(() => import("@/components/sections/Knownfor"));
 const Logos = dynamic(() => import("@/components/sections/Logos"));
-const CaseStudies = dynamic(() => import("@/components/sections/CaseStudies"));
+/* the Google results, the same section as on the websites page */
+const RankingProof = dynamic(() => import("@/components/websites/RankingProof"));
 const FeaturedCases = dynamic(
   () => import("@/components/sections/FeaturedCases"),
 );
@@ -51,7 +52,7 @@ export default async function Home() {
       <CityRankings />
       <KnownFor />
       <Logos />
-      <CaseStudies />
+      <RankingProof />
       <FeaturedCases />
       <WebsitePreviews />
       <SeoServices />

@@ -6,8 +6,8 @@ import { CASES } from "@/lib/rankings";
 import { Eyebrow, Hairlines, useOnScreen, useReducedMotion } from "./parts";
 
 /* ----------------------------------------------------------------------
-   RankingProof: the home page's "Real Google results", set another way
-   for the websites page. On the left, the searches, each a line in a
+   RankingProof: "Real Google results", on the home page and the
+   websites page. On the left, the searches, each a line in a
    ledger with its #1; on the right, the proof for the one chosen: the
    Google screenshot it was taken from, mounted like a print. The ledger
    takes turns on its own while on screen, a gold rule filling under the
@@ -70,7 +70,7 @@ export default function RankingProof() {
 
         <div
           className="mt-12 grid items-center gap-10 md:mt-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16"
-          onPointerEnter={() => setHeld(true)}
+          onPointerEnter={(e) => e.pointerType === "mouse" && setHeld(true)}
           onPointerLeave={() => setHeld(false)}
         >
           {/* the ledger */}

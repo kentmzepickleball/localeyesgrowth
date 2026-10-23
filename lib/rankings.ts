@@ -1,6 +1,6 @@
 /* Searches where a client ranks first on Google, each with the
-   screenshot it was taken from. Shown on the home page (CaseStudies)
-   and the websites page (RankingProof). */
+   screenshot it was taken from. Shown by RankingProof, on the home page
+   and the websites page. */
 
 import type { StaticImageData } from "next/image";
 import imgNyc from "@/public/nyc-01.webp";

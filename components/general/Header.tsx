@@ -33,7 +33,7 @@ const INDUSTRY_LINKS = [
    not an oversight). Wire each href to the real page once it's built. */
 const SERVICE_LINKS = [
   { label: "SEO", href: "/seo" },
-  { label: "Websites", href: "/websites" },
+  { label: "Websites", href: "/websites-for-event-businesses" },
   { label: "Ads", href: "/ads" },
 ];
 

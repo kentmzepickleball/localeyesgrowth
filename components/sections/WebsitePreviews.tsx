@@ -317,7 +317,7 @@ export default function WebsitePreviews() {
             </h2>
           </div>
           <a
-            href="/websites"
+            href="/websites-for-event-businesses"
             className="group/link inline-flex shrink-0 items-center gap-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[#261f15]/60 transition-colors duration-300 hover:text-[#261f15]"
           >
             See how we build them

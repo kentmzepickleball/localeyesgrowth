@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     "Websites built to rank, not just look good — for coffee carts, mobile bars, and catering businesses. Real client sites, engineered for search from day one.",
   alternates: {
-    canonical: "/websites",
+    canonical: "/websites-for-event-businesses",
   },
 };
 

@@ -9,7 +9,9 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
    in and settles, its serving hatch swings up into a striped awning,
    the string lights come on, a gold map pin marked one drops in over
    the roof, and at the counter the espresso machine pours, again and
-   again, steam rising. A bistro table and two chairs, a chalkboard.
+   again, steam rising. A bistro table and two chairs beside it; by the
+   nose a chalked menu and a bay tree in a pot; stepping stones through
+   the grass to the counter.
    The view turns a little with the pointer. Fetched only by SeoHero,
    after first paint.
    ---------------------------------------------------------------------- */
@@ -29,9 +31,9 @@ export type VanScene = {
 };
 
 /* the bus, in metres: half its length and width, the sills, the waist where the two colours meet, the roof */
-const BUS = { hl: 1.9, hw: 0.92, y0: 0.36, belt: 1.16, y1: 2.06 };
+const BUS = { hl: 1.9, hw: 0.92, y0: 0.36, belt: 1.16, y1: 2.12 };
 /* how round it is: the nose's and the tail's corners seen from above, the sills, the roof's edge (over the sides, the windscreen, the tail) */
-const ROUND = { nose: 0.58, tail: 0.46, sill: 0.1, roof: 0.36, roofNose: 0.26, roofTail: 0.32 };
+const ROUND = { nose: 0.58, tail: 0.46, sill: 0.1, roof: 0.38, roofNose: 0.28, roofTail: 0.34 };
 /* above the waist the nose leans back this far, to the windscreen */
 const LEAN = 0.15;
 const WHEEL = { r: 0.375, x: 1.2, z: 0.8, well: 0.47 };
@@ -39,8 +41,17 @@ const WHEEL = { r: 0.375, x: 1.2, z: 0.8, well: 0.47 };
 const HATCH = { x: -0.27, w: 1.88, y0: 1.04, y1: 1.66 };
 const GRASS_R = 4.2;
 /* out of the bus's way as it drives in */
-const TABLE = { x: -2.25, z: 1.5 };
-const BOARD = { x: 2.35, z: -0.55 };
+const TABLE = { x: -2.05, z: 1.38 };
+/* the menu board by the nose, a potted bay tree behind it */
+const BOARD = { x: 2.5, z: -0.35 };
+const PLANT = { x: 2.2, z: -1.0 };
+/* stepping stones across the grass to the counter: x, z, radius */
+const STONES: [number, number, number][] = [
+  [-0.32, 1.44, 0.2],
+  [-0.06, 1.88, 0.23],
+  [0.24, 2.32, 0.21],
+  [0.5, 2.78, 0.24],
+];
 const T = { drive: 2.6, open: [2.8, 3.9], pin: 3.1, lights: [3.6, 4.4], pour: 4.3 };
 const POUR_ON = 3.6;
 const POUR_OFF = 2.6;
@@ -325,7 +336,7 @@ function monogramTexture(fonts: VanOptions["fonts"]) {
   return canvasTexture(c);
 }
 
-/* the chalkboard */
+/* the menu, chalked on the board by the nose */
 function chalkTexture(fonts: VanOptions["fonts"]) {
   const c = document.createElement("canvas");
   c.width = 400;
@@ -876,6 +887,7 @@ export function createVanScene(opts: VanOptions): VanScene {
   for (const x of [-WHEEL.x, WHEEL.x]) for (const z of [-WHEEL.z, WHEEL.z]) shade(0.7, 0.42, 0.55, x, z, bus);
   shade(1.5, 1.5, 0.45, TABLE.x, TABLE.z, scene);
   shade(0.8, 0.6, 0.4, BOARD.x, BOARD.z, scene);
+  shade(0.8, 0.8, 0.5, PLANT.x, PLANT.z, scene);
 
   const wind = { value: 0 };
   const busAt = { value: new THREE.Vector2(0, 0) };
@@ -917,6 +929,7 @@ vec2 gq = abs(root - uBus) - vec2(${f(hl + 0.05)}, ${f(hw + 0.02)});
 float gAo = smoothstep(-0.3, 0.6, length(max(gq, 0.0)) + min(max(gq.x, gq.y), 0.0));
 gAo *= mix(0.55, 1.0, smoothstep(0.1, 0.75, length(root - vec2(${f(TABLE.x)}, ${f(TABLE.z)}))));
 gAo *= mix(0.6, 1.0, smoothstep(0.1, 0.45, length(root - vec2(${f(BOARD.x)}, ${f(BOARD.z)}))));
+gAo *= mix(0.55, 1.0, smoothstep(0.15, 0.5, length(root - vec2(${f(PLANT.x)}, ${f(PLANT.z)}))));
 vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
         );
       sh.fragmentShader = sh.fragmentShader
@@ -937,6 +950,7 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
       const a = rand() * Math.PI * 2;
       /* thinner and shorter toward the rim */
       if (rand() < smooth(GRASS_R * 0.58, GRASS_R * 0.98, r)) continue;
+      if (STONES.some(([sx, sz, sr]) => Math.hypot(Math.cos(a) * r - sx, Math.sin(a) * r - sz) < sr + 0.015)) continue;
       e.set((rand() - 0.5) * 0.4, rand() * Math.PI * 2, (rand() - 0.5) * 0.4);
       q.setFromEuler(e);
       const h = (0.06 + rand() * 0.11) * (1 - 0.5 * smooth(GRASS_R * 0.5, GRASS_R, r));
@@ -948,7 +962,7 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
     grass.receiveShadow = true;
     scene.add(grass);
     /* wild flowers */
-    const fl = new THREE.InstancedMesh(new THREE.SphereGeometry(0.017, 8, 6), new THREE.MeshStandardMaterial({ roughness: 0.7 }), small ? 90 : 170);
+    const fl = new THREE.InstancedMesh(new THREE.SphereGeometry(0.017, 8, 6), new THREE.MeshStandardMaterial({ roughness: 0.7 }), small ? 160 : 340);
     for (let i = 0; i < fl.count; i++) {
       const r = GRASS_R * 0.85 * Math.sqrt(rand());
       const a = rand() * Math.PI * 2;
@@ -956,9 +970,11 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
       const z = Math.sin(a) * r;
       /* none under the bus */
       const under = Math.abs(x) < hl + 0.15 && Math.abs(z) < hw + 0.15;
-      m.compose(new THREE.Vector3(x, under ? -1 : 0.09 + rand() * 0.08, z), q.identity(), new THREE.Vector3(1, 0.7, 1));
+      const k = 0.7 + rand() * 0.6;
+      m.compose(new THREE.Vector3(x, under ? -1 : 0.09 + rand() * 0.08, z), q.identity(), new THREE.Vector3(k, 0.7 * k, k));
       fl.setMatrixAt(i, m);
-      fl.setColorAt(i, c.set(rand() < 0.6 ? "#f6efdc" : "#e1bd6c"));
+      const tone = rand();
+      fl.setColorAt(i, c.set(tone < 0.5 ? "#f6efdc" : tone < 0.8 ? "#e1bd6c" : "#fffaf0"));
     }
     scene.add(fl);
   }
@@ -1002,6 +1018,7 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
   };
   chair(TABLE.x + 0.42, TABLE.z + 0.3);
   chair(TABLE.x - 0.48, TABLE.z - 0.05);
+  /* the menu board, facing the way people come */
   const chalkTex = chalkTexture(fonts);
   {
     const g = new THREE.Group();
@@ -1013,6 +1030,53 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
       const b = mesh(new THREE.BoxGeometry(0.5, 0.76, 0.03), [wood, wood, wood, wood, s > 0 ? face : wood, s > 0 ? wood : face], 0, 0.4, s * 0.1, g);
       b.rotation.x = s * -0.16;
     }
+  }
+  /* a bay tree in a cream pot, clipped round */
+  {
+    const g = new THREE.Group();
+    g.position.set(PLANT.x, 0, PLANT.z);
+    scene.add(g);
+    mesh(
+      new THREE.LatheGeometry(
+        [
+          [0, 0],
+          [0.15, 0],
+          [0.19, 0.36],
+          [0.215, 0.37],
+          [0.215, 0.42],
+          [0.19, 0.42],
+        ].map(([r, y]) => new THREE.Vector2(r, y)),
+        36,
+      ),
+      cream,
+      0,
+      0,
+      0,
+      g,
+    );
+    const band = mesh(new THREE.TorusGeometry(0.205, 0.01, 8, 40), goldMetal, 0, 0.36, 0, g);
+    band.rotation.x = Math.PI / 2;
+    const soil = mesh(new THREE.CircleGeometry(0.19, 28), new THREE.MeshStandardMaterial({ color: "#3b2d1f", roughness: 1 }), 0, 0.405, 0, g);
+    soil.rotation.x = -Math.PI / 2;
+    mesh(new THREE.CylinderGeometry(0.014, 0.02, 0.46, 8), wood, 0, 0.62, 0, g);
+    const leaf = new THREE.MeshStandardMaterial({ color: "#6f7b45", roughness: 0.85 });
+    for (const [lx, ly, lz, lr] of [
+      [0, 1.04, 0, 0.27],
+      [0.13, 1.12, 0.06, 0.18],
+      [-0.14, 1.09, -0.04, 0.17],
+      [0.03, 1.22, -0.08, 0.16],
+      [-0.05, 0.95, 0.11, 0.16],
+      [0.1, 0.97, -0.12, 0.15],
+    ]) mesh(new THREE.SphereGeometry(lr, 22, 16), leaf, lx, ly, lz, g);
+  }
+  /* stepping stones across the grass to the counter */
+  {
+    const stone = new THREE.MeshStandardMaterial({ color: "#d8cfb7", roughness: 0.95 });
+    STONES.forEach(([sx, sz, sr], i) => {
+      const s = mesh(new THREE.CylinderGeometry(sr, sr * 1.04, 0.05, 32), stone, sx, 0.035, sz);
+      s.scale.set(1, 1, 0.82 + (i % 2) * 0.1);
+      s.rotation.y = i * 0.9;
+    });
   }
   /* a string of lights along the awning's edge */
   const bulbs: THREE.Mesh[] = [];
@@ -1093,7 +1157,7 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
     rimPoints.push(new THREE.Vector3(Math.cos(a) * GRASS_R * 0.8, 0.1, Math.sin(a) * GRASS_R * 0.8));
   }
   const keyPoints = [
-    new THREE.Vector3(-0.1, 3.45, 0),
+    new THREE.Vector3(-0.1, 3.5, 0),
     new THREE.Vector3(2.08, 0, 1.0),
     new THREE.Vector3(2.08, 0, -1.0),
     new THREE.Vector3(-2.08, 0, 1.0),
@@ -1102,8 +1166,9 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
     new THREE.Vector3(TABLE.x - 0.7, 0, TABLE.z - 0.5),
     new THREE.Vector3(TABLE.x - 0.4, 0.9, TABLE.z + 0.6),
     new THREE.Vector3(TABLE.x + 0.6, 0, TABLE.z + 0.6),
-    new THREE.Vector3(BOARD.x + 0.3, 0.8, BOARD.z),
-    new THREE.Vector3(BOARD.x + 0.3, 0, BOARD.z + 0.3),
+    new THREE.Vector3(BOARD.x + 0.3, 0.85, BOARD.z),
+    new THREE.Vector3(BOARD.x + 0.2, 0, BOARD.z + 0.3),
+    new THREE.Vector3(PLANT.x + 0.3, 1.32, PLANT.z),
   ];
   const ndcP = new THREE.Vector3();
   let fitDist = 14;
@@ -1124,7 +1189,7 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
     camera.updateProjectionMatrix();
   };
   const AZ = 0.74;
-  const EL = 0.26;
+  const EL = 0.18;
   const bounds = (pts: THREE.Vector3[]) => {
     const b = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
     for (const p of pts) {
@@ -1145,7 +1210,7 @@ vShade = mix(0.38, 1.0, gAo) * mix(0.8, 1.14, gNoise(root * 0.8));`,
       const mid = (lo + hi) / 2;
       orbit(AZ, EL, mid);
       const b = bounds(keyPoints);
-      let ok = (b.x1 - b.x0) / 2 <= 0.72 && (b.y1 - b.y0) / 2 <= 0.76;
+      let ok = (b.x1 - b.x0) / 2 <= 0.71 && (b.y1 - b.y0) / 2 <= 0.8;
       for (const p of rimPoints) {
         ndcP.copy(p).project(camera);
         if (Math.abs(ndcP.x - (b.x0 + b.x1) / 2) > 1 || Math.abs(ndcP.y - (b.y0 + b.y1) / 2) > 0.98) ok = false;

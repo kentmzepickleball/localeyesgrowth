@@ -187,10 +187,10 @@ export default function SeoHero() {
 
         {/* the bus; its edges go soft into the page, so nothing is cut off */}
         <div
-          className="relative aspect-[6/5] w-full lg:-mr-6"
+          className="relative -mx-6 aspect-[6/5] w-[calc(100%+3rem)] md:mx-0 md:w-full lg:-mr-6"
           style={{
-            WebkitMaskImage: "radial-gradient(ellipse 50% 50% at 50% 50%, #000 72%, transparent 100%)",
-            maskImage: "radial-gradient(ellipse 50% 50% at 50% 50%, #000 72%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 50% 50% at 50% 50%, #000 76%, transparent 100%)",
+            maskImage: "radial-gradient(ellipse 50% 50% at 50% 50%, #000 76%, transparent 100%)",
           }}
         >
           <canvas

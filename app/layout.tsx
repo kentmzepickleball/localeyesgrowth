@@ -11,7 +11,7 @@ import BackToTop from "@/components/sections/BackToTop";
 import { MetaPixelRouteTracker } from "@/components/analytics/MetaPixelRouteTracker";
 
 const GA_MEASUREMENT_ID = "G-NRVFYH9E7D";
-const CLARITY_PROJECT_ID = "wgpmuxn0sl";
+const CLARITY_PROJECT_ID = "yk4f3xg3hl";
 const META_PIXEL_ID = "317714534152790";
 
 const display = localFont({

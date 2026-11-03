@@ -80,6 +80,25 @@ function ResourceCard({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
   const [done, setDone] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  /* A link in the article to the post's own download (see `a` below)
+     opens this card's email step instead of handing out the file, so
+     every download is still captured. Desktop renders the card twice
+     (rail and inline); only the one on screen answers. */
+  useEffect(() => {
+    const open = () => {
+      const card = cardRef.current;
+      if (!card || card.offsetParent === null) return;
+      setPendingFormat("pdf");
+      setError(false);
+      setDone(false);
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      window.setTimeout(() => card.querySelector<HTMLInputElement>("input[type=email]")?.focus({ preventScroll: true }), 450);
+    };
+    window.addEventListener("le-resource-open", open);
+    return () => window.removeEventListener("le-resource-open", open);
+  }, []);
 
   const formatUrl = (format: "pdf" | "docx") =>
     format === "pdf" ? meta.resourcePdfUrl : meta.resourceDocxUrl;
@@ -130,6 +149,7 @@ function ResourceCard({
 
   return (
     <div
+      ref={cardRef}
       className={`rounded-2xl border border-[#c6a66a]/30 bg-[#f7f5e8] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.1),0_24px_48px_-28px_rgba(38,31,21,0.35)] ${
         sticky ? "sticky top-28" : ""
       }`}
@@ -391,6 +411,20 @@ export default function BlogArticle({
       </p>
     ),
     a: ({ href, children }) => {
+      if (href && meta.resourcePdfUrl && href === meta.resourcePdfUrl) {
+        return (
+          <a
+            href={href}
+            onClick={(e) => {
+              e.preventDefault();
+              window.dispatchEvent(new Event("le-resource-open"));
+            }}
+            className="cursor-pointer text-[#8a6f3d] underline decoration-[#8a6f3d]/30 underline-offset-4 transition-colors duration-300 hover:text-[#6b552f] hover:decoration-[#6b552f]"
+          >
+            {children}
+          </a>
+        );
+      }
       if (href === "/growth-diagnostic") {
         return (
           <a

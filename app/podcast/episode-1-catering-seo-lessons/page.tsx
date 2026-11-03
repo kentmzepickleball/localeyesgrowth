@@ -485,13 +485,12 @@ export default function PodcastEpisodeOnePage() {
             most of the market.
           </Paragraph>
           <Paragraph>
-            If your site is invisible and you cannot work out why, the three most
-            common causes are covered in our breakdown of{" "}
+            If your site is invisible and you cannot work out why, start with{" "}
             <a
-              href="/blog/why-mobile-caterers-get-zero-leads-from-google"
+              href="/blog/local-seo-for-mobile-caterers"
               className="text-[#8a6f3d] underline decoration-[#8a6f3d]/30 underline-offset-4 transition-colors duration-300 hover:text-[#6b552f] hover:decoration-[#6b552f]"
             >
-              why mobile caterers get zero leads from Google
+              the complete local SEO guide for mobile caterers
             </a>
             .
           </Paragraph>
@@ -658,12 +657,12 @@ export default function PodcastEpisodeOnePage() {
           <Paragraph>
             Under five or ten reviews, a single one-star does real damage. That is
             the other reason to start the engine early rather than after the
-            first bad night. More on how reviews and rankings interact in{" "}
+            first bad night. The five ways to keep them coming are in{" "}
             <a
-              href="/blog/why-google-reviews-outrank-your-website"
+              href="/blog/how-to-get-more-google-reviews-catering"
               className="text-[#8a6f3d] underline decoration-[#8a6f3d]/30 underline-offset-4 transition-colors duration-300 hover:text-[#6b552f] hover:decoration-[#6b552f]"
             >
-              why Google reviews outrank your website
+              how to get more Google reviews at every catering event
             </a>
             .
           </Paragraph>

@@ -92,7 +92,7 @@ The cost stack gives you the floor. These are the levers that lift the actual qu
 
 Your booking rate is the scoreboard, and it reads in both directions. It is one of several checks in how to price a mobile catering business.
 
-- **Below 15 percent.** Either the price is genuinely too high for what you are communicating, or, far more often, the problem is upstream in speed and presentation rather than the number itself. Quote speed alone swings booking rates by roughly 10 points, which is covered in [the 5-minute rule](/blog/5-minute-rule-quote-speed).
+- **Below 15 percent.** Either the price is genuinely too high for what you are communicating, or, far more often, the problem is upstream in speed and presentation rather than the number itself. Quote speed alone swings booking rates by roughly 10 points.
 - **15 to 30 percent.** Healthy. This is the band to hold.
 - **Above 30 percent, or anything near 100 percent.** You are underpriced. A booking rate that high means you are the cheap option, or you are not getting enough leads to be selective.
 

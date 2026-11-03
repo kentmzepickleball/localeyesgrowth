@@ -3,10 +3,10 @@ import { getAllBlogPosts } from "@/lib/blog-posts";
 
 const BASE_URL = "https://www.localeyesgrowth.com";
 
-/* Rebuilt hourly, so a post added straight to the database is listed
-   without a redeploy. /valor stays out: it is pricing kept for podcast
+/* Rebuilt at most once a minute, like the blog pages, so a post added
+   straight to the database is listed without a redeploy. /valor stays out: it is pricing kept for podcast
    listeners, not a page to send searchers to. */
-export const revalidate = 3600;
+export const revalidate = 60;
 
 type Entry = { path: string; priority: number; changeFrequency: "weekly" | "monthly" };
 

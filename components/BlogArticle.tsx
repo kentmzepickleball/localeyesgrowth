@@ -477,7 +477,7 @@ export default function BlogArticle({
       <thead className="bg-[#261f15] text-[#ededd5]">{children}</thead>
     ),
     th: ({ children }) => (
-      <th className="whitespace-nowrap px-3 py-2.5 font-sans text-[0.62em] font-semibold uppercase tracking-[0.16em] sm:px-5 sm:py-3">
+      <th className="px-3 py-2.5 align-bottom font-sans text-[0.62em] font-semibold uppercase tracking-[0.16em] sm:px-5 sm:py-3">
         {children}
       </th>
     ),
